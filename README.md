@@ -6,7 +6,8 @@ Wonderland is a great way to learn about crypto and Decentralized Finance with s
 
 ## Dependencies
 
-This project requires `node version 18.19 or higher`. If you have [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) installed, you can run `nvm use` to switch to the correct version.
+This project requires `node version 18.19 or higher`. If you have [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) installed, you can run `nvm use` to switch to the correct version. If you have `n` installed, you can run `n 18.19` to install the correct version.
+
 You can use npm, yarn, pnpm or bun to install the dependencies. I have used [bun](https://bun.sh/) in this project.
 
 Following are the other dependencies used in this project:
