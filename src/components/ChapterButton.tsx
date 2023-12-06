@@ -12,8 +12,11 @@ export interface ChapterButtonProps {
   className?: string;
 }
 
-export default function ChapterButton(props: ChapterButtonProps) {
-  const { active, description, className } = props;
+const ChapterButton: React.FC<ChapterButtonProps> = ({
+  active,
+  description,
+  className,
+}) => {
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <div className="relative flex justify-center items-center">
@@ -47,4 +50,6 @@ export default function ChapterButton(props: ChapterButtonProps) {
       <Label htmlFor="start">{description}</Label>
     </div>
   );
-}
+};
+
+export default ChapterButton;
