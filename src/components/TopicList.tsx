@@ -1,21 +1,37 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import ChapterButton from "./ChapterButton";
 import { cn } from "@/lib/utils";
 
-interface TopicListProps {
-  topics: string[];
-  activeTopic: string;
+export interface Topic {
+  title: string;
+  path: string;
 }
 
-const TopicList: React.FC<TopicListProps> = ({ topics, activeTopic }) => {
+interface TopicListProps {
+  topics: Topic[];
+  initialActiveTopic: string;
+}
+
+const TopicList: React.FC<TopicListProps> = ({
+  topics,
+  initialActiveTopic,
+}) => {
+  const [activeTopic, setActiveTopic] = React.useState(initialActiveTopic);
+
   return topics.map((topic, index) => (
     <>
-      <ChapterButton
-        active={topic === activeTopic}
-        description={topic}
-        className={cn(topic === activeTopic ? "mt-3" : "mt-1")}
-      />
+      <Link href={topic.path} passHref>
+        <ChapterButton
+          active={topic.title === activeTopic}
+          description={topic.title}
+          className={cn(topic.title === activeTopic ? "mt-3" : "mt-1")}
+        />
+      </Link>
+
       {index === topics.length - 1 ? null : (
         <div className="flex justify-center w-[80px] p-1">
           <Image src="/vertical-line.svg" alt="Image" width={3} height={21} />

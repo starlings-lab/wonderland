@@ -11,15 +11,40 @@ import Image from "next/image";
 
 export default function Dex() {
   const topics = [
-    "Buying & Selling",
-    "Pricing",
-    "Buying Playground",
-    "Liquidity Provision",
-    "Liquidity Provision Playground",
-    "Slippage",
-    "Impermanent Loss",
-    "Impermanent Loss Playground",
+    {
+      title: "Buying & Selling",
+      path: "/dex/buying-selling",
+    },
+    {
+      title: "Pricing",
+      path: "/dex/pricing",
+    },
+    {
+      title: "Buying Playground",
+      path: "/dex/buying-playground",
+    },
+    {
+      title: "Liquidity Provision",
+      path: "/dex/liquidity-provision",
+    },
+    {
+      title: "Liquidity Provision Playground",
+      path: "/dex/liquidity-provision-playground",
+    },
+    {
+      title: "Slippage",
+      path: "/dex/slippage",
+    },
+    {
+      title: "Impermanent Loss",
+      path: "/dex/impermanent-loss",
+    },
+    {
+      title: "Impermanent Loss Playground",
+      path: "/dex/impermanent-loss-playground",
+    },
   ];
+
   return (
     <main className="flex min-h-screen flex-row p-12">
       <Card className="max-w-xl h-fit">
@@ -62,7 +87,7 @@ export default function Dex() {
             height={44}
             className="ml-[5px]"
           />
-          <TopicList topics={topics} activeTopic={topics[0]} />
+          <TopicList topics={topics} initialActiveTopic={topics[0].title} />
         </CardContent>
       </Card>
     </main>
