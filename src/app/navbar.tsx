@@ -2,33 +2,25 @@
 
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
 import { Progress } from "@/components/ui/progress";
 import React from "react";
+import { AppContext } from "./contexts/AppContextProvider";
 
 export default function NavBar() {
-  const [progress, setProgress] = React.useState(0);
+  const { currentProgress } = React.useContext(AppContext)!;
 
   return (
     <>
-      <NavigationMenu className="p-5">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link href="/" passHref>
-              <p className="nav-home">WONDERLAND</p>
-            </Link>
-          </NavigationMenuItem>
-          {progress > 0 && (
-            <NavigationMenuItem className="w-2/3">
-              <Progress className="ml-10 w-[800px]" value={progress} />
-            </NavigationMenuItem>
+      <div className="flex flex-row p-5 items-center">
+        <Link href="/" passHref className="">
+          <p className="nav-home">WONDERLAND</p>
+        </Link>
+        <div className="flex flex-grow justify-center">
+          {currentProgress > 0 && (
+            <Progress className="h-2 w-[540px]" value={currentProgress} />
           )}
-        </NavigationMenuList>
-      </NavigationMenu>
+        </div>
+      </div>
       <Separator />
     </>
   );

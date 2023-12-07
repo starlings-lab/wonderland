@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import "./globals.css";
 import Navbar from "./navbar";
+import AppContextProvider from "./contexts/AppContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Suspense>
-          <Navbar />
-        </Suspense>
-        {children}
+        <AppContextProvider>
+          <Suspense>
+            <Navbar />
+          </Suspense>
+          {children}
+        </AppContextProvider>
       </body>
     </html>
   );

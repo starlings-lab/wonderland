@@ -9,41 +9,13 @@ import {
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 
+import { ChapterIds } from "@/app/data/staticDataService";
+import { getChapter } from "@/app/data/staticDataService";
+
 export default function Dex() {
-  const topics = [
-    {
-      title: "Buying & Selling",
-      path: "/dex/buying-selling",
-    },
-    {
-      title: "Pricing",
-      path: "/dex/pricing",
-    },
-    {
-      title: "Buying Playground",
-      path: "/dex/buying-playground",
-    },
-    {
-      title: "Liquidity Provision",
-      path: "/dex/liquidity-provision",
-    },
-    {
-      title: "Liquidity Provision Playground",
-      path: "/dex/liquidity-provision-playground",
-    },
-    {
-      title: "Slippage",
-      path: "/dex/slippage",
-    },
-    {
-      title: "Impermanent Loss",
-      path: "/dex/impermanent-loss",
-    },
-    {
-      title: "Impermanent Loss Playground",
-      path: "/dex/impermanent-loss-playground",
-    },
-  ];
+  // get chapter data from staticDataService
+  const chapter = getChapter(ChapterIds.Dex);
+  const topics = chapter!.topics;
 
   return (
     <main className="flex min-h-screen flex-row p-12">

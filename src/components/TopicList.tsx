@@ -5,11 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ChapterButton from "./ChapterButton";
 import { cn } from "@/lib/utils";
-
-export interface Topic {
-  title: string;
-  path: string;
-}
+import { Topic } from "@/app/data/staticDataService";
 
 interface TopicListProps {
   topics: Topic[];
