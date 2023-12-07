@@ -5,6 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import React from "react";
 import { AppContext } from "./contexts/AppContextProvider";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function NavBar() {
   const { currentProgress } = React.useContext(AppContext)!;
@@ -15,9 +17,16 @@ export default function NavBar() {
         <Link href="/" passHref className="">
           <p className="nav-home">WONDERLAND</p>
         </Link>
-        <div className="flex flex-grow justify-center">
+        <div className="flex flex-grow justify-center items-center">
           {currentProgress > 0 && (
-            <Progress className="h-2 w-[540px]" value={currentProgress} />
+            <>
+              <ChevronLeft className="cursor-pointer" size={24} />
+              <Progress
+                className="h-2 w-[540px] ml-5 mr-5"
+                value={currentProgress}
+              />
+              <ChevronRight className="cursor-pointer" size={24} />
+            </>
           )}
         </div>
       </div>
