@@ -6,7 +6,6 @@ import { Progress } from "@/components/ui/progress";
 import React from "react";
 import { AppContext } from "./contexts/AppContextProvider";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export default function NavBar() {
   const { currentProgress } = React.useContext(AppContext)!;

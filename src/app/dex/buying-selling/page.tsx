@@ -6,7 +6,7 @@ import { AppContext } from "../../contexts/AppContextProvider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-const BuyingSelling: React.FC<void> = () => {
+export default function BuyingSelling() {
   const { setCurrentChapter, setCurrentProgress } =
     React.useContext(AppContext)!;
 
@@ -92,6 +92,4 @@ const BuyingSelling: React.FC<void> = () => {
       </Card> */}
     </main>
   );
-};
-
-export default BuyingSelling;
+}
