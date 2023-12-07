@@ -19,7 +19,7 @@ const TopicList: React.FC<TopicListProps> = ({
   const [activeTopic, setActiveTopic] = React.useState(initialActiveTopic);
 
   return topics.map((topic, index) => (
-    <>
+    <div key={topic.title}>
       <Link href={topic.path} passHref>
         <ChapterButton
           active={topic.title === activeTopic}
@@ -33,7 +33,7 @@ const TopicList: React.FC<TopicListProps> = ({
           <Image src="/vertical-line.svg" alt="Image" width={3} height={21} />
         </div>
       )}
-    </>
+    </div>
   ));
 };
 
