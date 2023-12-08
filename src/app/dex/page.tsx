@@ -1,3 +1,5 @@
+"use client";
+
 import TopicList from "@/components/TopicList";
 import {
   Card,
@@ -11,8 +13,18 @@ import Image from "next/image";
 
 import { ChapterIds } from "@/app/data/staticDataService";
 import { getChapter } from "@/app/data/staticDataService";
+import React from "react";
+import { AppContext } from "../contexts/AppContextProvider";
 
 export default function Dex() {
+  const { setCurrentChapter, setCurrentProgress } =
+    React.useContext(AppContext)!;
+
+  React.useEffect(() => {
+    setCurrentChapter(ChapterIds.Dex);
+    setCurrentProgress(0);
+  });
+
   // get chapter data from staticDataService
   const chapter = getChapter(ChapterIds.Dex);
   const topics = chapter!.topics;
