@@ -5,10 +5,11 @@ import Image from "next/image";
 import { AppContext } from "../../contexts/AppContextProvider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 import { BuyUSDC } from "@/components/BuyUSDC";
+import { useRouter } from "next/navigation";
 
 export default function BuyingSelling() {
+  const router = useRouter();
   const { setCurrentChapter, setCurrentProgress } =
     React.useContext(AppContext)!;
 
@@ -26,6 +27,11 @@ export default function BuyingSelling() {
     const nextQuestion = currentQuestion + 1;
     setCurrentQuestion(nextQuestion);
     setCurrentProgress((nextQuestion / totalQuestions) * 100);
+
+    // route to review page when currentQuestion is the last question
+    if (nextQuestion >= totalQuestions) {
+      router.push("/dex/buying-selling/review");
+    }
   };
 
   const onBuyUsdc = (usdcBuyAmt: number) => {
