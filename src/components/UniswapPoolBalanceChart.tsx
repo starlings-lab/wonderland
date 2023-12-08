@@ -23,12 +23,12 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top' as const,
+      position: 'bottom' as const,
     },
     title: {
       display: true,
-      text: 'Uniswap ETH-USDC Pool Balance',
-    },
+      text: 'Uniswap ETH-USDC Pool Balance'
+    }
   },
 };
 
@@ -38,14 +38,14 @@ export const data = {
   labels,
   datasets: [
     {
-    label: 'ETH',
-    data: labels.map(() => Math.random() * 100),
-    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      label: 'ETH',
+      data: labels.map(() => Math.random() * 100),
+      backgroundColor: '#FF4081',
     },
     {
       label: 'USDC',
       data: labels.map(() => Math.random() * 100),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      backgroundColor: '#00BCD4',
     },
   ],
 };
