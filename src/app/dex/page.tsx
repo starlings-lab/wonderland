@@ -35,7 +35,7 @@ export default function Dex() {
         <CardHeader>
           <CardTitle>
             <Image
-              src="/dex.svg"
+              src="/images/dex.svg"
               alt="Image"
               width={78}
               height={78}
@@ -52,7 +52,7 @@ export default function Dex() {
           <div className="flex items-center space-x-2 mt-8">
             <Image
               id="chapter"
-              src="/chapters.svg"
+              src="/images/chapters.svg"
               alt="Image"
               width={16}
               height={15}
@@ -65,7 +65,7 @@ export default function Dex() {
         <CardContent>
           <Image
             id="start"
-            src="/start.svg"
+            src="/images/start.svg"
             alt="Image"
             width={70}
             height={44}

@@ -11,7 +11,7 @@ import {
 
 export default function IndexPage() {
   return (
-    <main className="flex min-h-screen flex-col p-12">
+    <main className="flex min-h-screen flex-col p-12 items-center">
       <Card className="max-w-2xl">
         <CardHeader>
           <CardTitle>

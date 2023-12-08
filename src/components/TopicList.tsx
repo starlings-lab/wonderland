@@ -30,7 +30,12 @@ const TopicList: React.FC<TopicListProps> = ({
 
       {index === topics.length - 1 ? null : (
         <div className="flex justify-center w-[80px] p-1">
-          <Image src="/vertical-line.svg" alt="Image" width={3} height={21} />
+          <Image
+            src="/images/vertical-line.svg"
+            alt="Image"
+            width={3}
+            height={21}
+          />
         </div>
       )}
     </div>

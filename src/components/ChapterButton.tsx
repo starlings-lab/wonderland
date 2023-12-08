@@ -21,7 +21,7 @@ const ChapterButton: React.FC<ChapterButtonProps> = ({
     <div className={cn("flex items-center space-x-2", className)}>
       <div className="relative flex justify-center items-center">
         <Image
-          src="/start-active-bg.svg"
+          src="/images/start-active-bg.svg"
           alt="Image"
           width={80}
           height={70}
@@ -29,7 +29,7 @@ const ChapterButton: React.FC<ChapterButtonProps> = ({
         />
         <Image
           id="start"
-          src="/start-inactive.svg"
+          src="/images/start-inactive.svg"
           alt="Image"
           width={56}
           height={80}
@@ -37,7 +37,7 @@ const ChapterButton: React.FC<ChapterButtonProps> = ({
         />
         <Image
           id="start-active"
-          src="/start-active.svg"
+          src="/images/start-active.svg"
           alt="Image"
           width={56}
           height={68}
