@@ -74,7 +74,7 @@ export default function BuyingSelling() {
 
           {currentQuestion >= 3 && (
             <div className="mt-5">
-              Let's try to buy one cryptocurrency with another. You have 1 ETH
+              Let&apos;s try to buy one cryptocurrency with another. You have 1 ETH
               which is one of the biggest cryptocurrencies. And you want to buy
               USDC which is a cryptocurrency that has the same value with USD.
             </div>
