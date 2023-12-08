@@ -5,14 +5,17 @@ import Image from "next/image";
 import { AppContext } from "../../contexts/AppContextProvider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
+import { BuyUSDC } from "@/components/BuyUSDC";
 
 export default function BuyingSelling() {
   const { setCurrentChapter, setCurrentProgress } =
     React.useContext(AppContext)!;
 
   // state to show/hide question content
-  const totalQuestions = 4;
+  const totalQuestions = 5;
   const [currentQuestion, setCurrentQuestion] = React.useState(1);
+  const [usdcBuyAmt, setUsdcBuyAmt] = React.useState(0);
 
   useEffect(() => {
     setCurrentChapter("BuyingSelling");
@@ -21,14 +24,18 @@ export default function BuyingSelling() {
 
   const onContinue = () => {
     const nextQuestion = currentQuestion + 1;
-    console.log("nextQuestion", nextQuestion);
     setCurrentQuestion(nextQuestion);
     setCurrentProgress((nextQuestion / totalQuestions) * 100);
   };
 
+  const onBuyUsdc = (usdcBuyAmt: number) => {
+    setUsdcBuyAmt(usdcBuyAmt);
+    onContinue();
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <Card className="max-w-xl h-fit mt-5">
+      <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
         <CardHeader>
           <CardTitle>Buying & Selling</CardTitle>
         </CardHeader>
@@ -44,7 +51,7 @@ export default function BuyingSelling() {
             </div>
             <div className="flex justify-center p-1">
               <Image
-                src="/buying-selling.png"
+                src="/images/buying-selling.png"
                 alt="Image"
                 width={260}
                 height={194}
@@ -63,7 +70,7 @@ export default function BuyingSelling() {
               </div>
               <div className="flex justify-center p-1">
                 <Image
-                  src="/buying-selling.png"
+                  src="/images/buying-selling.png"
                   alt="Image"
                   width={260}
                   height={194}
@@ -73,23 +80,39 @@ export default function BuyingSelling() {
           )}
 
           {currentQuestion >= 3 && (
-            <div className="mt-5">
-              Let&apos;s try to buy one cryptocurrency with another. You have 1 ETH
-              which is one of the biggest cryptocurrencies. And you want to buy
-              USDC which is a cryptocurrency that has the same value with USD.
-            </div>
+            <>
+              <div className="mt-5">
+                Let&apos;s try to buy one cryptocurrency with another. You have
+                1 ETH which is one of the biggest cryptocurrencies. And you want
+                to buy USDC which is a cryptocurrency that has the same value
+                with USD.
+              </div>
+              <div className="mt-3 mb-5">Click on the buy button below</div>
+              <div className="flex justify-center pl-20 pr-20 w-full">
+                <BuyUSDC onBuy={onBuyUsdc} />
+              </div>
+            </>
           )}
 
-          {currentQuestion <= totalQuestions && (
-            <Button className="mt-5" onClick={onContinue}>
-              Continue
-            </Button>
+          {currentQuestion >= 4 && (
+            <>
+              <div className="mt-3 mb-5">Now you have {usdcBuyAmt} USDC!</div>
+              <div>
+                But how did they calculate the price with no one in the middle?
+                We’ll talk about that in the next chapter!
+              </div>
+            </>
+          )}
+
+          {currentQuestion < totalQuestions && currentQuestion !== 3 && (
+            <div className="flex flex-row justify-center items-center">
+              <Button className="mt-5" onClick={onContinue}>
+                Continue
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>
-      {/* <Card className="max-w-xl h-fit mt-5">
-        <CardContent></CardContent>
-      </Card> */}
     </main>
   );
 }
