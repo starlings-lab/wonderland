@@ -18,10 +18,6 @@ export default function BuyingSelling() {
   const [currentQuestion, setCurrentQuestion] = React.useState(1);
   const [usdcBuyAmt, setUsdcBuyAmt] = React.useState(0);
 
-  // Question 2 div ref
-  const continueBtnRef = React.useRef(null);
-  const buyBtnRef = React.useRef(null);
-
   useEffect(() => {
     setCurrentChapter("BuyingSelling");
     setCurrentProgress((currentQuestion / totalQuestions) * 100);
@@ -38,12 +34,10 @@ export default function BuyingSelling() {
     }
 
     // scroll to question 2 content
-    console.log("nextQuestion: ", nextQuestion);
     setTimeout(() => {
-      const scrollElement = nextQuestion === 3 ? buyBtnRef : continueBtnRef;
-      scrollElement.current?.scrollIntoView({
+      window.scrollTo({
+        top: document.body.scrollHeight,
         behavior: "smooth",
-        block: "end",
       });
     });
   };
@@ -54,7 +48,7 @@ export default function BuyingSelling() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center">
+    <div className="flex flex-col items-center">
       <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
         <CardHeader>
           <CardTitle>Buying & Selling</CardTitle>
@@ -109,7 +103,7 @@ export default function BuyingSelling() {
               </div>
               <div className="mt-3 mb-5">Click on the buy button below</div>
               <div className="flex justify-center pl-20 pr-20 w-full">
-                <BuyUSDC onBuy={onBuyUsdc} buyBtnRef={buyBtnRef} />
+                <BuyUSDC onBuy={onBuyUsdc} />
               </div>
             </>
           )}
@@ -126,17 +120,13 @@ export default function BuyingSelling() {
 
           {currentQuestion < totalQuestions && currentQuestion !== 3 && (
             <div className="flex flex-row justify-center items-center">
-              <Button
-                ref={continueBtnRef}
-                className="mt-5"
-                onClick={onContinue}
-              >
+              <Button className="mt-5" onClick={onContinue}>
                 Continue
               </Button>
             </div>
           )}
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 }

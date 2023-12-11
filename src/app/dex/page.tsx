@@ -39,7 +39,7 @@ export default function Dex() {
   });
 
   return (
-    <main className="flex min-h-screen flex-row p-12">
+    <div className="flex flex-row p-12">
       <Card className="max-w-xl h-fit">
         <CardHeader>
           <CardTitle>
@@ -70,7 +70,7 @@ export default function Dex() {
           </div>
         </CardContent>
       </Card>
-      <Card className="ml-20 mt-20 max-w-xl border-none">
+      <Card className="ml-20 mt-20 max-w-xl border-none shadow-none">
         <CardContent>
           <Image
             id="start"
@@ -83,6 +83,6 @@ export default function Dex() {
           <TopicList topics={topics} activeTopic={currentTopic} />
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 }

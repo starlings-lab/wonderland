@@ -20,7 +20,7 @@ const ReviewPage: React.FC = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center">
+    <div className="flex flex-col items-center">
       <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
         <CardHeader>
           <CardTitle>Review & Reflection</CardTitle>
@@ -35,7 +35,7 @@ const ReviewPage: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 };
 
