@@ -17,17 +17,26 @@ import React from "react";
 import { AppContext } from "../contexts/AppContextProvider";
 
 export default function Dex() {
-  const { setCurrentChapter, setCurrentProgress } =
-    React.useContext(AppContext)!;
-
-  React.useEffect(() => {
-    setCurrentChapter(ChapterIds.Dex);
-    setCurrentProgress(0);
-  });
+  const {
+    setCurrentChapter,
+    setCurrentProgress,
+    currentTopic,
+    setCurrentTopic,
+  } = React.useContext(AppContext)!;
 
   // get chapter data from staticDataService
   const chapter = getChapter(ChapterIds.Dex);
   const topics = chapter!.topics;
+
+  React.useEffect(() => {
+    setCurrentChapter(ChapterIds.Dex);
+    setCurrentProgress(0);
+
+    // set current topic to first topic only when currentTopic is null
+    if (!currentTopic) {
+      setCurrentTopic(topics[0].title);
+    }
+  });
 
   return (
     <main className="flex min-h-screen flex-row p-12">
@@ -71,7 +80,7 @@ export default function Dex() {
             height={44}
             className="ml-[5px]"
           />
-          <TopicList topics={topics} initialActiveTopic={topics[0].title} />
+          <TopicList topics={topics} activeTopic={currentTopic} />
         </CardContent>
       </Card>
     </main>
