@@ -18,6 +18,10 @@ export default function BuyingSelling() {
   const [currentQuestion, setCurrentQuestion] = React.useState(1);
   const [usdcBuyAmt, setUsdcBuyAmt] = React.useState(0);
 
+  // Question 2 div ref
+  const continueBtnRef = React.useRef(null);
+  const buyBtnRef = React.useRef(null);
+
   useEffect(() => {
     setCurrentChapter("BuyingSelling");
     setCurrentProgress((currentQuestion / totalQuestions) * 100);
@@ -32,6 +36,16 @@ export default function BuyingSelling() {
     if (nextQuestion >= totalQuestions) {
       router.push("/dex/buying-selling/review");
     }
+
+    // scroll to question 2 content
+    console.log("nextQuestion: ", nextQuestion);
+    setTimeout(() => {
+      const scrollElement = nextQuestion === 3 ? buyBtnRef : continueBtnRef;
+      scrollElement.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    });
   };
 
   const onBuyUsdc = (usdcBuyAmt: number) => {
@@ -95,7 +109,7 @@ export default function BuyingSelling() {
               </div>
               <div className="mt-3 mb-5">Click on the buy button below</div>
               <div className="flex justify-center pl-20 pr-20 w-full">
-                <BuyUSDC onBuy={onBuyUsdc} />
+                <BuyUSDC onBuy={onBuyUsdc} buyBtnRef={buyBtnRef} />
               </div>
             </>
           )}
@@ -112,7 +126,11 @@ export default function BuyingSelling() {
 
           {currentQuestion < totalQuestions && currentQuestion !== 3 && (
             <div className="flex flex-row justify-center items-center">
-              <Button className="mt-5" onClick={onContinue}>
+              <Button
+                ref={continueBtnRef}
+                className="mt-5"
+                onClick={onContinue}
+              >
                 Continue
               </Button>
             </div>

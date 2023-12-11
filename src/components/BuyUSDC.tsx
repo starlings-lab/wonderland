@@ -8,6 +8,7 @@ import { on } from "events";
 export interface BuyUSDCProps {
   onBuy?: (usdcBuyAmt: number) => void;
   className?: string;
+  buyBtnRef: React.Ref<HTMLDivElement>;
 }
 
 export function BuyUSDC(props: BuyUSDCProps) {
@@ -79,6 +80,7 @@ export function BuyUSDC(props: BuyUSDCProps) {
           </div>
         </div>
         <Button
+          ref={props.buyBtnRef}
           disabled={isButtonDisabled}
           className="w-full bg-[#FF4081] hover:bg-pink-600 text-white font-bold rounded-lg"
           onClick={onSellEth}
