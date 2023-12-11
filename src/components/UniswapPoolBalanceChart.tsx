@@ -51,5 +51,5 @@ export const data = {
 };
 
 export function UniswapPoolBalanceChart() {
-  return <Bar options={options} data={data} />;
+  return <Bar className="w-1/2" options={options} data={data} />;
 }
