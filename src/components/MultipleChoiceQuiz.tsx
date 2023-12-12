@@ -6,7 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 
-interface MultipleChoiceQuizProps {
+export interface MultipleChoiceQuizProps {
   className?: string;
   question: string;
   answers: string[];
