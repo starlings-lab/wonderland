@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { ReactElement, ReactNode, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
@@ -10,10 +10,14 @@ import ContentSection, {
   isQuizContent,
 } from "@/components/ContentSection";
 
+export interface Section {
+  contents: Content[];
+}
+
 type ChapterProps = {
   className?: string;
   title: string;
-  sections: Content[][];
+  sections: Section[];
 };
 
 const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
@@ -49,9 +53,9 @@ const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
     });
   };
 
-  // add onContinue & onSkip callbacks to quiz questions
+  // add onContinue & onSkip callbacks to quiz questions and supporting content
   const sectionList = sections.map((section, index) => {
-    section.forEach((content) => {
+    section.contents.forEach((content) => {
       if (typeof content === "object" && "question" in content) {
         content.onCorrectAnswer = onContinue;
         content.onSkip = onContinue;
@@ -60,7 +64,7 @@ const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
 
     return (
       currentQuestion >= index + 1 && (
-        <ContentSection key={index} contents={section} />
+        <ContentSection key={index} contents={section.contents} />
       )
     );
   });
@@ -68,7 +72,9 @@ const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
   // On display continue button when there is no quiz content in a section
   const continueButton =
     currentQuestion <= totalQuestions &&
-    sections[currentQuestion - 1].every((content) => !isQuizContent(content));
+    sections[currentQuestion - 1].contents.every(
+      (content) => !isQuizContent(content)
+    );
 
   return (
     <div className="flex flex-col items-center">

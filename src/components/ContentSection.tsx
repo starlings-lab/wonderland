@@ -12,7 +12,13 @@ export interface ImageContent {
 
 export interface QuizContent extends MultipleChoiceQuizProps {}
 
-export type Content = string | ImageContent | QuizContent;
+// interface for react element
+export interface ReactElementContent {
+  className?: string;
+  children: React.ReactNode;
+}
+
+export type Content = string | ImageContent | QuizContent | ReactElementContent;
 
 type ContentSectionProps = {
   contents: Content[];
@@ -25,6 +31,10 @@ export function isQuizContent(content: Content): content is QuizContent {
 
 export function isImageContent(content: Content) {
   return typeof content === "object" && "src" in content;
+}
+
+export function isReactElementContent(content: Content) {
+  return typeof content === "object" && "children" in content;
 }
 
 const ContentSection: React.FC<ContentSectionProps> = ({
@@ -45,6 +55,16 @@ const ContentSection: React.FC<ContentSectionProps> = ({
     // if content is a quiz, render a MultipleChoiceQuiz component
     if (isQuizContent(content)) {
       return <MultipleChoiceQuiz key={index} {...content} />;
+    }
+
+    // if content is a react element, render it
+    if (isReactElementContent(content)) {
+      const { className, children } = content as ReactElementContent;
+      return (
+        <div key={index} className={className}>
+          {children}
+        </div>
+      );
     }
 
     // otherwise, render a string

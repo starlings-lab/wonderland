@@ -3,11 +3,11 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { on } from "events";
 
 export interface BuyUSDCProps {
   onBuy?: (usdcBuyAmt: number) => void;
   className?: string;
+  onContinue?: () => void;
 }
 
 export function BuyUSDC(props: BuyUSDCProps) {
@@ -26,6 +26,7 @@ export function BuyUSDC(props: BuyUSDCProps) {
     props.onBuy && props.onBuy(usdcBuyAmt);
     setUsdcBuyAmt(0);
     setIsButtonDisabled(true);
+    props.onContinue && props.onContinue();
   };
 
   return (
