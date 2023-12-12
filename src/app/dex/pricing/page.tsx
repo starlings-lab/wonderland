@@ -1,62 +1,17 @@
-"use client";
-
-import React, { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AppContext } from "@/app/contexts/AppContextProvider";
-import { useRouter } from "next/navigation";
-import ContentSection, { Content } from "@/components/ContentSection";
+import Chapter from "@/components/Chapter";
+import { Content } from "@/components/ContentSection";
 
 const Pricing: React.FC = () => {
-  const router = useRouter();
-  const { setCurrentChapter, setCurrentProgress } =
-    React.useContext(AppContext)!;
-
-  // state to show/hide question content
-  const totalQuestions = 6;
-  const [currentQuestion, setCurrentQuestion] = React.useState(1);
-
-  useEffect(() => {
-    setCurrentChapter("Pricing");
-    setCurrentProgress((currentQuestion / totalQuestions) * 100);
-  });
-
-  const onContinue = () => {
-    const nextQuestion = currentQuestion + 1;
-    setCurrentQuestion(nextQuestion);
-    setCurrentProgress((nextQuestion / totalQuestions) * 100);
-
-    // route to review page when currentQuestion is the last question
-    if (nextQuestion >= totalQuestions) {
-      router.push("/dex/pricing/review");
-    }
-
-    // scroll to end of content
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth",
-      });
-    });
-  };
-
   const section1Content: string[] = [
     `In the previous chapter, we learned that a decentralized exchange
     is a place where you can buy and sell cryptocurrencies with no one
-    in the middle. But how do they determine how much you can get when
+    in the middle.`,
+    `But how do they determine how much you can get when
     you buy or sell?They achieve this automatically by looking at some
-    values in the exchange. Each decentralized exchange has a
+    values in the exchange.`,
+    `Each decentralized exchange has a
     different system for this, and we will take an example of Uniswap,
     which is the biggest decentralized exchange.`,
-    `But how do they determine how much you can get when you buy or
-    sell?They achieve this automatically by looking at some values in
-    the exchange. Each decentralized exchange has a different system
-    for this, and we will take an example of Uniswap, which is the
-    biggest decentralized exchange.`,
-    `Each decentralized exchange has a different system for this, and
-    we will take an example of Uniswap, which is the biggest
-    decentralized exchange.
-    `,
   ];
 
   const section2Content: Content[] = [
@@ -71,8 +26,7 @@ const Pricing: React.FC = () => {
     `In the example above, there are 10 ETH and 2000 USDC that can be
     used for exchange in Uniswap.`,
     `Uniswap makes sure that they always get the constant value when
-    they multiply the quantity of ETH and USDC. In this case, they
-    make sure that it is always 20,000.`,
+    they multiply the quantity of ETH and USDC.`,
     `In this case, they make sure that it is always 20,000.`,
   ];
 
@@ -94,8 +48,6 @@ const Pricing: React.FC = () => {
       question: "This means:",
       answers: ["x = 1818", "x = 2000", "x = 20000", "x = 182"],
       correctAnswerIndex: 0,
-      onCorrectAnswer: onContinue,
-      onSkip: onContinue,
     },
   ];
 
@@ -109,8 +61,6 @@ const Pricing: React.FC = () => {
       question: "Alice will get:",
       answers: ["1818 USDC", "182 USDC", "100 USDC", "11 USDC"],
       correctAnswerIndex: 1,
-      onCorrectAnswer: onContinue,
-      onSkip: onContinue,
     },
   ];
 
@@ -130,37 +80,16 @@ const Pricing: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center">
-      <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
-        <CardHeader>
-          <CardTitle>Pricing</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ContentSection contents={section1Content}></ContentSection>
-          {currentQuestion >= 2 && (
-            <ContentSection contents={section2Content}></ContentSection>
-          )}
-          {currentQuestion >= 3 && (
-            <ContentSection contents={section3Content} />
-          )}
-          {currentQuestion >= 4 && (
-            <ContentSection contents={section4Content} />
-          )}
-          {currentQuestion >= 5 && (
-            <ContentSection contents={section5Content} />
-          )}
-          {currentQuestion < totalQuestions &&
-            currentQuestion !== 3 &&
-            currentQuestion !== 4 && (
-              <div className="flex flex-row justify-center items-center">
-                <Button className="mt-5" onClick={onContinue}>
-                  Continue
-                </Button>
-              </div>
-            )}
-        </CardContent>
-      </Card>
-    </div>
+    <Chapter
+      title="Pricing"
+      sections={[
+        section1Content,
+        section2Content,
+        section3Content,
+        section4Content,
+        section5Content,
+      ]}
+    />
   );
 };
 

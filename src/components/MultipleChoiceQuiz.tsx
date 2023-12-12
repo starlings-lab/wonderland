@@ -11,7 +11,7 @@ export interface MultipleChoiceQuizProps {
   question: string;
   answers: string[];
   correctAnswerIndex: number;
-  onCorrectAnswer: () => void;
+  onCorrectAnswer?: () => void;
   onSkip?: () => void;
 }
 
@@ -27,7 +27,7 @@ const MultipleChoiceQuiz: React.FC<MultipleChoiceQuizProps> = ({
   const onAnswer = (value: string) => {
     setSelectedAnswer(value);
     if (value === answers[correctAnswerIndex]) {
-      onCorrectAnswer();
+      onCorrectAnswer && onCorrectAnswer();
     }
   };
 

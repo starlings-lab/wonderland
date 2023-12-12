@@ -1,5 +1,4 @@
 import React from "react";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import MultipleChoiceQuiz, {
   MultipleChoiceQuizProps,
@@ -20,27 +19,31 @@ type ContentSectionProps = {
   className?: string;
 };
 
+export function isQuizContent(content: Content): content is QuizContent {
+  return typeof content === "object" && "question" in content;
+}
+
+export function isImageContent(content: Content) {
+  return typeof content === "object" && "src" in content;
+}
+
 const ContentSection: React.FC<ContentSectionProps> = ({
   className,
   contents,
 }) => {
   const children = contents.map((content, index) => {
     // if content is an image, render an Image component
-    if (typeof content === "object" && "src" in content) {
+    if (isImageContent(content)) {
+      const { src, width, height } = content as ImageContent;
       return (
         <div className="flex justify-center p-1 mt-5 mb-5" key={index}>
-          <Image
-            src={content.src}
-            alt="Image"
-            width={content.width}
-            height={content.height}
-          />
+          <Image alt="Image" src={src} width={width} height={height} />
         </div>
       );
     }
 
     // if content is a quiz, render a MultipleChoiceQuiz component
-    if (typeof content === "object" && "question" in content) {
+    if (isQuizContent(content)) {
       return <MultipleChoiceQuiz key={index} {...content} />;
     }
 
@@ -52,6 +55,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
       </div>
     );
   });
+
   return <div className={className}>{children}</div>;
 };
 
