@@ -6,7 +6,9 @@ Wonderland is a great way to learn about crypto and Decentralized Finance with s
 
 ## Dependencies
 
-This project requires `node version 18.19 or higher`. If you have [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) installed, you can run `nvm use` to switch to the correct version. If you have `n` installed, you can run `n 18.19` to install the correct version.
+Use the Next.js 13 with the node version 18.11. The Next.js 14 requires the node version 18.19 or higher, which causes an issue in Tenderly forks. 
+
+If you have [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) installed, you can run `nvm use` to switch to the correct version. If you have `n` installed, you can run `n 18.11` to install the correct version.
 
 You can use npm, yarn, pnpm or bun to install the dependencies. I have used [bun](https://bun.sh/) in this project.
 
