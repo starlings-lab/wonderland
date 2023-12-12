@@ -29,21 +29,21 @@ export default function BuyingPlayground() {
                 Buy ETH or USDC in the widget on the right.
               </div>
               <div>
-                You can see how your balance, pool balance, and the price
-                changes as you buy.
+                You can see how pool balance, your ETH and USDC balance, and the
+                price changes as you buy.
               </div>
             </>
           ) : (
             <div>Click on “Start Playing!” button to start!</div>
           )}
           {showPlayground ? null : (
-            <Button className="mt-5" onClick={startPlayground}>
+            <Button className="mt-4" onClick={startPlayground}>
               Start Playing!
             </Button>
           )}
         </CardContent>
         {showPlayground && (
-          <div className="flex">
+          <div>
             <UniswapPoolBalanceChart />
             <UniswapSwap />
           </div>

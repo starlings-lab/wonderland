@@ -14,7 +14,7 @@ export default function UniswapSwap() {
   const onSubmit = () => {}; // your form submit function which will invoke after successful validation
 
   return (
-    <div className="py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid w-1/2">
+    <div className="mt-8 py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid">
       <div className="flex justify-center">
         <Image
           id="start"
