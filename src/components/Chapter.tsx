@@ -80,7 +80,7 @@ const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
     <div className="flex flex-col items-center">
       <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
         <CardHeader>
-          <CardTitle>Pricing</CardTitle>
+          <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
           {sectionList}
