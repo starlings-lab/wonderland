@@ -75,8 +75,8 @@ const Pricing: React.FC = () => {
             <div>
               <div>
                 Decentralized exchange pool cryptocurrencies that people can
-                exchange(in the next chapter, we'll discuss where this pool of
-                capital comes from.)
+                exchange(in the next chapter, we&apos;ll discuss where this pool
+                of capital comes from.)
               </div>
               <div className="flex justify-center p-1 mt-5">
                 <Image
