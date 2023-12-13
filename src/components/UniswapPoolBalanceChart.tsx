@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -6,9 +6,9 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+  Legend
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -23,31 +23,38 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'bottom' as const,
+      position: "bottom" as const
     },
     title: {
       display: true,
-      text: 'Uniswap ETH-USDC Pool Balance'
+      text: "Uniswap ETH-USDC Pool Balance",
+      font: {
+        size: 20
+      },
+      padding: {
+        top: 12,
+        bottom: 20
+      }
     }
-  },
+  }
 };
 
-const labels = [''];
+const labels = [""];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'ETH',
+      label: "ETH",
       data: labels.map(() => Math.random() * 100),
-      backgroundColor: '#FF4081',
+      backgroundColor: "#FF4081"
     },
     {
-      label: 'USDC',
+      label: "USDC",
       data: labels.map(() => Math.random() * 100),
-      backgroundColor: '#00BCD4',
-    },
-  ],
+      backgroundColor: "#00BCD4"
+    }
+  ]
 };
 
 export function UniswapPoolBalanceChart() {
