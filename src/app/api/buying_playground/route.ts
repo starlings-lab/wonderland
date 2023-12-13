@@ -7,12 +7,6 @@ import { USDC_ABI, USDC_NUM_OF_DECIMALS } from "../../contracts/usdc";
 import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../../contracts/uniswap-v1-usdc-exchange";
 import { CIRCLE_ACCOUNT_ADDRESS } from "../../constant/index";
 
-const {
-  NEXT_PUBLIC_TENDERLY_USER,
-  NEXT_PUBLIC_TENDERLY_PROJECT,
-  TENDERLY_ACCESS_KEY
-} = process.env;
-
 const UsdcAbi = new Interface(USDC_ABI);
 
 export async function POST() {
@@ -74,13 +68,13 @@ export async function POST() {
 }
 
 async function createFork() {
-  const url = `https://api.tenderly.co/api/v1/account/${NEXT_PUBLIC_TENDERLY_USER}/project/${NEXT_PUBLIC_TENDERLY_PROJECT}/fork`;
+  const url = `https://api.tenderly.co/api/v1/account/${process.env.NEXT_PUBLIC_TENDERLY_USER}/project/${process.env.NEXT_PUBLIC_TENDERLY_PROJECT}/fork`;
 
   const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Access-Key": TENDERLY_ACCESS_KEY
+      "X-Access-Key": process.env.TENDERLY_ACCESS_KEY
     },
     body: JSON.stringify({
       network_id: "1", // network you wish to fork
