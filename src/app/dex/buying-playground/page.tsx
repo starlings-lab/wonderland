@@ -44,7 +44,7 @@ export default function BuyingPlayground() {
         </CardContent>
         {showPlayground && (
           <div>
-            <UniswapPoolBalanceChart />
+            <UniswapPoolBalanceChart title="Uniswap ETH-USDC Pool Balance" />
             <UniswapSwap />
           </div>
         )}

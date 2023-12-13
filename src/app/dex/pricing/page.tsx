@@ -1,7 +1,18 @@
+"use client";
+
 import Topic from "@/components/Topic";
-import { Content } from "@/components/TopicSection";
+
+import { AppContext } from "@/app/contexts/AppContextProvider";
+import { getPricingTopic } from "@/app/data/staticDataService";
+import React, { useEffect } from "react";
 
 const Pricing: React.FC = () => {
+  const { setCurrentTopic } = React.useContext(AppContext)!;
+  const pricingTopic = getPricingTopic();
+  useEffect(() => {
+    setCurrentTopic(pricingTopic);
+  });
+
   const section1 = {
     contents: [
       `In the previous chapter, we learned that a decentralized exchange
@@ -91,7 +102,7 @@ const Pricing: React.FC = () => {
 
   return (
     <Topic
-      title="Pricing"
+      topic={pricingTopic}
       sections={[section1, section2, section, section4, section5]}
     />
   );

@@ -1,10 +1,18 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import BuyUSDC from "@/components/BuyUSDC";
 import Topic from "@/components/Topic";
+import { getBuyingSellingTopic } from "@/app/data/staticDataService";
+import { AppContext } from "@/app/contexts/AppContextProvider";
 
 export default function BuyingSelling() {
+  const { setCurrentTopic } = React.useContext(AppContext)!;
+  const bsTopic = getBuyingSellingTopic();
+  useEffect(() => {
+    setCurrentTopic(bsTopic);
+  });
+
   const [usdcBuyAmt, setUsdcBuyAmt] = React.useState(0);
 
   const onBuyUsdc = (usdcBuyAmt: number) => {
@@ -66,7 +74,7 @@ export default function BuyingSelling() {
 
   return (
     <Topic
-      title="Buying & Selling"
+      topic={bsTopic}
       sections={[section1, section2, section3, section4]}
     />
   );

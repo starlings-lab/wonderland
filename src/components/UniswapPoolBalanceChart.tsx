@@ -6,7 +6,7 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -23,20 +23,20 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: "bottom" as const
+      position: "bottom" as const,
     },
     title: {
       display: true,
-      text: "Uniswap ETH-USDC Pool Balance",
+      text: "",
       font: {
-        size: 20
+        size: 20,
       },
       padding: {
         top: 12,
-        bottom: 20
-      }
-    }
-  }
+        bottom: 20,
+      },
+    },
+  },
 };
 
 const labels = [""];
@@ -47,16 +47,27 @@ export const data = {
     {
       label: "ETH",
       data: labels.map(() => Math.random() * 100),
-      backgroundColor: "#FF4081"
+      backgroundColor: "#FF4081",
     },
     {
       label: "USDC",
       data: labels.map(() => Math.random() * 100),
-      backgroundColor: "#00BCD4"
-    }
-  ]
+      backgroundColor: "#FFC107",
+    },
+  ],
 };
 
-export function UniswapPoolBalanceChart() {
-  return <Bar options={options} data={data} />;
+export type UniswapPoolBalanceChartProps = {
+  className?: string;
+  title: string;
+  data?: typeof data;
+};
+
+export function UniswapPoolBalanceChart(props: UniswapPoolBalanceChartProps) {
+  options.plugins.title.text = props.title;
+  return (
+    <div className={props.className}>
+      <Bar options={options} data={props.data ?? data} />
+    </div>
+  );
 }

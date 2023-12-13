@@ -11,6 +11,7 @@ import TopicSection, {
   isReactElementContent,
 } from "@/components/TopicSection";
 import TopicContext from "@/app/contexts/TopicContext";
+import { Topic } from "@/type/types";
 
 export interface Section {
   contents: Content[];
@@ -18,13 +19,13 @@ export interface Section {
 
 type TopicProps = {
   className?: string;
-  title: string;
+  topic: Topic;
   sections: Section[];
 };
 
-const Topic: React.FC<TopicProps> = ({ className, sections, title }) => {
+const Topic: React.FC<TopicProps> = ({ className, sections, topic }) => {
   const router = useRouter();
-  const { setCurrentProgress, currentTopic } = React.useContext(AppContext)!;
+  const { setCurrentProgress } = React.useContext(AppContext)!;
 
   // state to show/hide question content
   const totalQuestions = sections.length;
@@ -41,7 +42,7 @@ const Topic: React.FC<TopicProps> = ({ className, sections, title }) => {
 
     // route to review page when currentQuestion is the last question
     if (nextQuestion > totalQuestions) {
-      const reviewPath = `${currentTopic!.path}/review`;
+      const reviewPath = `${topic!.path}/review`;
       console.log("route to review: ", reviewPath);
       router.push(reviewPath);
     }
@@ -83,7 +84,7 @@ const Topic: React.FC<TopicProps> = ({ className, sections, title }) => {
       <div className="flex flex-col items-center">
         <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
           <CardHeader>
-            <CardTitle>{title}</CardTitle>
+            <CardTitle>{topic.title}</CardTitle>
           </CardHeader>
           <CardContent>
             {sectionList}

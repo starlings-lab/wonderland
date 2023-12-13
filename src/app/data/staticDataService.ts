@@ -1,29 +1,35 @@
 import { Chapter, ChapterIds } from "@/type/types";
 
-// create a map of chapters by id
 const dexChapterPath = "/dex";
+const lpTopic = {
+  title: "Liquidity Provision",
+  path: `${dexChapterPath}/liquidity-provision`,
+};
+
+const buyingSellingTopic = {
+  title: "Buying & Selling",
+  path: `${dexChapterPath}/buying-selling`,
+};
+
+const pricingTopic = {
+  title: "Pricing",
+  path: `${dexChapterPath}/pricing`,
+};
+
+// create a map of chapters by id
 const chaptersById = new Map<ChapterIds, Chapter>();
 chaptersById.set(ChapterIds.Dex, {
   path: dexChapterPath,
   id: ChapterIds.Dex,
   title: "Decentralized Exchange",
   topics: [
-    {
-      title: "Buying & Selling",
-      path: `${dexChapterPath}/buying-selling`,
-    },
-    {
-      title: "Pricing",
-      path: `${dexChapterPath}/pricing`,
-    },
+    buyingSellingTopic,
+    pricingTopic,
     {
       title: "Buying Playground",
       path: `${dexChapterPath}/buying-playground`,
     },
-    {
-      title: "Liquidity Provision",
-      path: `${dexChapterPath}/liquidity-provision`,
-    },
+    lpTopic,
     {
       title: "Liquidity Provision Playground",
       path: `${dexChapterPath}/liquidity-provision-playground`,
@@ -45,4 +51,16 @@ chaptersById.set(ChapterIds.Dex, {
 
 export const getChapter = (id: ChapterIds) => {
   return chaptersById.get(id);
+};
+
+export const getLPTopic = () => {
+  return lpTopic;
+};
+
+export const getBuyingSellingTopic = () => {
+  return buyingSellingTopic;
+};
+
+export const getPricingTopic = () => {
+  return pricingTopic;
 };
