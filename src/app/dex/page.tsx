@@ -11,10 +11,10 @@ import {
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 
-import { ChapterIds } from "@/app/data/staticDataService";
 import { getChapter } from "@/app/data/staticDataService";
 import React from "react";
 import { AppContext } from "../contexts/AppContextProvider";
+import { ChapterIds } from "@/type/types";
 
 export default function Dex() {
   const {

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ChapterButton from "./ChapterButton";
 import { cn } from "@/lib/utils";
-import { Topic } from "@/app/data/staticDataService";
+import { Topic } from "@/type/types";
 
 interface TopicListProps {
   topics: Topic[];

@@ -1,58 +1,44 @@
-// enum for chapter ids
-export const enum ChapterIds {
-  Dex = "dex",
-}
-
-export interface Topic {
-  title: string;
-  path: string;
-}
-
-export interface Chapter {
-  id: ChapterIds;
-  title: string;
-  topics: Topic[];
-  path: string;
-}
+import { Chapter, ChapterIds } from "@/type/types";
 
 // create a map of chapters by id
+const dexChapterPath = "/dex";
 const chaptersById = new Map<ChapterIds, Chapter>();
 chaptersById.set(ChapterIds.Dex, {
-  path: "/dex",
+  path: dexChapterPath,
   id: ChapterIds.Dex,
   title: "Decentralized Exchange",
   topics: [
     {
       title: "Buying & Selling",
-      path: "/dex/buying-selling",
+      path: `${dexChapterPath}/buying-selling`,
     },
     {
       title: "Pricing",
-      path: "/dex/pricing",
+      path: `${dexChapterPath}/pricing`,
     },
     {
       title: "Buying Playground",
-      path: "/dex/buying-playground",
+      path: `${dexChapterPath}/buying-playground`,
     },
     {
       title: "Liquidity Provision",
-      path: "/dex/liquidity-provision",
+      path: `${dexChapterPath}/liquidity-provision`,
     },
     {
       title: "Liquidity Provision Playground",
-      path: "/dex/liquidity-provision-playground",
+      path: `${dexChapterPath}/liquidity-provision-playground`,
     },
     {
       title: "Slippage",
-      path: "/dex/slippage",
+      path: `${dexChapterPath}/slippage`,
     },
     {
       title: "Impermanent Loss",
-      path: "/dex/impermanent-loss",
+      path: `${dexChapterPath}/impermanent-loss`,
     },
     {
       title: "Impermanent Loss Playground",
-      path: "/dex/impermanent-loss-playground",
+      path: `${dexChapterPath}/impermanent-loss-playground`,
     },
   ],
 });

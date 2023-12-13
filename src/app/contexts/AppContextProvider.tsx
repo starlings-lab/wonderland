@@ -1,6 +1,6 @@
 "use client";
+import { Chapter, Topic } from "@/type/types";
 import React, { createContext, useState } from "react";
-import { Chapter, Topic } from "../data/staticDataService";
 
 // Define the shape of the context value
 interface AppContext {

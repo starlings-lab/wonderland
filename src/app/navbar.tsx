@@ -8,7 +8,7 @@ import { AppContext } from "./contexts/AppContextProvider";
 import { X } from "lucide-react";
 
 export default function NavBar() {
-  const { currentProgress } = React.useContext(AppContext)!;
+  const { currentProgress, currentChapter } = React.useContext(AppContext)!;
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white bg-opacity-100">
@@ -18,7 +18,7 @@ export default function NavBar() {
             <p className="nav-home">WONDERLAND</p>
           </Link>
         ) : (
-          <Link href="/dex" passHref>
+          <Link href={currentChapter ? currentChapter.path : ""} passHref>
             <X className="cursor-pointer" size={24} />
           </Link>
         )}
