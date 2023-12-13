@@ -7,8 +7,8 @@ import {
   USDC_ABI,
   USDC_NUM_OF_DECIMALS,
   USDC_ADDRESS
-} from "../../contracts/usdc";
-import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../../contracts/uniswap-v1-usdc-exchange";
+} from "../../../contracts/usdc";
+import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../../../contracts/uniswap-v1-usdc-exchange";
 import { CIRCLE_ACCOUNT_ADDRESS } from "../../constant/index";
 
 const usdcInterface = new Interface(USDC_ABI);

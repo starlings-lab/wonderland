@@ -6,7 +6,7 @@ import {
   USDC_ABI,
   USDC_NUM_OF_DECIMALS,
   USDC_ADDRESS
-} from "../app/contracts/usdc";
+} from "../contracts/usdc";
 
 const usdcInterface = new Interface(USDC_ABI);
 
