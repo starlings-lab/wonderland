@@ -1,7 +1,10 @@
-"use client";
 import React from "react";
 
-import ReviewCard from "@/components/ReviewCard";
+import dynamic from "next/dynamic";
+
+const ReviewCard = dynamic(() => import("@/components/ReviewCard"), {
+  ssr: false,
+});
 
 const ReviewPage: React.FC = () => {
   return (
