@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import useEthBalance from "@/hooks/useEthBalance";
+import useUsdcBalance from "@/hooks/useUsdcBalance";
 import { Input } from "../type/types";
 
 export default function UniswapSwap() {
@@ -13,6 +14,7 @@ export default function UniswapSwap() {
   } = useForm<Input>({ defaultValues: { input: "0" } });
 
   const ethBalance = useEthBalance();
+  const usdcBalance = useUsdcBalance();
 
   const onSubmit = () => {}; // your form submit function which will invoke after successful validation
 
@@ -36,7 +38,10 @@ export default function UniswapSwap() {
               </label>
               <div className="flex items-center">
                 <p className="text-xs text-gray-500 mr-2">
-                  Balance: {ethBalance}
+                  ETH Balance: {ethBalance}
+                </p>
+                <p className="text-xs text-gray-500 mr-2">
+                  USDC Balance: {usdcBalance}
                 </p>
                 <p className="text-sm text-customBlue">Max</p>
               </div>
