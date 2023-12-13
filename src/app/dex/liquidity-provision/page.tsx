@@ -36,13 +36,13 @@ export default function LiquidityProvision() {
         label: "ETH",
         data: [10000],
         backgroundColor: "#FF4081",
-        barPercentage: 0.2,
+        barPercentage: 0.4,
       },
       {
         label: "USDC",
         data: [40000],
         backgroundColor: "#FFC107",
-        barPercentage: 0.2,
+        barPercentage: 0.4,
       },
     ],
   };
@@ -52,13 +52,9 @@ export default function LiquidityProvision() {
       `Click on the "Supply" button below.`,
       {
         children: (
-          <div className="flex justify-center mt-8">
-            <UniswapPoolBalanceChart
-              data={data}
-              className="w-1/2"
-              title="Pool Balance"
-            />
-            <AddLiquidity className="ml-5" />
+          <div className="mt-8">
+            <UniswapPoolBalanceChart data={data} title="Pool Balance" />
+            <AddLiquidity className="" />
           </div>
         ),
       },
