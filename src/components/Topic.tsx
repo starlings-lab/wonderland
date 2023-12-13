@@ -10,19 +10,19 @@ import ContentSection, {
   isQuizContent,
   isReactElementContent,
 } from "@/components/ContentSection";
-import ChapterContext from "@/app/contexts/ChapterContext";
+import TopicContext from "@/app/contexts/TopicContext";
 
 export interface Section {
   contents: Content[];
 }
 
-type ChapterProps = {
+type TopicProps = {
   className?: string;
   title: string;
   sections: Section[];
 };
 
-const Chapter: React.FC<ChapterProps> = ({ className, sections, title }) => {
+const Topic: React.FC<TopicProps> = ({ className, sections, title }) => {
   const router = useRouter();
   const { setCurrentProgress, currentTopic, currentChapter } =
     React.useContext(AppContext)!;
@@ -80,7 +80,7 @@ const Chapter: React.FC<ChapterProps> = ({ className, sections, title }) => {
     );
 
   return (
-    <ChapterContext.Provider value={{ onContinue }}>
+    <TopicContext.Provider value={{ onContinue }}>
       <div className="flex flex-col items-center">
         <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
           <CardHeader>
@@ -98,8 +98,8 @@ const Chapter: React.FC<ChapterProps> = ({ className, sections, title }) => {
           </CardContent>
         </Card>
       </div>
-    </ChapterContext.Provider>
+    </TopicContext.Provider>
   );
 };
 
-export default Chapter;
+export default Topic;

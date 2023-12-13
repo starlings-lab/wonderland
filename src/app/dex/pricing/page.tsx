@@ -1,4 +1,4 @@
-import Chapter from "@/components/Chapter";
+import Topic from "@/components/Topic";
 import { Content } from "@/components/ContentSection";
 
 const Pricing: React.FC = () => {
@@ -90,7 +90,7 @@ const Pricing: React.FC = () => {
   };
 
   return (
-    <Chapter
+    <Topic
       title="Pricing"
       sections={[section1, section2, section, section4, section5]}
     />

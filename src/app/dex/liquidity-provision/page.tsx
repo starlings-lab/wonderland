@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import Chapter from "@/components/Chapter";
+import Topic from "@/components/Topic";
 
 export default function LiquidityProvision() {
   const section1 = {
@@ -31,7 +31,7 @@ export default function LiquidityProvision() {
   };
 
   return (
-    <Chapter
+    <Topic
       title="Liquidity Provision"
       sections={[section1, section2, section3, section4]}
     />

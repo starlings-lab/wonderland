@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ChapterButton from "./ChapterButton";
+import TopicButton from "./TopicButton";
 import { cn } from "@/lib/utils";
 import { Topic } from "@/type/types";
 
@@ -15,7 +15,7 @@ const TopicList: React.FC<TopicListProps> = ({ topics, activeTopic }) => {
   return topics.map((topic, index) => (
     <div key={topic.title}>
       <Link href={topic.path} passHref>
-        <ChapterButton
+        <TopicButton
           active={activeTopic && topic.title === activeTopic.title}
           description={topic.title}
           className={cn(

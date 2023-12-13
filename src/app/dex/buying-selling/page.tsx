@@ -2,7 +2,7 @@
 import React from "react";
 
 import BuyUSDC from "@/components/BuyUSDC";
-import Chapter from "@/components/Chapter";
+import Topic from "@/components/Topic";
 
 export default function BuyingSelling() {
   const [usdcBuyAmt, setUsdcBuyAmt] = React.useState(0);
@@ -65,7 +65,7 @@ export default function BuyingSelling() {
   };
 
   return (
-    <Chapter
+    <Topic
       title="Buying & Selling"
       sections={[section1, section2, section3, section4]}
     />

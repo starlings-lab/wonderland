@@ -6,13 +6,13 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
-export interface ChapterButtonProps {
+export interface TopicButtonProps {
   active: boolean;
   description: string;
   className?: string;
 }
 
-const ChapterButton: React.FC<ChapterButtonProps> = ({
+const TopicButton: React.FC<TopicButtonProps> = ({
   active,
   description,
   className,
@@ -52,4 +52,4 @@ const ChapterButton: React.FC<ChapterButtonProps> = ({
   );
 };
 
-export default ChapterButton;
+export default TopicButton;

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
-import ChapterContext from "@/app/contexts/ChapterContext";
+import TopicContext from "@/app/contexts/TopicContext";
 
 export interface BuyUSDCProps {
   onBuy?: (usdcBuyAmt: number) => void;
@@ -14,7 +14,7 @@ export interface BuyUSDCProps {
 }
 
 const BuyUSDC: React.FC<BuyUSDCProps> = (props: BuyUSDCProps) => {
-  const chapterContext = React.useContext(ChapterContext);
+  const chapterContext = React.useContext(TopicContext);
 
   const [ethBalance, setEthBalance] = useState(1);
   const [usdcBalance, setUsdcBalance] = useState(0);
