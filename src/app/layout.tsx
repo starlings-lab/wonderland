@@ -22,10 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppContextProvider>
-          <Suspense>
+          <Suspense fallback={<div>Loading...</div>}>
             <Navbar />
           </Suspense>
-          {children}
+          <main className="flex min-h-screen flex-col p-12 items-center pt-16">
+            {children}
+          </main>
         </AppContextProvider>
       </body>
     </html>

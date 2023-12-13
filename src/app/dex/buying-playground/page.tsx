@@ -13,8 +13,8 @@ export default function BuyingPlayground() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center">
-      <Card className="max-w-xl h-fit mt-5">
+    <div className="flex flex-col items-center">
+      <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
         <CardHeader>
           <CardTitle>Buying Playground</CardTitle>
         </CardHeader>
@@ -49,6 +49,6 @@ export default function BuyingPlayground() {
           </div>
         )}
       </Card>
-    </main>
+    </div>
   );
 }

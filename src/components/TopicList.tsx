@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,15 +7,11 @@ import { Topic } from "@/app/data/staticDataService";
 
 interface TopicListProps {
   topics: Topic[];
-  initialActiveTopic: string;
+  activeTopic: string;
 }
 
-const TopicList: React.FC<TopicListProps> = ({
-  topics,
-  initialActiveTopic,
-}) => {
-  const [activeTopic, setActiveTopic] = React.useState(initialActiveTopic);
-
+const TopicList: React.FC<TopicListProps> = ({ topics, activeTopic }) => {
+  console.log("topic: ", activeTopic);
   return topics.map((topic, index) => (
     <div key={topic.title}>
       <Link href={topic.path} passHref>

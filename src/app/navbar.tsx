@@ -8,10 +8,10 @@ import { AppContext } from "./contexts/AppContextProvider";
 import { X } from "lucide-react";
 
 export default function NavBar() {
-  const { currentProgress, setCurrentProgress } = React.useContext(AppContext)!;
+  const { currentProgress } = React.useContext(AppContext)!;
 
   return (
-    <>
+    <nav className="fixed top-0 w-full z-50 bg-white bg-opacity-100">
       <div className="flex flex-row p-5 items-center">
         {currentProgress === 0 ? (
           <Link href="/" passHref>
@@ -33,6 +33,6 @@ export default function NavBar() {
         </div>
       </div>
       <Separator />
-    </>
+    </nav>
   );
 }

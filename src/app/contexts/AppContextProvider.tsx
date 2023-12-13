@@ -5,6 +5,8 @@ import React, { createContext, useState } from "react";
 interface AppContext {
   currentChapter: string;
   setCurrentChapter: React.Dispatch<React.SetStateAction<string>>;
+  currentTopic: string;
+  setCurrentTopic: React.Dispatch<React.SetStateAction<string>>;
   currentProgress: number;
   setCurrentProgress: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -20,12 +22,15 @@ export default function AppContextProvider({
 }) {
   const [currentChapter, setCurrentChapter] = useState<string>("");
   const [currentProgress, setCurrentProgress] = useState<number>(0);
+  const [currentTopic, setCurrentTopic] = useState<string>("");
 
   return (
     <AppContext.Provider
       value={{
         currentChapter,
         setCurrentChapter,
+        currentTopic,
+        setCurrentTopic,
         currentProgress,
         setCurrentProgress,
       }}
