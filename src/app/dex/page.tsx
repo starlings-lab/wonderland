@@ -29,12 +29,13 @@ export default function Dex() {
   const topics = chapter!.topics;
 
   React.useEffect(() => {
-    setCurrentChapter(ChapterIds.Dex);
+    setCurrentChapter(chapter);
     setCurrentProgress(0);
 
     // set current topic to first topic only when currentTopic is null
     if (!currentTopic) {
-      setCurrentTopic(topics[0].title);
+      console.log("set current topic to first topic: ", topics[0].title);
+      setCurrentTopic(topics[0]);
     }
   });
 

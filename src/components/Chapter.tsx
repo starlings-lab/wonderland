@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactElement, ReactNode, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,9 @@ import { AppContext } from "@/app/contexts/AppContextProvider";
 import ContentSection, {
   Content,
   isQuizContent,
+  isReactElementContent,
 } from "@/components/ContentSection";
+import ChapterContext from "@/app/contexts/ChapterContext";
 
 export interface Section {
   contents: Content[];
@@ -20,9 +22,9 @@ type ChapterProps = {
   sections: Section[];
 };
 
-const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
+const Chapter: React.FC<ChapterProps> = ({ className, sections, title }) => {
   const router = useRouter();
-  const { setCurrentChapter, setCurrentProgress } =
+  const { setCurrentProgress, currentTopic, currentChapter } =
     React.useContext(AppContext)!;
 
   // state to show/hide question content
@@ -30,7 +32,6 @@ const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
   const [currentQuestion, setCurrentQuestion] = React.useState(1);
 
   useEffect(() => {
-    setCurrentChapter(title);
     setCurrentProgress((currentQuestion / totalQuestions) * 100);
   });
 
@@ -41,7 +42,9 @@ const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
 
     // route to review page when currentQuestion is the last question
     if (nextQuestion > totalQuestions) {
-      router.push("/dex/pricing/review");
+      const reviewPath = `${currentTopic!.path}/review`;
+      console.log("route to review: ", reviewPath);
+      router.push(reviewPath);
     }
 
     // scroll to end of content
@@ -73,27 +76,29 @@ const Chapter: React.FC<ChapterProps> = ({ className, title, sections }) => {
   const continueButton =
     currentQuestion <= totalQuestions &&
     sections[currentQuestion - 1].contents.every(
-      (content) => !isQuizContent(content)
+      (content) => !isQuizContent(content) && !isReactElementContent(content)
     );
 
   return (
-    <div className="flex flex-col items-center">
-      <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {sectionList}
-          {continueButton && (
-            <div className="flex flex-row justify-center items-center">
-              <Button className="mt-5" onClick={onContinue}>
-                Continue
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+    <ChapterContext.Provider value={{ onContinue }}>
+      <div className="flex flex-col items-center">
+        <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {sectionList}
+            {continueButton && (
+              <div className="flex flex-row justify-center items-center">
+                <Button className="mt-5" onClick={onContinue}>
+                  Continue
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </ChapterContext.Provider>
   );
 };
 

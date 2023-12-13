@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { BuyUSDC } from "@/components/BuyUSDC";
+import BuyUSDC from "@/components/BuyUSDC";
 import Chapter from "@/components/Chapter";
 
 export default function BuyingSelling() {
@@ -66,7 +66,7 @@ export default function BuyingSelling() {
 
   return (
     <Chapter
-      title="Buying and Selling"
+      title="Buying & Selling"
       sections={[section1, section2, section3, section4]}
     />
   );

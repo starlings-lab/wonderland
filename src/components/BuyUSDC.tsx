@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
+import ChapterContext from "@/app/contexts/ChapterContext";
 
 export interface BuyUSDCProps {
   onBuy?: (usdcBuyAmt: number) => void;
@@ -10,7 +13,9 @@ export interface BuyUSDCProps {
   onContinue?: () => void;
 }
 
-export function BuyUSDC(props: BuyUSDCProps) {
+const BuyUSDC: React.FC<BuyUSDCProps> = (props: BuyUSDCProps) => {
+  const chapterContext = React.useContext(ChapterContext);
+
   const [ethBalance, setEthBalance] = useState(1);
   const [usdcBalance, setUsdcBalance] = useState(0);
   const [ethSellAmt, setEthSellAmt] = useState(1);
@@ -26,7 +31,8 @@ export function BuyUSDC(props: BuyUSDCProps) {
     props.onBuy && props.onBuy(usdcBuyAmt);
     setUsdcBuyAmt(0);
     setIsButtonDisabled(true);
-    props.onContinue && props.onContinue();
+
+    chapterContext && chapterContext.onContinue && chapterContext.onContinue();
   };
 
   return (
@@ -89,4 +95,6 @@ export function BuyUSDC(props: BuyUSDCProps) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default BuyUSDC;

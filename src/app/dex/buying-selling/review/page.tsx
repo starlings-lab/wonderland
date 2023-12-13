@@ -5,18 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { AppContext } from "@/app/contexts/AppContextProvider";
-import { ChapterIds, getChapter } from "@/app/data/staticDataService";
 
 const ReviewPage: React.FC = () => {
-  const { setCurrentTopic } = React.useContext(AppContext)!;
+  const { currentChapter, setCurrentTopic } = React.useContext(AppContext)!;
   const router = useRouter();
-  // get chapter data from staticDataService
-  const chapter = getChapter(ChapterIds.Dex);
-  const topics = chapter!.topics;
+
+  const topics = currentChapter!.topics;
 
   const finishLesson = () => {
-    router.push("/dex");
-    setCurrentTopic(topics[1].title);
+    console.log("currentChapter: ", currentChapter);
+    router.push(currentChapter!.path);
+    console.log("Setting current topic: ", topics[1]);
+    setCurrentTopic(topics[1]);
   };
 
   return (

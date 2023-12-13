@@ -15,8 +15,9 @@ const ReviewPage: React.FC = () => {
   const topics = chapter!.topics;
 
   const finishLesson = () => {
-    router.push("/dex");
-    setCurrentTopic(topics[2].title);
+    router.push(chapter!.path);
+    console.log("Setting current topic: ", topics[2].title);
+    setCurrentTopic(topics[2]);
   };
 
   return (

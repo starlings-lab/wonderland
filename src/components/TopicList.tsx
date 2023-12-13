@@ -7,7 +7,7 @@ import { Topic } from "@/app/data/staticDataService";
 
 interface TopicListProps {
   topics: Topic[];
-  activeTopic: string;
+  activeTopic: Topic;
 }
 
 const TopicList: React.FC<TopicListProps> = ({ topics, activeTopic }) => {
@@ -16,9 +16,11 @@ const TopicList: React.FC<TopicListProps> = ({ topics, activeTopic }) => {
     <div key={topic.title}>
       <Link href={topic.path} passHref>
         <ChapterButton
-          active={topic.title === activeTopic}
+          active={activeTopic && topic.title === activeTopic.title}
           description={topic.title}
-          className={cn(topic.title === activeTopic ? "mt-3" : "mt-1")}
+          className={cn(
+            activeTopic && topic.title === activeTopic.title ? "mt-3" : "mt-1"
+          )}
         />
       </Link>
 

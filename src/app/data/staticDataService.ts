@@ -12,11 +12,13 @@ export interface Chapter {
   id: ChapterIds;
   title: string;
   topics: Topic[];
+  path: string;
 }
 
 // create a map of chapters by id
 const chaptersById = new Map<ChapterIds, Chapter>();
 chaptersById.set(ChapterIds.Dex, {
+  path: "/dex",
   id: ChapterIds.Dex,
   title: "Decentralized Exchange",
   topics: [
