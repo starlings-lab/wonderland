@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { AppContext } from "@/app/contexts/AppContextProvider";
-import ContentSection, {
+import TopicSection, {
   Content,
   isQuizContent,
   isReactElementContent,
-} from "@/components/ContentSection";
+} from "@/components/TopicSection";
 import TopicContext from "@/app/contexts/TopicContext";
 
 export interface Section {
@@ -24,8 +24,7 @@ type TopicProps = {
 
 const Topic: React.FC<TopicProps> = ({ className, sections, title }) => {
   const router = useRouter();
-  const { setCurrentProgress, currentTopic, currentChapter } =
-    React.useContext(AppContext)!;
+  const { setCurrentProgress, currentTopic } = React.useContext(AppContext)!;
 
   // state to show/hide question content
   const totalQuestions = sections.length;
@@ -67,7 +66,7 @@ const Topic: React.FC<TopicProps> = ({ className, sections, title }) => {
 
     return (
       currentQuestion >= index + 1 && (
-        <ContentSection key={index} contents={section.contents} />
+        <TopicSection key={index} contents={section.contents} />
       )
     );
   });

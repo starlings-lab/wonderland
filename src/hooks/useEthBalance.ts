@@ -20,7 +20,7 @@ export default function useEthBalance() {
     }
 
     fetchETHBalance();
-  }, []); // Empty dependency array means this effect runs once on component mount
+  }); // Empty dependency array means this effect runs once on component mount
 
   return ethBalance;
 }

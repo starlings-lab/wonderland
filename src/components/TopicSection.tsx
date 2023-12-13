@@ -20,7 +20,7 @@ export interface ReactElementContent {
 
 export type Content = string | ImageContent | QuizContent | ReactElementContent;
 
-type ContentSectionProps = {
+type TopicSectionProps = {
   contents: Content[];
   className?: string;
 };
@@ -37,10 +37,7 @@ export function isReactElementContent(content: Content) {
   return typeof content === "object" && "children" in content;
 }
 
-const ContentSection: React.FC<ContentSectionProps> = ({
-  className,
-  contents,
-}) => {
+const TopicSection: React.FC<TopicSectionProps> = ({ className, contents }) => {
   const children = contents.map((content, index) => {
     // if content is an image, render an Image component
     if (isImageContent(content)) {
@@ -79,4 +76,4 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   return <div className={className}>{children}</div>;
 };
 
-export default ContentSection;
+export default TopicSection;

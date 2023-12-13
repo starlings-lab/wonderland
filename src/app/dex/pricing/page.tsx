@@ -1,5 +1,5 @@
 import Topic from "@/components/Topic";
-import { Content } from "@/components/ContentSection";
+import { Content } from "@/components/TopicSection";
 
 const Pricing: React.FC = () => {
   const section1 = {

@@ -81,7 +81,7 @@ export default function Dex() {
             height={44}
             className="ml-[5px]"
           />
-          <TopicList topics={topics} activeTopic={currentTopic} />
+          <TopicList topics={topics} activeTopic={currentTopic!} />
         </CardContent>
       </Card>
     </div>
