@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import * as dotenv from "dotenv";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { parseUnits, parseEther } from "@ethersproject/units";
 import { hexZeroPad } from "@ethersproject/bytes";
@@ -7,8 +6,6 @@ import { Interface } from "@ethersproject/abi";
 import { USDC_ABI, USDC_NUM_OF_DECIMALS } from "../../contracts/usdc";
 import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../../contracts/uniswap-v1-usdc-exchange";
 import { CIRCLE_ACCOUNT_ADDRESS } from "../../constant/index";
-
-dotenv.config();
 
 const {
   NEXT_PUBLIC_TENDERLY_USER,
