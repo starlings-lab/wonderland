@@ -20,7 +20,9 @@ ChartJS.register(
 );
 
 export const options = {
+  maintainAspectRatio: true,
   responsive: true,
+  aspectRatio: 1,
   plugins: {
     legend: {
       position: "bottom" as const,
@@ -61,10 +63,16 @@ export type UniswapPoolBalanceChartProps = {
   className?: string;
   title: string;
   data?: typeof data;
+  maintainAspectRatio?: boolean;
+  aspectRatio?: number;
 };
 
 export function UniswapPoolBalanceChart(props: UniswapPoolBalanceChartProps) {
   options.plugins.title.text = props.title;
+  options.maintainAspectRatio = !!props.maintainAspectRatio
+    ? props.maintainAspectRatio
+    : true;
+  options.aspectRatio = !!props.aspectRatio ? props.aspectRatio : 1;
   return (
     <div className={props.className}>
       <Bar options={options} data={props.data ?? data} />

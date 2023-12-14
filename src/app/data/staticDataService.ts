@@ -18,6 +18,10 @@ const pricingTopic = {
 
 // create a map of chapters by id
 const chaptersById = new Map<ChapterIds, Chapter>();
+const lpPlaygroundTopic = {
+  title: "Liquidity Provision Playground",
+  path: `${dexChapterPath}/lp-playground`,
+};
 chaptersById.set(ChapterIds.Dex, {
   path: dexChapterPath,
   id: ChapterIds.Dex,
@@ -30,10 +34,7 @@ chaptersById.set(ChapterIds.Dex, {
       path: `${dexChapterPath}/buying-playground`,
     },
     lpTopic,
-    {
-      title: "Liquidity Provision Playground",
-      path: `${dexChapterPath}/liquidity-provision-playground`,
-    },
+    lpPlaygroundTopic,
     {
       title: "Slippage",
       path: `${dexChapterPath}/slippage`,
@@ -63,4 +64,8 @@ export const getBuyingSellingTopic = () => {
 
 export const getPricingTopic = () => {
   return pricingTopic;
+};
+
+export const getLPPlaygroundTopic = () => {
+  return lpPlaygroundTopic;
 };

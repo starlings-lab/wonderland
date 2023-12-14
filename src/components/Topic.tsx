@@ -15,15 +15,27 @@ import { Topic } from "@/type/types";
 
 export interface Section {
   contents: Content[];
+  // Indicates if this section is a playground
+  playground?: boolean;
 }
 
 type TopicProps = {
   className?: string;
   topic: Topic;
   sections: Section[];
+  // Custom label for continue button
+  buttonLabel?: string;
+  // There is no review page for playground
+  disableReview?: boolean;
 };
 
-const Topic: React.FC<TopicProps> = ({ className, sections, topic }) => {
+const Topic: React.FC<TopicProps> = ({
+  className,
+  sections,
+  topic,
+  buttonLabel,
+  disableReview,
+}) => {
   const router = useRouter();
   const { setCurrentProgress } = React.useContext(AppContext)!;
 
@@ -40,8 +52,9 @@ const Topic: React.FC<TopicProps> = ({ className, sections, topic }) => {
     setCurrentQuestion(nextQuestion);
     setCurrentProgress((nextQuestion / totalQuestions) * 100);
 
+    // When review is no disabled,
     // route to review page when currentQuestion is the last question
-    if (nextQuestion > totalQuestions) {
+    if (!disableReview && nextQuestion > totalQuestions) {
       const reviewPath = `${topic!.path}/review`;
       console.log("route to review: ", reviewPath);
       router.push(reviewPath);
@@ -72,7 +85,7 @@ const Topic: React.FC<TopicProps> = ({ className, sections, topic }) => {
     );
   });
 
-  // On display continue button when there is no quiz content in a section
+  // Only display continue button when there is no quiz content in a section
   const continueButton =
     currentQuestion <= totalQuestions &&
     sections[currentQuestion - 1].contents.every(
@@ -91,7 +104,7 @@ const Topic: React.FC<TopicProps> = ({ className, sections, topic }) => {
             {continueButton && (
               <div className="flex flex-row justify-center items-center">
                 <Button className="mt-5" onClick={onContinue}>
-                  Continue
+                  {buttonLabel ?? "Continue"}
                 </Button>
               </div>
             )}
