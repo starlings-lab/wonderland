@@ -6,9 +6,12 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import useEthBalance from "@/hooks/useEthBalance";
+import useUsdcBalance from "@/hooks/useUsdcBalance";
+import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../contracts/uniswap-v1-usdc-exchange";
 
 ChartJS.register(
   CategoryScale,
@@ -25,38 +28,20 @@ export const options = {
   aspectRatio: 1,
   plugins: {
     legend: {
-      position: "bottom" as const,
+      position: "bottom" as const
     },
     title: {
       display: true,
       text: "",
       font: {
-        size: 18,
+        size: 18
       },
       padding: {
         top: 12,
-        bottom: 20,
-      },
-    },
-  },
-};
-
-const labels = [""];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "ETH",
-      data: labels.map(() => Math.random() * 100),
-      backgroundColor: "#FF4081",
-    },
-    {
-      label: "USDC",
-      data: labels.map(() => Math.random() * 100),
-      backgroundColor: "#FFC107",
-    },
-  ],
+        bottom: 20
+      }
+    }
+  }
 };
 
 export type UniswapPoolBalanceChartProps = {
@@ -76,7 +61,27 @@ export function UniswapPoolBalanceChart(props: UniswapPoolBalanceChartProps) {
   // spread props.titleOptions to options.title
   options.plugins.title = {
     ...options.plugins.title,
-    ...props.titleOptions,
+    ...props.titleOptions
+  };
+
+  const ethBalance = useEthBalance(UNISWAP_V1_USDC_EXCHANGE_ADDRESS);
+  const usdcBalance = useUsdcBalance(UNISWAP_V1_USDC_EXCHANGE_ADDRESS);
+
+  const labels = [""];
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "ETH",
+        data: [ethBalance],
+        backgroundColor: "#FF4081"
+      },
+      {
+        label: "USDC",
+        data: [usdcBalance],
+        backgroundColor: "#FFC107"
+      }
+    ]
   };
 
   return (
