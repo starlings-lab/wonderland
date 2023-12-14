@@ -3,11 +3,15 @@ import { JsonRpcProvider } from "@ethersproject/providers";
 import { parseUnits, parseEther } from "@ethersproject/units";
 import { hexZeroPad } from "@ethersproject/bytes";
 import { Interface } from "@ethersproject/abi";
-import { USDC_ABI, USDC_NUM_OF_DECIMALS } from "../../contracts/usdc";
-import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../../contracts/uniswap-v1-usdc-exchange";
+import {
+  USDC_ABI,
+  USDC_NUM_OF_DECIMALS,
+  USDC_ADDRESS
+} from "../../../contracts/usdc";
+import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../../../contracts/uniswap-v1-usdc-exchange";
 import { CIRCLE_ACCOUNT_ADDRESS } from "../../constant/index";
 
-const UsdcAbi = new Interface(USDC_ABI);
+const usdcInterface = new Interface(USDC_ABI);
 
 export async function POST() {
   try {
@@ -39,8 +43,8 @@ export async function POST() {
     console.log("ethTransferTx ==>", ethTransferTx);
 
     const usdcTransferTx = await circleSigner.sendTransaction({
-      to: ownerAddress,
-      data: UsdcAbi.encodeFunctionData("transfer", [
+      to: USDC_ADDRESS,
+      data: usdcInterface.encodeFunctionData("transfer", [
         hexZeroPad(ownerAddress.toLowerCase(), 20),
         parseUnits("100000000", USDC_NUM_OF_DECIMALS)
       ]),
@@ -49,8 +53,8 @@ export async function POST() {
     console.log("usdcTransferTx ==>", usdcTransferTx);
 
     const usdcApproveTx = await ownerSigner.sendTransaction({
-      to: "0x6b175474e89094c44da98b954eedeac495271d0f",
-      data: UsdcAbi.encodeFunctionData("approve", [
+      to: USDC_ADDRESS,
+      data: usdcInterface.encodeFunctionData("approve", [
         hexZeroPad(UNISWAP_V1_USDC_EXCHANGE_ADDRESS.toLowerCase(), 20),
         parseUnits("100000000", USDC_NUM_OF_DECIMALS)
       ]),
