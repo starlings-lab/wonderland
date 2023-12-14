@@ -7,21 +7,44 @@ import useUsdcBalance from "@/hooks/useUsdcBalance";
 import useEthToUsdcPriceUniV1 from "@/hooks/useEthToUsdcPriceUniV1";
 import { LiquidityInput } from "../type/types";
 import { PlusSquare } from "lucide-react";
+import { addLiquidity } from "@/contracts/uniswap-v1-usdc-exchange";
+import React from "react";
 
 export default function UniswapAddLiquidity() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<LiquidityInput>({
     defaultValues: { ethInput: "0", usdcInput: "0" },
   });
 
+  const [supplying, setSupplying] = React.useState(false);
+
   const ethBalance = useEthBalance();
   const usdcBalance = useUsdcBalance();
   const usdcOutput = useEthToUsdcPriceUniV1("1");
 
-  const onSubmit = () => {}; // your form submit function which will invoke after successful validation
+  const onSubmit = () => {
+    setSupplying(true);
+
+    const ethInput = getValues("ethInput");
+    const usdcInput = getValues("usdcInput");
+    console.log(`Supplying liquidity: ${ethInput} ETH, ${usdcInput} USDC`);
+
+    const maxUsdcInput = usdcBalance;
+    addLiquidity(ethInput, usdcInput, maxUsdcInput)
+      .then((txReceipt) => {
+        console.log("Successfully supplied liquidity!");
+        setSupplying(false);
+      })
+      .catch((error) => {
+        console.log("Failed to supply liquidity!");
+        console.log(error);
+        setSupplying(false);
+      });
+  }; // your form submit function which will invoke after successful validation
 
   return (
     <div className="mt-8 py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid">
@@ -42,10 +65,10 @@ export default function UniswapAddLiquidity() {
                 Input
               </label>
               <div className="flex items-center">
-                <p className="text-xs text-gray-500 mr-2">
+                <p className="text-xs text-gray-500">
                   ETH Balance: {ethBalance}
                 </p>
-                <p className="text-sm text-customBlue">Max</p>
+                {/* <p className="text-sm text-customBlue mr-2">Max</p> */}
               </div>
             </div>
             <div className="flex items-center justify-between w-full">
@@ -54,7 +77,7 @@ export default function UniswapAddLiquidity() {
                 type="number"
                 {...register("ethInput", {
                   min: 1,
-                  max: 100,
+                  max: ethBalance,
                   required: true,
                 })}
                 onWheel={(e: any) => e.target.blur()}
@@ -82,10 +105,10 @@ export default function UniswapAddLiquidity() {
                 Input
               </label>
               <div className="flex items-center">
-                <p className="text-xs text-gray-500 mr-2">
+                <p className="text-xs text-gray-500">
                   USDC Balance: {usdcBalance}
                 </p>
-                <p className="text-sm text-customBlue">Max</p>
+                {/* <p className="text-sm text-customBlue ml-2">Max</p> */}
               </div>
             </div>
             <div className="flex items-center justify-between w-full">
@@ -94,7 +117,7 @@ export default function UniswapAddLiquidity() {
                 type="number"
                 {...register("usdcInput", {
                   min: 1,
-                  max: 10000,
+                  max: usdcBalance,
                   required: true,
                 })}
                 onWheel={(e: any) => e.target.blur()}
@@ -129,9 +152,9 @@ export default function UniswapAddLiquidity() {
         <div className="w-full flex justify-center">
           <Button
             className="bg-[#FF4081] w-full text-white"
-            disabled={!!(errors.ethInput || errors.usdcInput)}
+            disabled={!!(errors.ethInput || errors.usdcInput || supplying)}
           >
-            Supply
+            {supplying ? "Supplying..." : "Supply"}
           </Button>
         </div>
       </form>
