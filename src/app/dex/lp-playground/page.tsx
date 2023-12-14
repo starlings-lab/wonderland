@@ -5,7 +5,7 @@ import Topic from "@/components/Topic";
 import { getLPPlaygroundTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 import { UniswapPoolBalanceChart } from "@/components/UniswapPoolBalanceChart";
-import AddLiquidity from "@/components/AddLiquidity";
+import UniswapAddLiquidity from "@/components/UniswapAddLiquidity";
 
 export default function BuyingSelling() {
   const { setCurrentTopic } = React.useContext(AppContext)!;
@@ -48,7 +48,8 @@ export default function BuyingSelling() {
       `There are 10,000,000 ETH and 40,000,000 USDC in this Uniswap exchange.`,
       {
         children: (
-          <div className="flex mt-8 space-x-8">
+          // <div className="flex mt-8 space-x-4">
+          <div className="mt-8">
             <UniswapPoolBalanceChart
               data={data}
               titleOptions={{
@@ -58,7 +59,7 @@ export default function BuyingSelling() {
                 },
               }}
             />
-            <AddLiquidity />
+            <UniswapAddLiquidity />
           </div>
         ),
       },

@@ -15,8 +15,6 @@ import { Topic } from "@/type/types";
 
 export interface Section {
   contents: Content[];
-  // Indicates if this section is a playground
-  playground?: boolean;
 }
 
 type TopicProps = {

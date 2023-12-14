@@ -18,3 +18,8 @@ export interface Chapter {
 export interface Input {
   input: string;
 }
+
+export interface LiquidityInput {
+  ethInput: string;
+  usdcInput: string;
+}
