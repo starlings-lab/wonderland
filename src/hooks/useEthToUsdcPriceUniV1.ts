@@ -12,7 +12,7 @@ const uniswapV1UsdcExchangeInterface = new Interface(
   UNISWAP_V1_USDC_EXCHANGE_ABI
 );
 
-export default function useEthToUsdcUniV1(ethInput: string) {
+export default function useEthToUsdcPriceUniV1(ethInput: string) {
   const [usdcOutput, setUsdcOutput] = useState<string>("");
   const rpcUrl = `https://rpc.tenderly.co/fork/${process.env.NEXT_PUBLIC_TENDERLY_FORK_ID}`;
   const forkProvider = new JsonRpcProvider(rpcUrl);

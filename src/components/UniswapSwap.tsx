@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
-import useEthToUsdcUniV1 from "@/hooks/useEthToUsdcUniV1";
+import useEthToUsdcPriceUniV1 from "@/hooks/useEthToUsdcPriceUniV1";
 import { Input } from "../type/types";
 
 export default function UniswapSwap() {
@@ -16,7 +16,7 @@ export default function UniswapSwap() {
 
   const ethBalance = useEthBalance();
   const usdcBalance = useUsdcBalance();
-  const usdcOutput = useEthToUsdcUniV1("1");
+  const usdcOutput = useEthToUsdcPriceUniV1("1");
 
   const onSubmit = () => {}; // your form submit function which will invoke after successful validation
 
