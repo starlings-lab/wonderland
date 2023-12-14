@@ -54,7 +54,7 @@ export default function LiquidityProvision() {
         children: (
           <div className="mt-8">
             <UniswapPoolBalanceChart data={data} title="Pool Balance" />
-            <AddLiquidity className="" />
+            <AddLiquidity className="mt-5" />
           </div>
         ),
       },
