@@ -39,7 +39,8 @@ export default function BuyingSelling() {
     ],
   };
 
-  const chartTitle = "";
+  const chartTitle =
+    "There are 10,000,000 ETH and 40,000,000 USDC in this Uniswap exchange.";
   const section2 = {
     contents: [
       `Add liquidity in the widget on the right.`,
@@ -48,7 +49,15 @@ export default function BuyingSelling() {
       {
         children: (
           <div className="flex mt-8 space-x-8">
-            <UniswapPoolBalanceChart data={data} title={chartTitle} />
+            <UniswapPoolBalanceChart
+              data={data}
+              titleOptions={{
+                text: chartTitle,
+                font: {
+                  size: 12,
+                },
+              }}
+            />
             <AddLiquidity />
           </div>
         ),

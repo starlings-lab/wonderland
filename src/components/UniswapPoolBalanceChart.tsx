@@ -31,7 +31,7 @@ export const options = {
       display: true,
       text: "",
       font: {
-        size: 20,
+        size: 18,
       },
       padding: {
         top: 12,
@@ -61,18 +61,24 @@ export const data = {
 
 export type UniswapPoolBalanceChartProps = {
   className?: string;
-  title: string;
   data?: typeof data;
   maintainAspectRatio?: boolean;
   aspectRatio?: number;
+  titleOptions?: object;
 };
 
 export function UniswapPoolBalanceChart(props: UniswapPoolBalanceChartProps) {
-  options.plugins.title.text = props.title;
   options.maintainAspectRatio = !!props.maintainAspectRatio
     ? props.maintainAspectRatio
     : true;
   options.aspectRatio = !!props.aspectRatio ? props.aspectRatio : 1;
+
+  // spread props.titleOptions to options.title
+  options.plugins.title = {
+    ...options.plugins.title,
+    ...props.titleOptions,
+  };
+
   return (
     <div className={props.className}>
       <Bar options={options} data={props.data ?? data} />
