@@ -1,4 +1,6 @@
 "use client";
+
+import React from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -8,7 +10,7 @@ import useEthToUsdcPriceUniV1 from "@/hooks/useEthToUsdcPriceUniV1";
 import { LiquidityInput } from "../type/types";
 import { PlusSquare } from "lucide-react";
 import { addLiquidity } from "@/contracts/uniswap-v1-usdc-exchange";
-import React from "react";
+import type { Address } from "abitype";
 
 export default function UniswapAddLiquidity() {
   const {
@@ -16,6 +18,7 @@ export default function UniswapAddLiquidity() {
     handleSubmit,
     getValues,
     setValue,
+    trigger,
     watch,
     formState: { errors },
   } = useForm<LiquidityInput>({
@@ -24,8 +27,9 @@ export default function UniswapAddLiquidity() {
 
   const [supplying, setSupplying] = React.useState(false);
 
-  const ethBalance = useEthBalance();
-  const usdcBalance = useUsdcBalance();
+  const owner = process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address;
+  const ethBalance = useEthBalance(owner);
+  const usdcBalance = useUsdcBalance(owner);
   const ethUsdcPrice = useEthToUsdcPriceUniV1("1");
 
   React.useEffect(() => {
@@ -45,17 +49,18 @@ export default function UniswapAddLiquidity() {
 
       if (name === "ethInput") {
         const usdcInput =
-          (value.ethInput ? parseFloat(value.ethInput) : 0) *
-          (ethUsdcPrice ? parseFloat(ethUsdcPrice) : 0);
+          (value.ethInput ? parseInt(value.ethInput) : 0) *
+          (ethUsdcPrice ? parseInt(ethUsdcPrice) : 0);
         console.log("setting usdcInput: ", usdcInput);
         setValue("usdcInput", usdcInput.toString());
       } else if (name === "usdcInput") {
         const ethInput =
-          (value.usdcInput ? parseFloat(value.usdcInput) : 0) /
-          (ethUsdcPrice ? parseFloat(ethUsdcPrice) : 0);
+          (value.usdcInput ? parseInt(value.usdcInput) : 0) /
+          (ethUsdcPrice ? parseInt(ethUsdcPrice) : 0);
         console.log("setting ethInput: ", ethInput);
         setValue("ethInput", ethInput.toString());
       }
+      trigger();
     });
 
     return () => subscription.unsubscribe();
