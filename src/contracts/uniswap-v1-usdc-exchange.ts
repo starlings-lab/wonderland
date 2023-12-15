@@ -1,8 +1,6 @@
 import type { Address } from 'abitype';
 
-export const UNISWAP_V1_USDC_EXCHANGE_ADDRESS: Address =
-  (process.env.NEXT_PUBLIC_UNISWAP_V1_USDC_EXCHANGE_ADDRESS as Address) ??
-  '0x97deC872013f6B5fB443861090ad931542878126';
+export const UNISWAP_V1_USDC_EXCHANGE_ADDRESS: Address = '0x97deC872013f6B5fB443861090ad931542878126';
 export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
   {
     name: 'TokenPurchase',
