@@ -1,3 +1,4 @@
+import type { Address } from "abitype";
 import { useState, useEffect } from "react";
 import { Interface } from "@ethersproject/abi";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -10,7 +11,7 @@ import {
 
 const usdcInterface = new Interface(USDC_ABI);
 
-export default function useUsdcBalance() {
+export default function useUsdcBalance(address: Address) {
   const [usdcBalance, setUsdcBalance] = useState<string>("");
   const rpcUrl = `https://rpc.tenderly.co/fork/${process.env.NEXT_PUBLIC_TENDERLY_FORK_ID}`;
   const forkProvider = new JsonRpcProvider(rpcUrl);
@@ -20,9 +21,7 @@ export default function useUsdcBalance() {
       try {
         const balance = await forkProvider.call({
           to: USDC_ADDRESS,
-          data: usdcInterface.encodeFunctionData("balanceOf", [
-            process.env.NEXT_PUBLIC_OWNER_ADDRESS
-          ])
+          data: usdcInterface.encodeFunctionData("balanceOf", [address])
         });
 
         setUsdcBalance(formatUnits(balance, USDC_NUM_OF_DECIMALS));

@@ -1,8 +1,9 @@
+import type { Address } from "abitype";
 import { useState, useEffect } from "react";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { formatEther } from "@ethersproject/units";
 
-export default function useEthBalance() {
+export default function useEthBalance(address: Address) {
   const [ethBalance, setEthBalance] = useState<string>("");
   const rpcUrl = `https://rpc.tenderly.co/fork/${process.env.NEXT_PUBLIC_TENDERLY_FORK_ID}`;
   const forkProvider = new JsonRpcProvider(rpcUrl);
@@ -10,9 +11,7 @@ export default function useEthBalance() {
   useEffect(() => {
     async function fetchETHBalance() {
       try {
-        const balance = await forkProvider.getBalance(
-          process.env.NEXT_PUBLIC_OWNER_ADDRESS
-        );
+        const balance = await forkProvider.getBalance(address);
         setEthBalance(formatEther(balance));
       } catch (error) {
         console.error(error);
