@@ -1,18 +1,21 @@
 "use client";
+import type { Address } from "abitype";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
 import useEthToUsdcPriceUniV1 from "@/hooks/useEthToUsdcPriceUniV1";
+import useEthToUsdcSwapUniV1 from "@/hooks/useEthToUsdcSwapUniV1";
 import { Input } from "../type/types";
 
 export default function UniswapSwap() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors }
-  } = useForm<Input>({ defaultValues: { input: "0" } });
+  } = useForm<Input>({ defaultValues: { input: "1" } });
 
   const usdcOutput = useEthToUsdcPriceUniV1("1");
   const ethBalance = useEthBalance(
@@ -21,8 +24,9 @@ export default function UniswapSwap() {
   const usdcBalance = useUsdcBalance(
     process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
   );
+  useEthToUsdcSwapUniV1(getValues("input"));
 
-  const onSubmit = () => {}; // your form submit function which will invoke after successful validation
+  const onSubmit = () => {};
 
   return (
     <div className="mt-8 py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid">
