@@ -29,23 +29,6 @@ export default function LiquidityProvision() {
     ],
   };
 
-  const data = {
-    labels: [""],
-    datasets: [
-      {
-        label: "ETH",
-        data: [10000],
-        backgroundColor: "#FF4081",
-        barPercentage: 0.5,
-      },
-      {
-        label: "USDC",
-        data: [40000],
-        backgroundColor: "#FFC107",
-        barPercentage: 0.5,
-      },
-    ],
-  };
   const section3 = {
     contents: [
       `Let's try to provide liquidity of ETH and USDC.`,
@@ -55,7 +38,6 @@ export default function LiquidityProvision() {
           <div className="flex mt-8 space-x-6">
             <div className="w-2/3">
               <UniswapPoolBalanceChart
-                data={data}
                 titleOptions={{ text: "Pool Balance" }}
               />
             </div>
