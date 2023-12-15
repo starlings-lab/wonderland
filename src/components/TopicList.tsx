@@ -8,16 +8,23 @@ import { Topic } from "@/type/types";
 interface TopicListProps {
   topics: Topic[];
   activeTopic: Topic;
+  completedTopics: Topic[];
 }
 
-const TopicList: React.FC<TopicListProps> = ({ topics, activeTopic }) => {
-  console.log("topic: ", activeTopic);
+const TopicList: React.FC<TopicListProps> = ({
+  topics,
+  activeTopic,
+  completedTopics,
+}) => {
+  console.log("Active topic: ", activeTopic);
   return topics.map((topic, index) => (
     <div key={topic.title}>
       <Link href={topic.path} passHref>
         <TopicButton
           active={activeTopic && topic.title === activeTopic.title}
           description={topic.title}
+          completed={completedTopics.includes(topic)}
+          isPlayground={topic.isPlayground}
           className={cn(
             activeTopic && topic.title === activeTopic.title ? "mt-3" : "mt-1"
           )}

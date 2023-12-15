@@ -7,10 +7,12 @@ import { getBuyingSellingTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 
 export default function BuyingSelling() {
-  const { setCurrentTopic } = React.useContext(AppContext)!;
+  const { setCurrentTopic, completedTopics } = React.useContext(AppContext)!;
   const bsTopic = getBuyingSellingTopic();
   useEffect(() => {
-    setCurrentTopic(bsTopic);
+    if (!completedTopics.includes(bsTopic)) {
+      setCurrentTopic(bsTopic);
+    }
   });
 
   const [usdcBuyAmt, setUsdcBuyAmt] = React.useState(0);

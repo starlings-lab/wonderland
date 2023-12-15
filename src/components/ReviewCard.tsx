@@ -15,14 +15,21 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   children,
   nextTopicIndex,
 }) => {
-  const { currentChapter, setCurrentTopic } = React.useContext(AppContext)!;
+  const {
+    currentChapter,
+    currentTopic,
+    setCurrentTopic,
+    completedTopics,
+    setCompletedTopics,
+  } = React.useContext(AppContext)!;
   const router = useRouter();
 
   const topics = currentChapter!.topics;
 
   const finishLesson = () => {
-    console.log("currentChapter: ", currentChapter);
     router.push(currentChapter!.path);
+    setCompletedTopics(completedTopics.concat(currentTopic!));
+
     console.log("Setting current topic: ", topics[nextTopicIndex]);
     setCurrentTopic(topics[nextTopicIndex]);
   };

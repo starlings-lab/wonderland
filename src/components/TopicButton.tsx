@@ -10,12 +10,16 @@ export interface TopicButtonProps {
   active: boolean;
   description: string;
   className?: string;
+  completed?: boolean;
+  isPlayground?: boolean;
 }
 
 const TopicButton: React.FC<TopicButtonProps> = ({
   active,
   description,
   className,
+  completed,
+  isPlayground,
 }) => {
   return (
     <div className={cn("flex items-center space-x-2", className)}>
@@ -25,15 +29,26 @@ const TopicButton: React.FC<TopicButtonProps> = ({
           alt="Image"
           width={80}
           height={70}
-          className={active ? "" : "invisible"}
+          className={active && !completed ? "" : "invisible"}
         />
         <Image
           id="start"
-          src="/images/start-inactive.svg"
+          src={
+            isPlayground
+              ? "/images/start-playground.svg"
+              : "/images/start-inactive.svg"
+          }
           alt="Image"
           width={56}
           height={80}
-          className={cn("absolute", active ? "invisible" : "")}
+          className={cn("absolute", active || completed ? "invisible" : "")}
+        />
+        <Image
+          src="/images/topic-completed.svg"
+          alt="Image"
+          width={56}
+          height={68}
+          className={cn("absolute", completed ? "" : "invisible")}
         />
         <Image
           id="start-active"
@@ -43,7 +58,7 @@ const TopicButton: React.FC<TopicButtonProps> = ({
           height={68}
           className={cn(
             "absolute mt-[-20px] transform hover:scale-110 hover:cursor-pointer transition-transform duration-200",
-            active ? "" : "invisible"
+            active && !completed ? "" : "invisible"
           )}
         />
       </div>

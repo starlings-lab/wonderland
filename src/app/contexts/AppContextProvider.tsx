@@ -10,6 +10,8 @@ interface AppContext {
   setCurrentTopic: React.Dispatch<React.SetStateAction<Topic | undefined>>;
   currentProgress: number;
   setCurrentProgress: React.Dispatch<React.SetStateAction<number>>;
+  completedTopics: Topic[];
+  setCompletedTopics: React.Dispatch<React.SetStateAction<Topic[]>>;
 }
 
 // Create the context
@@ -24,6 +26,7 @@ export default function AppContextProvider({
   const [currentChapter, setCurrentChapter] = useState<Chapter>();
   const [currentProgress, setCurrentProgress] = useState<number>(0);
   const [currentTopic, setCurrentTopic] = useState<Topic>();
+  const [completedTopics, setCompletedTopics] = useState<Topic[]>([]);
 
   return (
     <AppContext.Provider
@@ -34,6 +37,8 @@ export default function AppContextProvider({
         setCurrentTopic,
         currentProgress,
         setCurrentProgress,
+        completedTopics,
+        setCompletedTopics,
       }}
     >
       {children}

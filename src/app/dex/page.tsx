@@ -22,11 +22,14 @@ export default function Dex() {
     setCurrentProgress,
     currentTopic,
     setCurrentTopic,
+    completedTopics,
   } = React.useContext(AppContext)!;
 
   // get chapter data from staticDataService
   const chapter = getChapter(ChapterIds.Dex);
   const topics = chapter!.topics;
+
+  console.log("Completed topics: ", completedTopics);
 
   React.useEffect(() => {
     setCurrentChapter(chapter);
@@ -81,7 +84,11 @@ export default function Dex() {
             height={44}
             className="ml-[5px]"
           />
-          <TopicList topics={topics} activeTopic={currentTopic!} />
+          <TopicList
+            topics={topics}
+            activeTopic={currentTopic!}
+            completedTopics={completedTopics}
+          />
         </CardContent>
       </Card>
     </div>
