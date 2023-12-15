@@ -15,6 +15,8 @@ export default function UniswapAddLiquidity() {
     register,
     handleSubmit,
     getValues,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<LiquidityInput>({
     defaultValues: { ethInput: "0", usdcInput: "0" },
@@ -24,7 +26,40 @@ export default function UniswapAddLiquidity() {
 
   const ethBalance = useEthBalance();
   const usdcBalance = useUsdcBalance();
-  const usdcOutput = useEthToUsdcPriceUniV1("1");
+  const ethUsdcPrice = useEthToUsdcPriceUniV1("1");
+
+  React.useEffect(() => {
+    let valueBeingSet: "ethInput" | "usdcInput" | undefined;
+    const subscription = watch((value, { name, type }) => {
+      // prevent infinite loop
+      if (
+        (valueBeingSet === "ethInput" && name === "usdcInput") ||
+        (valueBeingSet === "usdcInput" && name === "ethInput")
+      ) {
+        valueBeingSet = undefined;
+        return;
+      }
+
+      console.log(value, name, type);
+      valueBeingSet = name;
+
+      if (name === "ethInput") {
+        const usdcInput =
+          (value.ethInput ? parseFloat(value.ethInput) : 0) *
+          (ethUsdcPrice ? parseFloat(ethUsdcPrice) : 0);
+        console.log("setting usdcInput: ", usdcInput);
+        setValue("usdcInput", usdcInput.toString());
+      } else if (name === "usdcInput") {
+        const ethInput =
+          (value.usdcInput ? parseFloat(value.usdcInput) : 0) /
+          (ethUsdcPrice ? parseFloat(ethUsdcPrice) : 0);
+        console.log("setting ethInput: ", ethInput);
+        setValue("ethInput", ethInput.toString());
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, ethUsdcPrice]);
 
   const onSubmit = () => {
     setSupplying(true);
@@ -135,7 +170,7 @@ export default function UniswapAddLiquidity() {
             </div>
             <hr className="mt-4 mb-4" />
             <div className="flex items-center justify-between w-full">
-              <p>1 ETH = {usdcOutput} USDC</p>
+              <p>1 ETH = {ethUsdcPrice} USDC</p>
             </div>
           </div>
           {errors.ethInput && (
