@@ -54,7 +54,10 @@ export default function LiquidityProvision() {
         children: (
           <div className="flex mt-8 space-x-6">
             <div className="w-2/3">
-              <UniswapPoolBalanceChart data={data} title="Pool Balance" />
+              <UniswapPoolBalanceChart
+                data={data}
+                titleOptions={{ text: "Pool Balance" }}
+              />
             </div>
             <AddLiquidity />
           </div>

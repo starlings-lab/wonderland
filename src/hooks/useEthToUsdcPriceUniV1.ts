@@ -1,16 +1,11 @@
 import { useState, useEffect } from "react";
-import { Interface } from "@ethersproject/abi";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { parseEther, formatUnits } from "@ethersproject/units";
-import { USDC_NUM_OF_DECIMALS } from "../contracts/usdc";
+import { USDC_NUM_OF_DECIMALS } from "@/contracts/usdc";
 import {
   UNISWAP_V1_USDC_EXCHANGE_ADDRESS,
-  UNISWAP_V1_USDC_EXCHANGE_ABI
-} from "../contracts/uniswap-v1-usdc-exchange";
-
-const uniswapV1UsdcExchangeInterface = new Interface(
-  UNISWAP_V1_USDC_EXCHANGE_ABI
-);
+  UNISWAP_V1_USDC_EXCHANGE_INTERFACE,
+} from "@/contracts/uniswap-v1-usdc-exchange";
 
 export default function useEthToUsdcPriceUniV1(ethInput: string) {
   const [usdcOutput, setUsdcOutput] = useState<string>("");
@@ -22,12 +17,12 @@ export default function useEthToUsdcPriceUniV1(ethInput: string) {
       try {
         const result = await forkProvider.call({
           to: UNISWAP_V1_USDC_EXCHANGE_ADDRESS,
-          data: uniswapV1UsdcExchangeInterface.encodeFunctionData(
+          data: UNISWAP_V1_USDC_EXCHANGE_INTERFACE.encodeFunctionData(
             "getEthToTokenInputPrice",
             [parseEther(ethInput)]
-          )
+          ),
         });
-        const output = uniswapV1UsdcExchangeInterface.decodeFunctionResult(
+        const output = UNISWAP_V1_USDC_EXCHANGE_INTERFACE.decodeFunctionResult(
           "getEthToTokenInputPrice",
           result
         );
@@ -38,7 +33,7 @@ export default function useEthToUsdcPriceUniV1(ethInput: string) {
     }
 
     fetchUsdcOutput();
-  }, []);
+  });
 
   return usdcOutput;
 }
