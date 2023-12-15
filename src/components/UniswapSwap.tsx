@@ -14,9 +14,13 @@ export default function UniswapSwap() {
     formState: { errors }
   } = useForm<Input>({ defaultValues: { input: "0" } });
 
-  const ethBalance = useEthBalance();
-  const usdcBalance = useUsdcBalance();
   const usdcOutput = useEthToUsdcPriceUniV1("1");
+  const ethBalance = useEthBalance(
+    process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
+  );
+  const usdcBalance = useUsdcBalance(
+    process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
+  );
 
   const onSubmit = () => {}; // your form submit function which will invoke after successful validation
 
