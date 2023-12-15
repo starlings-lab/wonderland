@@ -21,7 +21,9 @@ const chaptersById = new Map<ChapterIds, Chapter>();
 const lpPlaygroundTopic = {
   title: "Liquidity Provision Playground",
   path: `${dexChapterPath}/lp-playground`,
+  isPlayground: true,
 };
+
 chaptersById.set(ChapterIds.Dex, {
   path: dexChapterPath,
   id: ChapterIds.Dex,
@@ -32,6 +34,7 @@ chaptersById.set(ChapterIds.Dex, {
     {
       title: "Buying Playground",
       path: `${dexChapterPath}/buying-playground`,
+      isPlayground: true,
     },
     lpTopic,
     lpPlaygroundTopic,

@@ -6,6 +6,7 @@ export const enum ChapterIds {
 export interface Topic {
   title: string;
   path: string;
+  isPlayground?: boolean;
 }
 
 export interface Chapter {

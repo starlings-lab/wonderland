@@ -8,7 +8,8 @@ import { AppContext } from "./contexts/AppContextProvider";
 import { X } from "lucide-react";
 
 export default function NavBar() {
-  const { currentProgress, currentChapter } = React.useContext(AppContext)!;
+  const { currentProgress, currentChapter, currentTopic } =
+    React.useContext(AppContext)!;
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white bg-opacity-100">
@@ -24,7 +25,7 @@ export default function NavBar() {
         )}
 
         <div className="flex flex-grow justify-center items-center">
-          {currentProgress > 0 && (
+          {!currentTopic?.isPlayground && currentProgress > 0 && (
             <Progress
               className="h-2 w-[540px] ml-5 mr-5"
               value={currentProgress}
