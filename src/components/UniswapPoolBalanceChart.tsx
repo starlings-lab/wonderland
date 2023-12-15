@@ -26,6 +26,20 @@ export const options = {
   maintainAspectRatio: true,
   responsive: true,
   aspectRatio: 1,
+  scales: {
+    y: [
+      {
+        id: "scale1",
+        position: "left",
+        max: 1000
+      },
+      {
+        id: "scale2",
+        position: "right",
+        max: 1000000
+      }
+    ]
+  },
   plugins: {
     legend: {
       position: "bottom" as const
@@ -74,12 +88,14 @@ export function UniswapPoolBalanceChart(props: UniswapPoolBalanceChartProps) {
       {
         label: "ETH",
         data: [ethBalance],
-        backgroundColor: "#FF4081"
+        backgroundColor: "#FF4081",
+        yAxisID: "scale1"
       },
       {
         label: "USDC",
         data: [usdcBalance],
-        backgroundColor: "#FFC107"
+        backgroundColor: "#FFC107",
+        yAxisID: "scale2"
       }
     ]
   };
