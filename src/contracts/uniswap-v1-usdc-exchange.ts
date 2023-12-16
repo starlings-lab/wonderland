@@ -543,7 +543,7 @@ export async function addLiquidity(
   return txReceipt;
 }
 
-export default async function ethToUsdcSwap(ethInput: string) {
+export async function ethToUsdcSwap(ethInput: string) {
   let usdcBought = "0";
   const ownerSigner = forkProvider.getSigner(
     process.env.NEXT_PUBLIC_OWNER_ADDRESS
@@ -569,4 +569,26 @@ export default async function ethToUsdcSwap(ethInput: string) {
     console.error(error);
   }
   return usdcBought;
+}
+
+export async function ethToUsdcPriceUniV1(ethInput: string) {
+  let usdcOutput;
+  try {
+    const result = await forkProvider.call({
+      to: UNISWAP_V1_USDC_EXCHANGE_ADDRESS,
+      data: UNISWAP_V1_USDC_EXCHANGE_INTERFACE.encodeFunctionData(
+        "getEthToTokenInputPrice",
+        [parseEther(ethInput)]
+      )
+    });
+    const output = UNISWAP_V1_USDC_EXCHANGE_INTERFACE.decodeFunctionResult(
+      "getEthToTokenInputPrice",
+      result
+    );
+    usdcOutput = formatUnits(output.toString(), USDC_NUM_OF_DECIMALS);
+  } catch (error) {
+    console.error(error);
+  }
+  console.log("usdcOutput inside ==>", usdcOutput);
+  return usdcOutput;
 }
