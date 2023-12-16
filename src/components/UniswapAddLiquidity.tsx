@@ -1,18 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
-import useEthToUsdcPriceUniV1 from "@/hooks/useEthToUsdcPriceUniV1";
+import { ethToUsdcPriceUniV1 } from "../contracts/uniswap-v1-usdc-exchange";
 import { LiquidityInput } from "../type/types";
 import { PlusSquare } from "lucide-react";
 import { addLiquidity } from "@/contracts/uniswap-v1-usdc-exchange";
 import type { Address } from "abitype";
 
 export default function UniswapAddLiquidity() {
+  const [ethUsdcPrice, setEthUsdcPrice] = useState("0");
   const {
     register,
     handleSubmit,
@@ -20,9 +21,9 @@ export default function UniswapAddLiquidity() {
     setValue,
     trigger,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm<LiquidityInput>({
-    defaultValues: { ethInput: "0", usdcInput: "0" },
+    defaultValues: { ethInput: "0", usdcInput: "0" }
   });
 
   const [supplying, setSupplying] = React.useState(false);
@@ -30,9 +31,12 @@ export default function UniswapAddLiquidity() {
   const owner = process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address;
   const ethBalance = useEthBalance(owner);
   const usdcBalance = useUsdcBalance(owner);
-  const ethUsdcPrice = useEthToUsdcPriceUniV1("1");
 
   React.useEffect(() => {
+    (async () => {
+      const usdcPrice = await ethToUsdcPriceUniV1("1");
+      setEthUsdcPrice(usdcPrice);
+    })();
     let valueBeingSet: "ethInput" | "usdcInput" | undefined;
     const subscription = watch((value, { name, type }) => {
       // prevent infinite loop
@@ -118,7 +122,7 @@ export default function UniswapAddLiquidity() {
                 {...register("ethInput", {
                   min: 1,
                   max: ethBalance,
-                  required: true,
+                  required: true
                 })}
                 onWheel={(e: any) => e.target.blur()}
               />
@@ -158,7 +162,7 @@ export default function UniswapAddLiquidity() {
                 {...register("usdcInput", {
                   min: 1,
                   max: usdcBalance,
-                  required: true,
+                  required: true
                 })}
                 onWheel={(e: any) => e.target.blur()}
               />
