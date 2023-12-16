@@ -1,32 +1,52 @@
 "use client";
 import type { Address } from "abitype";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
-import useEthToUsdcPriceUniV1 from "@/hooks/useEthToUsdcPriceUniV1";
-import useEthToUsdcSwapUniV1 from "@/hooks/useEthToUsdcSwapUniV1";
+import {
+  ethToUsdcPriceUniV1,
+  ethToUsdcSwap
+} from "../contracts/uniswap-v1-usdc-exchange";
 import { Input } from "../type/types";
 
 export default function UniswapSwap() {
+  const [buying, setBuying] = useState(false);
+  const [usdcPrice, setUsdcPrice] = useState("0");
+  const [usdcOutput, setUsdcOutput] = useState("0");
+
   const {
     register,
     handleSubmit,
     getValues,
+    watch,
     formState: { errors }
-  } = useForm<Input>({ defaultValues: { input: "1" } });
+  } = useForm<Input>({ defaultValues: { input: "0" } });
+  const ethInput = watch('input');
 
-  const usdcOutput = useEthToUsdcPriceUniV1("1");
   const ethBalance = useEthBalance(
     process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
   );
   const usdcBalance = useUsdcBalance(
     process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
   );
-  useEthToUsdcSwapUniV1(getValues("input"));
 
-  const onSubmit = () => {};
+  useEffect(() => {
+    (async () => {
+      const usdcPrice = await ethToUsdcPriceUniV1("1");
+      setUsdcPrice(usdcPrice);
+      const usdcOutput = await ethToUsdcPriceUniV1(ethInput);
+      setUsdcOutput(usdcOutput);
+    })();
+  }, [ethInput]);
+
+  const onSubmit = async () => {
+    setBuying(true);
+    await ethToUsdcSwap(getValues("input"));
+    setBuying(false);
+  };
 
   return (
     <div className="mt-8 py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid">
@@ -62,7 +82,7 @@ export default function UniswapSwap() {
                 type="number"
                 {...register("input", {
                   min: 1,
-                  max: 100,
+                  max: ethBalance,
                   required: true
                 })}
                 onWheel={(e: any) => e.target.blur()}
@@ -88,22 +108,27 @@ export default function UniswapSwap() {
               </label>
             </div>
             <div className="flex items-center justify-between w-full">
-              <p>10000000</p>
+              <p>{usdcOutput}</p>
               <div className="flex items-center">USDC</div>
             </div>
             <hr className="mt-4 mb-4" />
             <div className="flex items-center justify-between w-full">
-              <p>1 ETH = {usdcOutput} USDC</p>
+              <p>1 ETH = {usdcPrice} USDC</p>
             </div>
           </div>
           {errors.input && (
             <h5 className="block text-left text-customPink text-xs md:text-base leading-tight font-normal mb-4 mt-3">
-              the input amount must be in between 0 and your USDC balance
+              the input amount must be in between 0 and your ETH balance
             </h5>
           )}
         </div>
         <div className="w-full flex justify-center">
-          <Button className="bg-[#FF4081] w-full text-white">Buy</Button>
+          <Button
+            className="bg-[#FF4081] w-full text-white"
+            disabled={!!(errors.input || buying)}
+          >
+            {buying ? "Buying..." : "Buy"}
+          </Button>
         </div>
       </form>
     </div>
