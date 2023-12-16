@@ -572,7 +572,7 @@ export async function ethToUsdcSwap(ethInput: string) {
 }
 
 export async function ethToUsdcPriceUniV1(ethInput: string) {
-  let usdcOutput;
+  let usdcOutput = "0";
   try {
     const result = await forkProvider.call({
       to: UNISWAP_V1_USDC_EXCHANGE_ADDRESS,
@@ -589,6 +589,5 @@ export async function ethToUsdcPriceUniV1(ethInput: string) {
   } catch (error) {
     console.error(error);
   }
-  console.log("usdcOutput inside ==>", usdcOutput);
   return usdcOutput;
 }
