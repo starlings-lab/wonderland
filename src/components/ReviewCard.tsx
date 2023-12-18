@@ -17,7 +17,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
 }) => {
   const {
     currentChapter,
-    currentTopic,
     setCurrentTopic,
     completedTopics,
     setCompletedTopics,
@@ -25,19 +24,26 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   const router = useRouter();
 
   const topics = currentChapter!.topics;
+  const reviewTopic = topics[nextTopicIndex - 1];
+  const nextTopic = topics[nextTopicIndex];
 
   const finishLesson = () => {
     router.push(currentChapter!.path);
-    setCompletedTopics(completedTopics.concat(currentTopic!));
 
-    console.log("Setting current topic: ", topics[nextTopicIndex]);
-    setCurrentTopic(topics[nextTopicIndex]);
+    if (!completedTopics.includes(reviewTopic)) {
+      setCompletedTopics(completedTopics.concat(reviewTopic));
+    }
+
+    if (!completedTopics.includes(nextTopic)) {
+      console.log("Setting current topic: ", nextTopic);
+      setCurrentTopic(nextTopic);
+    }
   };
 
   return (
     <div className="flex flex-col items-center">
       <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
-        {!currentTopic?.isPlayground && (
+        {!reviewTopic?.isPlayground && (
           <CardHeader>
             <CardTitle>Review & Reflection</CardTitle>
           </CardHeader>

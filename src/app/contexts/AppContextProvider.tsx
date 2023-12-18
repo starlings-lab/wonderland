@@ -7,7 +7,7 @@ interface AppContext {
   currentChapter: Chapter | undefined;
   setCurrentChapter: React.Dispatch<React.SetStateAction<Chapter | undefined>>;
   currentTopic: Topic | undefined;
-  setCurrentTopic: React.Dispatch<React.SetStateAction<Topic | undefined>>;
+  setCurrentTopic: React.Dispatch<Topic>;
   currentProgress: number;
   setCurrentProgress: React.Dispatch<React.SetStateAction<number>>;
   completedTopics: Topic[];
@@ -28,13 +28,19 @@ export default function AppContextProvider({
   const [currentTopic, setCurrentTopic] = useState<Topic>();
   const [completedTopics, setCompletedTopics] = useState<Topic[]>([]);
 
+  const verifyAndSetCurrentTopic: React.Dispatch<Topic> = (topic) => {
+    if (topic && !completedTopics.includes(topic)) {
+      setCurrentTopic(topic);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
         currentChapter,
         setCurrentChapter,
         currentTopic,
-        setCurrentTopic,
+        setCurrentTopic: verifyAndSetCurrentTopic,
         currentProgress,
         setCurrentProgress,
         completedTopics,

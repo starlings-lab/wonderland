@@ -34,8 +34,9 @@ const MultipleChoiceQuiz: React.FC<MultipleChoiceQuizProps> = ({
   // track skipped state
   const [skipped, setSkipped] = React.useState(false);
 
+  const correctAnswerSelected = selectedAnswer === answers[correctAnswerIndex];
   const onSkipped = () => {
-    if (skipped) {
+    if (skipped || correctAnswerSelected) {
       return;
     }
     onSkip && onSkip();
@@ -46,7 +47,10 @@ const MultipleChoiceQuiz: React.FC<MultipleChoiceQuizProps> = ({
     <div className="flex flex-col items-center w-full">
       <div className={cn("p-6 rounded-lg bg-[#F5F5F5] w-full", className)}>
         <div className="text-base font-light mb-4">{question}</div>
-        <RadioGroup onValueChange={onAnswer}>
+        <RadioGroup
+          onValueChange={onAnswer}
+          disabled={correctAnswerSelected || skipped}
+        >
           {answers.map((answer, index) => (
             <div className="flex items-center space-x-2 p-1" key={index}>
               <RadioGroupItem value={answer} id={index.toString()} />
@@ -59,7 +63,7 @@ const MultipleChoiceQuiz: React.FC<MultipleChoiceQuizProps> = ({
             </div>
           ))}
         </RadioGroup>
-        {selectedAnswer === answers[correctAnswerIndex] ? (
+        {correctAnswerSelected ? (
           <div className="mt-5">
             <Label>🎉 Correct!</Label>
           </div>
