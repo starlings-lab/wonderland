@@ -6,11 +6,24 @@ import { getLPPlaygroundTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 import { UniswapPoolBalanceChart } from "@/components/UniswapPoolBalanceChart";
 import UniswapAddLiquidity from "@/components/UniswapAddLiquidity";
+import dynamic from "next/dynamic";
+
+const ReviewCard = dynamic(() => import("@/components/ReviewCard"), {
+  ssr: false,
+});
 
 export default function BuyingSelling() {
   const { setCurrentTopic } = React.useContext(AppContext)!;
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const [supplyAttempt, setSupplyAttempt] = React.useState(0);
+
   const lpPlaygroundTopic = getLPPlaygroundTopic();
   useEffect(() => {
+    if (currentQuestion > 1 && supplyAttempt > 0) {
+      return;
+    }
+
+    console.log("set current topic to lp playground");
     setCurrentTopic(lpPlaygroundTopic);
   });
 
@@ -21,8 +34,6 @@ export default function BuyingSelling() {
     ],
   };
 
-  const chartTitle =
-    "There are 10,000,000 ETH and 40,000,000 USDC in this Uniswap exchange.";
   const section2 = {
     contents: [
       `Add liquidity in the widget on the right.`,
@@ -33,13 +44,12 @@ export default function BuyingSelling() {
           <div className="mt-8">
             <UniswapPoolBalanceChart
               titleOptions={{
-                text: chartTitle,
-                font: {
-                  size: 12,
-                },
+                text: "Uniswap ETH-USDC Pool Balance",
               }}
             />
-            <UniswapAddLiquidity />
+            <UniswapAddLiquidity
+              onSupply={() => setSupplyAttempt(supplyAttempt + 1)}
+            />
           </div>
         ),
       },
@@ -47,11 +57,17 @@ export default function BuyingSelling() {
   };
 
   return (
-    <Topic
-      topic={lpPlaygroundTopic}
-      sections={[section1, section2]}
-      buttonLabel="Start Playing"
-      disableReview={true}
-    />
+    <>
+      <Topic
+        topic={lpPlaygroundTopic}
+        sections={[section1, section2]}
+        buttonLabel="Start Playing"
+        disableReview={true}
+        onNextQuestion={(nextQuestion) => setCurrentQuestion(nextQuestion)}
+      />
+      {currentQuestion > 1 && supplyAttempt > 0 && (
+        <ReviewCard nextTopicIndex={5}>{}</ReviewCard>
+      )}
+    </>
   );
 }

@@ -11,8 +11,17 @@ import { LiquidityInput } from "../type/types";
 import { PlusSquare } from "lucide-react";
 import { addLiquidity } from "@/contracts/uniswap-v1-usdc-exchange";
 import type { Address } from "abitype";
+import { on } from "events";
 
-export default function UniswapAddLiquidity() {
+export interface UniswapAddLiquidityProps {
+  className?: string;
+  onSupply?: () => void;
+}
+
+export default function UniswapAddLiquidity({
+  className,
+  onSupply,
+}: UniswapAddLiquidityProps) {
   const [ethUsdcPrice, setEthUsdcPrice] = useState("0");
   const {
     register,
@@ -21,9 +30,9 @@ export default function UniswapAddLiquidity() {
     setValue,
     trigger,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm<LiquidityInput>({
-    defaultValues: { ethInput: "0", usdcInput: "0" }
+    defaultValues: { ethInput: "0", usdcInput: "0" },
   });
 
   const [supplying, setSupplying] = React.useState(false);
@@ -81,12 +90,14 @@ export default function UniswapAddLiquidity() {
     addLiquidity(ethInput, usdcInput, maxUsdcInput)
       .then((txReceipt) => {
         console.log("Successfully supplied liquidity!");
-        setSupplying(false);
       })
       .catch((error) => {
         console.log("Failed to supply liquidity!");
         console.log(error);
+      })
+      .finally(() => {
         setSupplying(false);
+        onSupply?.();
       });
   }; // your form submit function which will invoke after successful validation
 
@@ -122,7 +133,7 @@ export default function UniswapAddLiquidity() {
                 {...register("ethInput", {
                   min: 1,
                   max: ethBalance,
-                  required: true
+                  required: true,
                 })}
                 onWheel={(e: any) => e.target.blur()}
               />
@@ -162,7 +173,7 @@ export default function UniswapAddLiquidity() {
                 {...register("usdcInput", {
                   min: 1,
                   max: usdcBalance,
-                  required: true
+                  required: true,
                 })}
                 onWheel={(e: any) => e.target.blur()}
               />
