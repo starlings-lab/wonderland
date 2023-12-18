@@ -11,7 +11,7 @@ import {
 
 export default function IndexPage() {
   return (
-    <Card className="max-w-2xl border-none shadow-none">
+    <Card className="ml-5 border-none shadow-none">
       <CardHeader>
         <CardTitle>
           <p className="scroll-m-20 text-3xl tracking-tight home">
