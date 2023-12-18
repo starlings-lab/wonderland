@@ -21,24 +21,6 @@ export default function BuyingSelling() {
     ],
   };
 
-  const data = {
-    labels: [""],
-    datasets: [
-      {
-        label: "ETH",
-        data: [10000000],
-        backgroundColor: "#FF4081",
-        barPercentage: 0.4,
-      },
-      {
-        label: "USDC",
-        data: [40000000],
-        backgroundColor: "#FFC107",
-        barPercentage: 0.4,
-      },
-    ],
-  };
-
   const chartTitle =
     "There are 10,000,000 ETH and 40,000,000 USDC in this Uniswap exchange.";
   const section2 = {
@@ -48,10 +30,8 @@ export default function BuyingSelling() {
       `There are 10,000,000 ETH and 40,000,000 USDC in this Uniswap exchange.`,
       {
         children: (
-          // <div className="flex mt-8 space-x-4">
           <div className="mt-8">
             <UniswapPoolBalanceChart
-              data={data}
               titleOptions={{
                 text: chartTitle,
                 font: {

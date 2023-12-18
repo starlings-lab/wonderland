@@ -38,6 +38,8 @@ export default function LiquidityProvision() {
           <div className="flex mt-8 space-x-6">
             <div className="w-2/3">
               <UniswapPoolBalanceChart
+                ethBalance={10000}
+                usdcBalance={40000}
                 titleOptions={{ text: "Pool Balance" }}
               />
             </div>
