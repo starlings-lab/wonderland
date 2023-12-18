@@ -76,14 +76,6 @@ export default function Dex() {
       </Card>
       <Card className="ml-20 mt-20 max-w-xl border-none shadow-none">
         <CardContent>
-          <Image
-            id="start"
-            src="/images/start.svg"
-            alt="Image"
-            width={70}
-            height={44}
-            className="ml-[5px]"
-          />
           <TopicList
             topics={topics}
             activeTopic={currentTopic!}

@@ -36,9 +36,22 @@ const TopicList: React.FC<TopicListProps> = ({
     return (
       <div key={topic.title}>
         {isActive || isCompleted ? (
-          <Link href={topic.path} passHref>
-            {topicButton}
-          </Link>
+          <div className="flex ">
+            {isActive && (
+              <Image
+                id="start"
+                src="/images/start.svg"
+                alt="Image"
+                width={65}
+                height={44}
+                className="ml-[-70px] mt-4"
+                style={{ transform: "rotate(270deg)" }}
+              />
+            )}
+            <Link href={topic.path} passHref>
+              {topicButton}
+            </Link>
+          </div>
         ) : (
           topicButton
         )}
