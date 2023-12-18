@@ -39,8 +39,8 @@ const Topic: React.FC<TopicProps> = ({
   const router = useRouter();
   const { setCurrentProgress } = React.useContext(AppContext)!;
 
-  // state to show/hide question content
-  const totalQuestions = sections.length;
+  // state to show/hide question content, review should be considered as last question
+  const totalQuestions = sections.length + (disableReview ? 0 : 1);
   const [currentQuestion, setCurrentQuestion] = React.useState(1);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Topic: React.FC<TopicProps> = ({
 
     // When review is no disabled,
     // route to review page when currentQuestion is the last question
-    if (!disableReview && nextQuestion > totalQuestions) {
+    if (!disableReview && nextQuestion >= totalQuestions) {
       const reviewPath = `${topic!.path}/review`;
       console.log("route to review: ", reviewPath);
       router.push(reviewPath);
@@ -86,10 +86,18 @@ const Topic: React.FC<TopicProps> = ({
     );
   });
 
+  // Question starts from 1 and there is additional question for review page for some topics,
+  // so currentSectionIndex should be at most sections.length - 1
+  const currentSectionIndex = Math.min(
+    currentQuestion - 1,
+    sections.length - 1
+  );
+  console.log("Current section index: ", currentSectionIndex);
+
   // Only display continue button when there is no quiz content in a section
   const continueButton =
     currentQuestion <= totalQuestions &&
-    sections[currentQuestion - 1].contents.every(
+    sections[currentSectionIndex].contents.every(
       (content) => !isQuizContent(content) && !isReactElementContent(content)
     );
 
