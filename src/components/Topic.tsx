@@ -25,6 +25,7 @@ type TopicProps = {
   buttonLabel?: string;
   // There is no review page for playground
   disableReview?: boolean;
+  onNextQuestion?: (nextQuestion: number) => void;
 };
 
 const Topic: React.FC<TopicProps> = ({
@@ -33,6 +34,7 @@ const Topic: React.FC<TopicProps> = ({
   topic,
   buttonLabel,
   disableReview,
+  onNextQuestion,
 }) => {
   const router = useRouter();
   const { setCurrentProgress } = React.useContext(AppContext)!;
@@ -58,6 +60,7 @@ const Topic: React.FC<TopicProps> = ({
       router.push(reviewPath);
     }
 
+    onNextQuestion?.(nextQuestion);
     // scroll to end of content
     setTimeout(() => {
       window.scrollTo({

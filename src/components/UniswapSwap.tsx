@@ -8,11 +8,16 @@ import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
 import {
   ethToUsdcPriceUniV1,
-  ethToUsdcSwap
+  ethToUsdcSwap,
 } from "../contracts/uniswap-v1-usdc-exchange";
 import { Input } from "../type/types";
 
-export default function UniswapSwap() {
+export interface UniswapSwapProps {
+  className?: string;
+  onBuy?: () => void;
+}
+
+export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
   const [buying, setBuying] = useState(false);
   const [usdcPrice, setUsdcPrice] = useState("0");
   const [usdcOutput, setUsdcOutput] = useState("0");
@@ -22,9 +27,9 @@ export default function UniswapSwap() {
     handleSubmit,
     getValues,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm<Input>({ defaultValues: { input: "0" } });
-  const ethInput = watch('input');
+  const ethInput = watch("input");
 
   const ethBalance = useEthBalance(
     process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
@@ -46,6 +51,7 @@ export default function UniswapSwap() {
     setBuying(true);
     await ethToUsdcSwap(getValues("input"));
     setBuying(false);
+    onBuy && onBuy();
   };
 
   return (
@@ -83,7 +89,7 @@ export default function UniswapSwap() {
                 {...register("input", {
                   min: 1,
                   max: ethBalance,
-                  required: true
+                  required: true,
                 })}
                 onWheel={(e: any) => e.target.blur()}
               />

@@ -6,8 +6,16 @@ import { AppContext } from "@/app/contexts/AppContextProvider";
 import { UniswapPoolBalanceChart } from "@/components/UniswapPoolBalanceChart";
 import UniswapSwap from "@/components/UniswapSwap";
 import Topic from "@/components/Topic";
+import dynamic from "next/dynamic";
+
+const ReviewCard = dynamic(() => import("@/components/ReviewCard"), {
+  ssr: false,
+});
 
 export default function BuyingPlayground() {
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const [buyAttempt, setBuyAttempt] = React.useState(0);
+
   const { setCurrentTopic } = React.useContext(AppContext)!;
   const buyingPlaygroundTopic = getBuyingPlaygroundTopic();
 
@@ -34,7 +42,7 @@ export default function BuyingPlayground() {
             <UniswapPoolBalanceChart
               titleOptions={{ text: "Uniswap ETH-USDC Pool Balance" }}
             />
-            <UniswapSwap />
+            <UniswapSwap onBuy={() => setBuyAttempt(buyAttempt + 1)} />
           </div>
         ),
       },
@@ -42,11 +50,17 @@ export default function BuyingPlayground() {
   };
 
   return (
-    <Topic
-      topic={buyingPlaygroundTopic}
-      sections={[section1, section2]}
-      buttonLabel="Start Playing"
-      disableReview={true}
-    />
+    <>
+      <Topic
+        topic={buyingPlaygroundTopic}
+        sections={[section1, section2]}
+        buttonLabel="Start Playing"
+        disableReview={true}
+        onNextQuestion={(nextQuestion) => setCurrentQuestion(nextQuestion)}
+      />
+      {currentQuestion > 1 && buyAttempt > 0 && (
+        <ReviewCard nextTopicIndex={3}>{}</ReviewCard>
+      )}
+    </>
   );
 }

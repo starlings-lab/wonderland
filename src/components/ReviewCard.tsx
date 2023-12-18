@@ -37,9 +37,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   return (
     <div className="flex flex-col items-center">
       <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
-        <CardHeader>
-          <CardTitle>Review & Reflection</CardTitle>
-        </CardHeader>
+        {!currentTopic?.isPlayground && (
+          <CardHeader>
+            <CardTitle>Review & Reflection</CardTitle>
+          </CardHeader>
+        )}
         <CardContent>
           {children}
           <div className="flex flex-row justify-center items-center mt-5">
