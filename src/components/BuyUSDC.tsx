@@ -40,7 +40,6 @@ const BuyUSDC: React.FC<BuyUSDCProps> = (props: BuyUSDCProps) => {
       <CardHeader className="p-3">
         <div className="flex flex-row w-full">
           <div className="w-2/3 font-semibold text-right">Buy USDC</div>
-          <X size={24} className="ml-auto" />
         </div>
       </CardHeader>
       <CardContent className="p-4">

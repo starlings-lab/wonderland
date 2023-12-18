@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
-import { X } from "lucide-react";
 import Image from "next/image";
 import TopicContext from "@/app/contexts/TopicContext";
 import { cn } from "@/lib/utils";
@@ -40,7 +39,6 @@ const AddLiquidity: React.FC<AddLiquidityProps> = (
       <CardHeader className="p-3">
         <div className="flex flex-row w-full">
           <div className="w-2/3 font-semibold text-right">Add Liquidity</div>
-          <X size={24} className="ml-auto" />
         </div>
       </CardHeader>
       <CardContent className="p-4">

@@ -17,32 +17,45 @@ const TopicList: React.FC<TopicListProps> = ({
   completedTopics,
 }) => {
   console.log("Active topic: ", activeTopic);
-  return topics.map((topic, index) => (
-    <div key={topic.title}>
-      <Link href={topic.path} passHref>
-        <TopicButton
-          active={activeTopic && topic.title === activeTopic.title}
-          description={topic.title}
-          completed={completedTopics.includes(topic)}
-          isPlayground={topic.isPlayground}
-          className={cn(
-            activeTopic && topic.title === activeTopic.title ? "mt-3" : "mt-1"
-          )}
-        />
-      </Link>
 
-      {index === topics.length - 1 ? null : (
-        <div className="flex justify-center w-[80px] p-1">
-          <Image
-            src="/images/vertical-line.svg"
-            alt="Image"
-            width={3}
-            height={21}
-          />
-        </div>
-      )}
-    </div>
-  ));
+  return topics.map((topic, index) => {
+    const isActive = activeTopic && topic.title === activeTopic.title;
+    const isCompleted = completedTopics.includes(topic);
+    const topicButton = (
+      <TopicButton
+        active={isActive}
+        description={topic.title}
+        completed={isCompleted}
+        isPlayground={topic.isPlayground}
+        className={cn(
+          activeTopic && topic.title === activeTopic.title ? "mt-3" : "mt-1"
+        )}
+      />
+    );
+
+    return (
+      <div key={topic.title}>
+        {isActive || isCompleted ? (
+          <Link href={topic.path} passHref>
+            {topicButton}
+          </Link>
+        ) : (
+          topicButton
+        )}
+
+        {index === topics.length - 1 ? null : (
+          <div className="flex justify-center w-[80px] p-1">
+            <Image
+              src="/images/vertical-line.svg"
+              alt="Image"
+              width={3}
+              height={21}
+            />
+          </div>
+        )}
+      </div>
+    );
+  });
 };
 
 export default TopicList;
