@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -76,7 +78,7 @@
 }
 
 .nav-home {
-  font-family: Darker Grotesque;
+  font-family: Boogaloo;
   font-size: 32px;
   font-weight: 500;
   line-height: 24px;
