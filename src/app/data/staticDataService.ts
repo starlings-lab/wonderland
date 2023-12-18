@@ -24,6 +24,12 @@ const lpPlaygroundTopic = {
   isPlayground: true,
 };
 
+const buyingPlaygroundTopic = {
+  title: "Buying Playground",
+  path: `${dexChapterPath}/buying-playground`,
+  isPlayground: true,
+};
+
 chaptersById.set(ChapterIds.Dex, {
   path: dexChapterPath,
   id: ChapterIds.Dex,
@@ -31,11 +37,7 @@ chaptersById.set(ChapterIds.Dex, {
   topics: [
     buyingSellingTopic,
     pricingTopic,
-    {
-      title: "Buying Playground",
-      path: `${dexChapterPath}/buying-playground`,
-      isPlayground: true,
-    },
+    buyingPlaygroundTopic,
     lpTopic,
     lpPlaygroundTopic,
     {
@@ -71,4 +73,8 @@ export const getPricingTopic = () => {
 
 export const getLPPlaygroundTopic = () => {
   return lpPlaygroundTopic;
+};
+
+export const getBuyingPlaygroundTopic = () => {
+  return buyingPlaygroundTopic;
 };
