@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import TopicContext from "@/app/contexts/TopicContext";
 import { cn } from "@/lib/utils";
+import { PlusSquare } from "lucide-react";
 
 export interface AddLiquidityProps {
   onSupply?: (ethAmt: number, usdcAmt: number) => void;
@@ -54,6 +55,9 @@ const AddLiquidity: React.FC<AddLiquidityProps> = (
               height={36}
             />
           </div>
+        </div>
+        <div className="flex justify-center mt-1 mb-1">
+          <PlusSquare size={24} color="gray" />
         </div>
         <div className="mb-4 mt-5">
           <div className="text-sm text-gray-500">Input</div>

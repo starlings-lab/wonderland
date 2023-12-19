@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 
 export type ReviewCardProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   nextTopicIndex: number;
 };
 
