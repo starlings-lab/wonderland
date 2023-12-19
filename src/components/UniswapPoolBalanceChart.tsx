@@ -79,8 +79,8 @@ export function UniswapPoolBalanceChart(props: UniswapPoolBalanceChartProps) {
     ...props.titleOptions,
   };
 
-  const ethBalance = useEthBalance(UNISWAP_V1_USDC_EXCHANGE_ADDRESS);
-  const usdcBalance = useUsdcBalance(UNISWAP_V1_USDC_EXCHANGE_ADDRESS);
+  const [ethBalance] = useEthBalance(UNISWAP_V1_USDC_EXCHANGE_ADDRESS);
+  const [usdcBalance] = useUsdcBalance(UNISWAP_V1_USDC_EXCHANGE_ADDRESS);
 
   const labels = [""];
   const data = {
