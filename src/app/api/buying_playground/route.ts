@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { parseUnits, parseEther } from "@ethersproject/units";
-import { hexZeroPad } from "@ethersproject/bytes";
+import { hexZeroPad, hexValue } from "@ethersproject/bytes";
 import { Interface } from "@ethersproject/abi";
 import {
   USDC_ABI,
@@ -36,11 +36,11 @@ export async function POST() {
       forkProvider.getSigner(CIRCLE_ACCOUNT_ADDRESS)
     ];
 
-    const ethTransferTx = await circleSigner.sendTransaction({
-      to: ownerAddress,
-      value: parseEther("1000")
-    });
-    console.log("ethTransferTx ==>", ethTransferTx);
+    const tenderlyEthTransfer = await forkProvider.send("tenderly_addBalance", [
+      [ownerAddress],
+      hexValue(parseEther("10000").toHexString())
+    ]);
+    console.log("tenderlyEthTransfer ==>", tenderlyEthTransfer);
 
     const usdcTransferTx = await circleSigner.sendTransaction({
       to: USDC_ADDRESS,
@@ -64,7 +64,7 @@ export async function POST() {
 
     console.log("Transactions sent successfully!");
     return NextResponse.json({
-      data: { ethTransferTx, usdcTransferTx, usdcApproveTx }
+      data: { tenderlyEthTransfer, usdcTransferTx, usdcApproveTx }
     });
   } catch (error) {
     console.error("An error occurred:", error);
