@@ -31,10 +31,10 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
   } = useForm<Input>({ defaultValues: { input: "0" } });
   const ethInput = watch("input");
 
-  const ethBalance = useEthBalance(
+  const [ethBalance, formattedEthBalance] = useEthBalance(
     process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
   );
-  const usdcBalance = useUsdcBalance(
+  const [usdcBalance, formattedUsdcBalance] = useUsdcBalance(
     process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address
   );
 
@@ -74,12 +74,11 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
               </label>
               <div className="flex items-center">
                 <p className="text-xs text-gray-500 mr-2">
-                  ETH Balance: {ethBalance}
+                  ETH Balance: {formattedEthBalance}
                 </p>
                 <p className="text-xs text-gray-500 mr-2">
-                  USDC Balance: {usdcBalance}
+                  USDC Balance: {formattedUsdcBalance}
                 </p>
-                <p className="text-sm text-customBlue">Max</p>
               </div>
             </div>
             <div className="flex items-center justify-between w-full">

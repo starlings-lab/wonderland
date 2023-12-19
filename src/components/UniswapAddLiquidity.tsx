@@ -38,8 +38,8 @@ export default function UniswapAddLiquidity({
   const [supplying, setSupplying] = React.useState(false);
 
   const owner = process.env.NEXT_PUBLIC_OWNER_ADDRESS as Address;
-  const ethBalance = useEthBalance(owner);
-  const usdcBalance = useUsdcBalance(owner);
+  const [ethBalance, formattedEthBalance] = useEthBalance(owner);
+  const [usdcBalance, formattedUsdcBalance] = useUsdcBalance(owner);
 
   React.useEffect(() => {
     (async () => {
@@ -121,9 +121,8 @@ export default function UniswapAddLiquidity({
               </label>
               <div className="flex items-center">
                 <p className="text-xs text-gray-500">
-                  ETH Balance: {ethBalance}
+                  ETH Balance: {formattedEthBalance}
                 </p>
-                {/* <p className="text-sm text-customBlue mr-2">Max</p> */}
               </div>
             </div>
             <div className="flex items-center justify-between w-full">
@@ -161,7 +160,7 @@ export default function UniswapAddLiquidity({
               </label>
               <div className="flex items-center">
                 <p className="text-xs text-gray-500">
-                  USDC Balance: {usdcBalance}
+                  USDC Balance: {formattedUsdcBalance}
                 </p>
                 {/* <p className="text-sm text-customBlue ml-2">Max</p> */}
               </div>
