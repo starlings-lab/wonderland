@@ -8,6 +8,7 @@ import {
   USDC_NUM_OF_DECIMALS,
   USDC_ADDRESS,
 } from "../contracts/usdc";
+import { parseAndFormatFloat } from "@/lib/utils";
 
 const usdcInterface = new Interface(USDC_ABI);
 
@@ -28,13 +29,7 @@ export default function useUsdcBalance(address: Address) {
         const newUsdcBalance = formatUnits(balance, USDC_NUM_OF_DECIMALS);
         setUsdcBalance(newUsdcBalance);
 
-        const formattedBalance = parseFloat(newUsdcBalance).toLocaleString(
-          "en-US",
-          {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }
-        );
+        const formattedBalance = parseAndFormatFloat(newUsdcBalance);
 
         setFormattedUsdcBalance(formattedBalance);
       } catch (error) {

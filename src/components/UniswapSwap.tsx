@@ -11,6 +11,7 @@ import {
   ethToUsdcSwap,
 } from "../contracts/uniswap-v1-usdc-exchange";
 import { Input } from "../type/types";
+import { parseAndFormatFloat } from "@/lib/utils";
 
 export interface UniswapSwapProps {
   className?: string;
@@ -41,9 +42,9 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
   useEffect(() => {
     (async () => {
       const usdcPrice = await ethToUsdcPriceUniV1("1");
-      setUsdcPrice(usdcPrice);
+      setUsdcPrice(parseAndFormatFloat(usdcPrice));
       const usdcOutput = await ethToUsdcPriceUniV1(ethInput);
-      setUsdcOutput(usdcOutput);
+      setUsdcOutput(parseAndFormatFloat(usdcOutput));
     })();
   }, [ethInput]);
 
@@ -85,6 +86,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
               <input
                 className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                 type="number"
+                step={0.01}
                 {...register("input", {
                   min: 1,
                   max: ethBalance,

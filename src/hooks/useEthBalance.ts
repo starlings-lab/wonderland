@@ -2,6 +2,7 @@ import type { Address } from "abitype";
 import { useState, useEffect } from "react";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { formatEther } from "@ethersproject/units";
+import { parseAndFormatFloat } from "@/lib/utils";
 
 export default function useEthBalance(address: Address) {
   const [ethBalance, setEthBalance] = useState<string>("");
@@ -16,13 +17,7 @@ export default function useEthBalance(address: Address) {
         const balance = await forkProvider.getBalance(address);
 
         const newEthBalance = formatEther(balance);
-        const formattedEthBalance = parseFloat(newEthBalance).toLocaleString(
-          "en-US",
-          {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }
-        );
+        const formattedEthBalance = parseAndFormatFloat(newEthBalance);
         setEthBalance(newEthBalance);
         setFormattedEthBalance(formattedEthBalance);
       } catch (error) {

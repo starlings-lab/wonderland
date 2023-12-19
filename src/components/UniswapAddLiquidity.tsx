@@ -62,16 +62,16 @@ export default function UniswapAddLiquidity({
 
       if (name === "ethInput") {
         const usdcInput =
-          (value.ethInput ? parseInt(value.ethInput) : 0) *
-          (ethUsdcPrice ? parseInt(ethUsdcPrice) : 0);
+          (value.ethInput ? parseFloat(value.ethInput) : 0) *
+          (ethUsdcPrice ? parseFloat(ethUsdcPrice) : 0);
         console.log("setting usdcInput: ", usdcInput);
-        setValue("usdcInput", usdcInput.toString());
+        setValue("usdcInput", usdcInput.toFixed(2).toString());
       } else if (name === "usdcInput") {
         const ethInput =
           (value.usdcInput ? parseInt(value.usdcInput) : 0) /
           (ethUsdcPrice ? parseInt(ethUsdcPrice) : 0);
         console.log("setting ethInput: ", ethInput);
-        setValue("ethInput", ethInput.toString());
+        setValue("ethInput", ethInput.toFixed(2).toString());
       }
       trigger();
     });
@@ -128,6 +128,7 @@ export default function UniswapAddLiquidity({
               <input
                 className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                 type="number"
+                step={0.01}
                 {...register("ethInput", {
                   min: 1,
                   max: ethBalance,
@@ -168,6 +169,7 @@ export default function UniswapAddLiquidity({
               <input
                 className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                 type="number"
+                step={0.01}
                 {...register("usdcInput", {
                   min: 1,
                   max: usdcBalance,
