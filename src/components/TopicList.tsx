@@ -45,7 +45,6 @@ const TopicList: React.FC<TopicListProps> = ({
                 width={65}
                 height={44}
                 className="ml-[-70px] mt-4"
-                style={{ transform: "rotate(270deg)" }}
               />
             )}
             <Link href={topic.path} passHref>
