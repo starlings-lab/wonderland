@@ -9,9 +9,8 @@ import { cn } from "@/lib/utils";
 import { PlusSquare } from "lucide-react";
 
 export interface AddLiquidityProps {
-  onSupply?: (ethAmt: number, usdcAmt: number) => void;
+  onLiquidityAdded?: (ethAmt: number, usdcAmt: number) => void;
   className?: string;
-  onContinue?: () => void;
 }
 
 const AddLiquidity: React.FC<AddLiquidityProps> = (
@@ -27,7 +26,8 @@ const AddLiquidity: React.FC<AddLiquidityProps> = (
   const onSupply = () => {
     setEthSupplyAmt(0);
     setButtonLabel("Success!");
-    props.onSupply && props.onSupply(ethSupplyAmt, usdcSupplyAmt);
+    props.onLiquidityAdded &&
+      props.onLiquidityAdded(ethSupplyAmt, usdcSupplyAmt);
     setUsdcSupplyAmt(0);
     setEthSupplyAmt(0);
     setIsButtonDisabled(true);

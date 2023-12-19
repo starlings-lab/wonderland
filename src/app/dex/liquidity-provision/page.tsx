@@ -8,11 +8,21 @@ import { getLPTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 
 export default function LiquidityProvision() {
-  const { setCurrentTopic, currentTopic } = React.useContext(AppContext)!;
+  const ethUSdcPrice = 500; // 1 ETH = 18 USDC
+  const [ethBalance, setEthBalance] = React.useState(1000);
+  const [usdcBalance, setUsdcBalance] = React.useState(10000 * ethUSdcPrice);
+
+  const { setCurrentTopic } = React.useContext(AppContext)!;
   const lpTopic = getLPTopic();
   useEffect(() => {
     setCurrentTopic(lpTopic);
   });
+
+  const onLiquidityAdded = (ethInput: number, usdcInput: number) => {
+    // Update the pool balance chart
+    setEthBalance(ethBalance + ethInput);
+    setUsdcBalance(usdcBalance + usdcInput);
+  };
 
   const section1 = {
     contents: [
@@ -38,12 +48,12 @@ export default function LiquidityProvision() {
           <div className="flex mt-8 space-x-6">
             <div className="w-2/3">
               <UniswapPoolBalanceChart
-                ethBalance={10000}
-                usdcBalance={40000}
+                ethBalance={ethBalance}
+                usdcBalance={usdcBalance}
                 titleOptions={{ text: "Pool Balance" }}
               />
             </div>
-            <AddLiquidity />
+            <AddLiquidity onLiquidityAdded={onLiquidityAdded} />
           </div>
         ),
       },
