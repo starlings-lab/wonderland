@@ -27,7 +27,8 @@ export default function NavBar() {
         <div className="flex flex-grow justify-center items-center">
           {!currentTopic?.isPlayground && currentProgress > 0 && (
             <Progress
-              className="h-2 w-[540px] ml-5 mr-5"
+              className="h-2 w-[540px] ml-5 mr-5 bg-[#E5E5E5]"
+              indicatorBackgroundColor="bg-[#00BCD4]"
               value={currentProgress}
             />
           )}
