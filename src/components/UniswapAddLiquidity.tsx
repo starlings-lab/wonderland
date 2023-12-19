@@ -87,13 +87,12 @@ export default function UniswapAddLiquidity({
     console.log(`Supplying liquidity: ${ethInput} ETH, ${usdcInput} USDC`);
 
     const maxUsdcInput = usdcBalance;
-    addLiquidity(ethInput, usdcInput, maxUsdcInput)
+    addLiquidity(ethInput, maxUsdcInput)
       .then((txReceipt) => {
         console.log("Successfully supplied liquidity!");
       })
       .catch((error) => {
-        console.log("Failed to supply liquidity!");
-        console.log(error);
+        // TODO: should we display an error to user?
       })
       .finally(() => {
         setSupplying(false);

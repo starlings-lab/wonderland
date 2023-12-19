@@ -95,7 +95,6 @@ const Topic: React.FC<TopicProps> = ({
     currentQuestion - 1,
     sections.length - 1
   );
-  console.log("Current section index: ", currentSectionIndex);
 
   // Only display continue button when there is no quiz content in a section
   const continueButton =
