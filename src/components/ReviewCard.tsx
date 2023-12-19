@@ -30,13 +30,16 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   const finishLesson = () => {
     router.push(currentChapter!.path);
 
+    // only add review topic to completed topics if it's not already completed
+    // and set current topic to next topic
     if (!completedTopics.includes(reviewTopic)) {
       setCompletedTopics(completedTopics.concat(reviewTopic));
-    }
 
-    if (!completedTopics.includes(nextTopic)) {
-      console.log("Setting current topic: ", nextTopic);
-      setCurrentTopic(nextTopic);
+      // don't reset current topic if it's already completed
+      if (!completedTopics.includes(nextTopic)) {
+        console.log("Setting current topic: ", nextTopic);
+        setCurrentTopic(nextTopic);
+      }
     }
   };
 
