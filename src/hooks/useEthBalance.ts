@@ -17,7 +17,7 @@ export default function useEthBalance(address: Address) {
         const balance = await forkProvider.getBalance(address);
 
         const newEthBalance = formatEther(balance);
-        const formattedEthBalance = parseAndFormatFloat(newEthBalance);
+        const formattedEthBalance = parseAndFormatFloat(true, newEthBalance);
         setEthBalance(newEthBalance);
         setFormattedEthBalance(formattedEthBalance);
       } catch (error) {

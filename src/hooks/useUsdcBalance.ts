@@ -29,7 +29,7 @@ export default function useUsdcBalance(address: Address) {
         const newUsdcBalance = formatUnits(balance, USDC_NUM_OF_DECIMALS);
         setUsdcBalance(newUsdcBalance);
 
-        const formattedBalance = parseAndFormatFloat(newUsdcBalance);
+        const formattedBalance = parseAndFormatFloat(false, newUsdcBalance);
 
         setFormattedUsdcBalance(formattedBalance);
       } catch (error) {

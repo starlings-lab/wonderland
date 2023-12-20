@@ -5,9 +5,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function parseAndFormatFloat(number: string) {
+export function parseAndFormatFloat(isEth: boolean, number: string) {
+  if (isEth) {
+    return parseFloat(number).toLocaleString("en-US", {
+      minimumFractionDigits: 4,
+      maximumFractionDigits: 4
+    });
+  }
   return parseFloat(number).toLocaleString("en-US", {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
 }
