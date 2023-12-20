@@ -8,9 +8,8 @@ import { getLPTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 
 export default function LiquidityProvision() {
-  const ethUSdcPrice = 500; // 1 ETH = 18 USDC
-  const [ethBalance, setEthBalance] = React.useState(1000);
-  const [usdcBalance, setUsdcBalance] = React.useState(10000 * ethUSdcPrice);
+  const [ethBalance, setEthBalance] = React.useState(10000);
+  const [usdcBalance, setUsdcBalance] = React.useState(40000);
 
   const { setCurrentTopic } = React.useContext(AppContext)!;
   const lpTopic = getLPTopic();
@@ -46,7 +45,7 @@ export default function LiquidityProvision() {
       {
         children: (
           <div className="flex mt-8 space-x-6">
-            <div className="w-2/3">
+            <div className="">
               <UniswapPoolBalanceChart
                 ethBalance={ethBalance}
                 usdcBalance={usdcBalance}

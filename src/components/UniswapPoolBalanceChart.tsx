@@ -26,20 +26,21 @@ export const options = {
   maintainAspectRatio: true,
   responsive: true,
   aspectRatio: 1,
-  // scales: {
-  //   y: [
-  //     {
-  //       id: "scale1",
-  //       type: "linear",
-  //       position: "left",
-  //     },
-  //     {
-  //       id: "scale2",
-  //       type: "linear",
-  //       position: "right",
-  //     },
-  //   ],
-  // },
+  scales: {
+    y: {
+      type: "linear" as const,
+      display: true,
+      position: "left" as const,
+    },
+    y1: {
+      type: "linear" as const,
+      display: true,
+      position: "right" as const,
+      grid: {
+        drawOnChartArea: false,
+      },
+    },
+  },
   plugins: {
     legend: {
       position: "bottom" as const,
@@ -90,13 +91,13 @@ export function UniswapPoolBalanceChart(props: UniswapPoolBalanceChartProps) {
         label: "ETH",
         data: [props.ethBalance ? props.ethBalance : ethBalance],
         backgroundColor: "#FF4081",
-        yAxisID: "scale1",
+        yAxisID: "y",
       },
       {
         label: "USDC",
         data: [props.usdcBalance ?? usdcBalance],
         backgroundColor: "#FFC107",
-        yAxisID: "scale2",
+        yAxisID: "y1",
       },
     ],
   };
