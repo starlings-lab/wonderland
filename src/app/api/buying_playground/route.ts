@@ -62,6 +62,25 @@ export async function POST() {
     });
     console.log("usdcApproveTx ==>", usdcApproveTx);
 
+    const setUniV1EthBalance = await forkProvider.send("tenderly_setBalance", [
+      UNISWAP_V1_USDC_EXCHANGE_ADDRESS,
+      hexValue(parseEther("100").toHexString())
+    ]);
+    console.log("setUniV1EthBalance ==>", setUniV1EthBalance);
+
+    const setUniV1USDCBalance = await forkProvider.send(
+      "tenderly_setErc20Balance",
+      [
+        USDC_ADDRESS,
+        UNISWAP_V1_USDC_EXCHANGE_ADDRESS,
+        hexValue(parseEther("0.000001").toHexString()) 
+        // The amount will be converted with 18 decimal points of ETH - 6 decimal points of USDC(e.g. 12 decimal points) 
+        // Thus, USDC balance above will be 0.000001 * (10 ** (18 - 6)) = 1000000
+        // https://docs.tenderly.co/devnets/advanced/custom-rpc-methods#tenderly_seterc20balance
+      ]
+    );
+    console.log("setUniV1USDCBalance ==>", setUniV1USDCBalance);
+
     console.log("Transactions sent successfully!");
     return NextResponse.json({
       data: { tenderlyEthTransfer, usdcTransferTx, usdcApproveTx }
