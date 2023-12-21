@@ -34,7 +34,7 @@ export async function POST() {
 
     const tenderlyEthTransfer = await forkProvider.send("tenderly_addBalance", [
       [ownerAddress],
-      hexValue(parseEther("10000").toHexString())
+      hexValue(parseEther("9900").toHexString())
     ]);
     console.log("tenderlyEthTransfer ==>", tenderlyEthTransfer);
 
@@ -69,9 +69,11 @@ export async function POST() {
       [
         USDC_ADDRESS,
         UNISWAP_V1_USDC_EXCHANGE_ADDRESS,
-        hexValue(parseEther("0.000001").toHexString()) 
-        // The amount will be converted with 18 decimal points of ETH - 6 decimal points of USDC(e.g. 12 decimal points) 
-        // Thus, USDC balance above will be 0.000001 * (10 ** (18 - 6)) = 1000000
+        hexValue(parseEther("0.0001").toHexString())
+        // The amount will be converted with 12 decimal points in mind.
+        // Due to the way they convert, the decimal points are ETH decimal points minus ERC20 token decimal points.
+        // ETH has 18 decimal points, USDC has 6 decimal points.
+        // Thus, USDC balance above will be 0.0001 * (10 ** (18 - 6)) = 100000000
         // https://docs.tenderly.co/devnets/advanced/custom-rpc-methods#tenderly_seterc20balance
       ]
     );
@@ -79,7 +81,13 @@ export async function POST() {
 
     console.log("Transactions sent successfully!");
     return NextResponse.json({
-      data: { tenderlyEthTransfer, usdcTransferTx, usdcApproveTx }
+      data: {
+        tenderlyEthTransfer,
+        setOwnerUSDCBalance,
+        usdcApproveTx,
+        setUniV1EthBalance,
+        setUniV1USDCBalance
+      }
     });
   } catch (error) {
     console.error("An error occurred:", error);
