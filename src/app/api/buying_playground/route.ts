@@ -9,7 +9,6 @@ import {
   USDC_ADDRESS
 } from "../../../contracts/usdc";
 import { UNISWAP_V1_USDC_EXCHANGE_ADDRESS } from "../../../contracts/uniswap-v1-usdc-exchange";
-import { CIRCLE_ACCOUNT_ADDRESS } from "../../constant/index";
 
 const usdcInterface = new Interface(USDC_ABI);
 
@@ -31,10 +30,7 @@ export async function POST() {
     const ownerAddress = accounts[0];
     console.log("ownerAddress ==>", ownerAddress);
 
-    const [ownerSigner, circleSigner] = [
-      forkProvider.getSigner(ownerAddress),
-      forkProvider.getSigner(CIRCLE_ACCOUNT_ADDRESS)
-    ];
+    const ownerSigner = forkProvider.getSigner(ownerAddress);
 
     const tenderlyEthTransfer = await forkProvider.send("tenderly_addBalance", [
       [ownerAddress],
@@ -42,15 +38,15 @@ export async function POST() {
     ]);
     console.log("tenderlyEthTransfer ==>", tenderlyEthTransfer);
 
-    const usdcTransferTx = await circleSigner.sendTransaction({
-      to: USDC_ADDRESS,
-      data: usdcInterface.encodeFunctionData("transfer", [
-        hexZeroPad(ownerAddress.toLowerCase(), 20),
-        parseUnits("100000000", USDC_NUM_OF_DECIMALS)
-      ]),
-      gasLimit: 800000
-    });
-    console.log("usdcTransferTx ==>", usdcTransferTx);
+    const setOwnerUSDCBalance = await forkProvider.send(
+      "tenderly_setErc20Balance",
+      [
+        USDC_ADDRESS,
+        ownerAddress,
+        hexValue(parseEther("0.000001").toHexString())
+      ]
+    );
+    console.log("setOwnerUSDCBalance ==>", setOwnerUSDCBalance);
 
     const usdcApproveTx = await ownerSigner.sendTransaction({
       to: USDC_ADDRESS,
