@@ -31,11 +31,13 @@ export const options = {
       type: "linear" as const,
       display: true,
       position: "left" as const,
+      max: 150,
     },
     y1: {
       type: "linear" as const,
       display: true,
       position: "right" as const,
+      max: 150000000,
       grid: {
         drawOnChartArea: false,
       },
