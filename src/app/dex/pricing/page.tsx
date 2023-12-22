@@ -33,9 +33,9 @@ const Pricing: React.FC = () => {
       exchange(in the next chapter, we&apos;ll discuss where this pool
       of capital comes from.)`,
       {
-        src: "/images/pricing-eth-dai.png",
-        width: 286,
-        height: 178,
+        src: "/images/pricing-1.png",
+        width: 400,
+        height: 156,
       },
       `In the example above, there are 10 ETH and 2000 USDC that can be
       used for exchange in Uniswap.`,
@@ -49,9 +49,9 @@ const Pricing: React.FC = () => {
     contents: [
       `Let's imagine the case where Alice wants to buy USDC for 1 ETH.`,
       {
-        src: "/images/pricing-uniswap.png",
-        width: 286,
-        height: 178,
+        src: "/images/pricing-2.png",
+        width: 525,
+        height: 156
       },
       `She sells 1 ETH to the exchange. Then the exchange has 11 ETH and
       2000 USDC.`,
@@ -88,9 +88,9 @@ const Pricing: React.FC = () => {
       `Since the exchange needs to have only 1818, you can say that
       2000 - 1818 = 182 can be sent back to Alice.`,
       {
-        src: "/images/pricing-uniswap-2.png",
-        width: 460,
-        height: 178,
+        src: "/images/pricing-3.png",
+        width: 525,
+        height: 156
       },
       `In this way, the exchange can keep the original value of 20000
       constant when they multiply the quantity of ETH and USDC.`,
