@@ -84,7 +84,7 @@ const Topic: React.FC<TopicProps> = ({
 
     return (
       currentQuestion >= index + 1 && (
-        <TopicSection key={index} contents={section.contents} />
+        <TopicSection className="animate-fade" key={index} contents={section.contents} />
       )
     );
   });
@@ -105,7 +105,7 @@ const Topic: React.FC<TopicProps> = ({
 
   return (
     <TopicContext.Provider value={{ onContinue }}>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center animate-fade">
         <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
           <CardHeader>
             <CardTitle>{topic.title}</CardTitle>
@@ -114,7 +114,7 @@ const Topic: React.FC<TopicProps> = ({
             {sectionList}
             {continueButton && (
               <div className="flex flex-row justify-center items-center">
-                <Button className="mt-5" onClick={onContinue}>
+                <Button className="mt-5 animate-fade" onClick={onContinue}>
                   {buttonLabel ?? "Continue"}
                 </Button>
               </div>

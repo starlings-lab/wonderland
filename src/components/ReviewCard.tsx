@@ -44,7 +44,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center animate-fade">
       <Card className="max-w-xl h-fit mt-5 border-none shadow-none">
         {!reviewTopic?.isPlayground && (
           <CardHeader>
