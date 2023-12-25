@@ -40,18 +40,6 @@ chaptersById.set(ChapterIds.Dex, {
     buyingPlaygroundTopic,
     lpTopic,
     lpPlaygroundTopic,
-    {
-      title: "Slippage",
-      path: `${dexChapterPath}/slippage`,
-    },
-    {
-      title: "Impermanent Loss",
-      path: `${dexChapterPath}/impermanent-loss`,
-    },
-    {
-      title: "Impermanent Loss Playground",
-      path: `${dexChapterPath}/impermanent-loss-playground`,
-    },
   ],
 });
 

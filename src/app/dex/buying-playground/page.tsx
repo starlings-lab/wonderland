@@ -33,7 +33,7 @@ export default function BuyingPlayground() {
 
   const section2 = {
     contents: [
-      `Buy ETH or USDC in the widget on the right.`,
+      `Buy ETH or USDC in the widget.`,
       `You can see how pool balance, your ETH and USDC balance, and the
       price changes as you buy.`,
       {

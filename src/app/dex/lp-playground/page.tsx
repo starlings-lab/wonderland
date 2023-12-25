@@ -36,7 +36,7 @@ export default function BuyingSelling() {
 
   const section2 = {
     contents: [
-      `Add liquidity in the widget on the right.`,
+      `Add liquidity in the widget.`,
       `You can see how your balance and pool balance change.`,
       `There are 10,000,000 ETH and 40,000,000 USDC in this Uniswap exchange.`,
       {

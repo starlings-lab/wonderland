@@ -71,7 +71,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
         setEthOutput(parseAndFormatFloat(true, ethOutput));
       }
     })();
-  }, [input]);
+  }, [input, inputCurrency, ethOutput, usdcOutput]);
 
   const onSubmit = async () => {
     setBuying(true);
