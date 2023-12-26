@@ -60,18 +60,18 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
   useEffect(() => {
     (async () => {
       if (inputCurrency === "ETH") {
-        const usdcPrice = await ethToUsdcPriceUniV1("1");
-        setUsdcPrice(parseAndFormatFloat(false, usdcPrice));
         const usdcOutput = await ethToUsdcPriceUniV1(input);
         setUsdcOutput(parseAndFormatFloat(false, usdcOutput));
+        const usdcPrice = await ethToUsdcPriceUniV1("1");
+        setUsdcPrice(parseAndFormatFloat(false, usdcPrice));
       } else if (inputCurrency === "USDC") {
-        const ethPrice = await usdcToEthPriceUniV1("1");
-        setEthPrice(parseAndFormatFloat(true, ethPrice));
         const ethOutput = await usdcToEthPriceUniV1(input);
         setEthOutput(parseAndFormatFloat(true, ethOutput));
+        const ethPrice = await usdcToEthPriceUniV1("1");
+        setEthPrice(parseAndFormatFloat(true, ethPrice));
       }
     })();
-  }, [input, inputCurrency, ethOutput, usdcOutput]);
+  }, [input, inputCurrency]);
 
   const onSubmit = async () => {
     setBuying(true);
