@@ -15,34 +15,26 @@ const Pricing: React.FC = () => {
 
   const section1 = {
     contents: [
-      `In the previous chapter, we learned that a decentralized exchange
-    is a place where you can buy and sell cryptocurrencies with no one
-    in the middle.`,
-      `But how do they determine how much you can get when
-    you buy or sell?They achieve this automatically by looking at some
-    values in the exchange.`,
-      `Each decentralized exchange has a
-    different system for this, and we will take an example of Uniswap,
-    which is the biggest decentralized exchange.`,
-    ],
+      `In the previous chapter, we learned about decentralized exchanges, which allow you to trade cryptocurrencies without intermediaries.`,
+      `Now, let's explore how these exchanges determine the amount you receive when buying or selling. This process is automated and relies on certain values within the exchange.`,
+      `Different decentralized exchanges have unique systems for determining these amounts. To illustrate, let's consider Uniswap, the largest decentralized exchange.`
+    ]
   };
 
   const section2 = {
     contents: [
-      `Decentralized exchange pool cryptocurrencies that people can
-      exchange(in the next chapter, we&apos;ll discuss where this pool
-      of capital comes from.)`,
+      `A decentralized exchange pools cryptocurrencies that people can exchange(in the next chapter, we'll discuss where this pool of capital comes from.) `,
       {
         src: "/images/pricing-1.png",
         width: 400,
-        height: 156,
+        height: 156
       },
       `In the example above, there are 10 ETH and 2000 USDC that can be
       used for exchange in Uniswap.`,
       `Uniswap makes sure that they always get the constant value when
       they multiply the quantity of ETH and USDC.`,
-      `In this case, they make sure that it is always 20,000.`,
-    ],
+      `In this case, they make sure that it is always 20,000(10 * 2000).`
+    ]
   };
 
   const section = {
@@ -63,9 +55,9 @@ const Pricing: React.FC = () => {
         className: "mt-5",
         question: "This means:",
         answers: ["x = 1818", "x = 2000", "x = 20000", "x = 182"],
-        correctAnswerIndex: 0,
-      },
-    ],
+        correctAnswerIndex: 0
+      }
+    ]
   };
 
   const section4 = {
@@ -78,9 +70,9 @@ const Pricing: React.FC = () => {
         className: "mt-5",
         question: "Alice will get:",
         answers: ["1818 USDC", "182 USDC", "100 USDC", "11 USDC"],
-        correctAnswerIndex: 1,
-      },
-    ],
+        correctAnswerIndex: 1
+      }
+    ]
   };
 
   const section5 = {
@@ -96,8 +88,8 @@ const Pricing: React.FC = () => {
       constant when they multiply the quantity of ETH and USDC.`,
       `11 * 1818 = 20000`,
       `Sure, 11 * 1818 is not exactly 20000, and financial math can not
-      be approximated in practice. But you get the basic idea. 🙂`,
-    ],
+      be approximated in practice. But you get the basic idea. 🙂`
+    ]
   };
 
   return (

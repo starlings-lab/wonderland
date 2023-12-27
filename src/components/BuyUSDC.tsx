@@ -36,10 +36,10 @@ const BuyUSDC: React.FC<BuyUSDCProps> = (props: BuyUSDCProps) => {
   };
 
   return (
-    <Card className="w-[80%]">
+    <Card className="w-[100%]">
       <CardHeader className="p-3">
-        <div className="flex flex-row w-full">
-          <div className="w-2/3 font-semibold text-right">Buy USDC</div>
+        <div className="flex justify-center items-center w-full">
+          <div className="font-semibold text-right">Buy USDC</div>
         </div>
       </CardHeader>
       <CardContent className="p-4">

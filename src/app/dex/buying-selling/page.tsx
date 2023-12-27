@@ -37,11 +37,8 @@ export default function BuyingSelling() {
 
   const section2 = {
     contents: [
-      `Decentralized exchanges allow you to buy or sell
-      cryptocurrencies with no one in the middle. If you want to buy
-      cryptocurrency A for cryptocurrency B, you send cryptocurrency B
-      and get cryptocurrency A back. There is no company in the
-      middle.`,
+      `Decentralized exchanges allow you to buy or sell cryptocurrencies with no one in the middle. If you want to buy cryptocurrency A for cryptocurrency B, you just send cryptocurrency B to the blockchain and get cryptocurrency A back. 
+      `,
       {
         src: "/images/buying-selling.png",
         width: 260,
@@ -55,10 +52,10 @@ export default function BuyingSelling() {
       `Let's try to buy one cryptocurrency with another.
       You have 1 ETH which is one of the biggest cryptocurrencies. And you want to buy USDC
       which is a cryptocurrency that has the same value with USD.`,
-      `Click on the buy button below`,
+      `Click on the buy button below.`,
       {
         children: (
-          <div className="flex justify-center pl-20 pr-20 w-full mt-8">
+          <div className="flex justify-center pl-24 pr-24 w-full mt-8">
             <BuyUSDC onBuy={onBuyUsdc} />
           </div>
         ),
