@@ -40,7 +40,7 @@ export default function BuyingSelling() {
       `Decentralized exchanges allow you to buy or sell cryptocurrencies with no one in the middle. If you want to buy cryptocurrency A for cryptocurrency B, you just send cryptocurrency B to the blockchain and get cryptocurrency A back. 
       `,
       {
-        src: "/images/exchange.png",
+        src: "/images/dex.png",
         width: 260,
         height: 194,
       },
