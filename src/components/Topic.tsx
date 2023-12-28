@@ -111,7 +111,7 @@ const Topic: React.FC<TopicProps> = ({
           <CardHeader>
             <CardTitle>{topic.title}</CardTitle>
           </CardHeader>
-          <CardContent>
+          <div className="min-h-screen">
             {sectionList}
             {continueButton && (
               <div className="flex flex-row justify-center items-center">
@@ -120,7 +120,7 @@ const Topic: React.FC<TopicProps> = ({
                 </Button>
               </div>
             )}
-          </CardContent>
+          </div>
         </Card>
       </div>
     </TopicContext.Provider>
