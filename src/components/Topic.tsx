@@ -62,11 +62,12 @@ const Topic: React.FC<TopicProps> = ({
 
     onNextQuestion?.(nextQuestion);
 
-    // Only scroll to end of content for non-playground topics
+    if (!(currentQuestion === 3 && topic.title == "Buying & Selling") && !(currentQuestion === 3 && topic.title == "Liquidity Provision")) {
       setTimeout(() => {
         const nextSection = document.querySelector(`.section-${nextQuestion}`);
         nextSection?.scrollIntoView({ behavior: "smooth" });
       });
+    }
   };
 
   // add onContinue & onSkip callbacks to quiz questions and supporting content
