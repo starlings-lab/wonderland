@@ -63,14 +63,12 @@ const Topic: React.FC<TopicProps> = ({
     onNextQuestion?.(nextQuestion);
 
     // Only scroll to end of content for non-playground topics
-    if (!topic.isPlayground) {
       setTimeout(() => {
         window.scrollTo({
           top: document.body.scrollHeight,
           behavior: "smooth",
         });
       });
-    }
   };
 
   // add onContinue & onSkip callbacks to quiz questions and supporting content
