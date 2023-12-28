@@ -43,7 +43,7 @@ export async function POST() {
       [
         USDC_ADDRESS,
         ownerAddress,
-        hexValue(parseEther("0.000001").toHexString())
+        hexValue(parseEther("0.00001").toHexString())
       ]
     );
     console.log("setOwnerUSDCBalance ==>", setOwnerUSDCBalance);
