@@ -9,7 +9,7 @@ export function parseAndFormatFloat(isEth: boolean, number: string) {
   if (isEth) {
     return parseFloat(number).toLocaleString("en-US", {
       minimumFractionDigits: 4,
-      maximumFractionDigits: 4
+      maximumFractionDigits: 6
     });
   }
   return parseFloat(number).toLocaleString("en-US", {
