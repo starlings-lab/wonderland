@@ -19,7 +19,7 @@ const AddLiquidity: React.FC<AddLiquidityProps> = (
   const topicContext = React.useContext(TopicContext);
 
   const [ethSupplyAmt, setEthSupplyAmt] = useState(10);
-  const [usdcSupplyAmt, setUsdcSupplyAmt] = useState(182);
+  const [usdcSupplyAmt, setUsdcSupplyAmt] = useState(1820);
   const [buttonLabel, setButtonLabel] = useState("Supply");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
