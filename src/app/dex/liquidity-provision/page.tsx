@@ -8,8 +8,8 @@ import { getLPTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 
 export default function LiquidityProvision() {
-  const [ethBalance, setEthBalance] = React.useState(10000);
-  const [usdcBalance, setUsdcBalance] = React.useState(40000);
+  const [ethBalance, setEthBalance] = React.useState(100);
+  const [usdcBalance, setUsdcBalance] = React.useState(100000000);
 
   const { setCurrentTopic } = React.useContext(AppContext)!;
   const lpTopic = getLPTopic();
