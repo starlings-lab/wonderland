@@ -38,7 +38,6 @@ export default function BuyingSelling() {
     contents: [
       `Add liquidity in the widget.`,
       `You can see how your balance and pool balance change.`,
-      `There are 10,000,000 ETH and 40,000,000 USDC in this Uniswap exchange.`,
       {
         children: (
           <div className="mt-8">
