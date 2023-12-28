@@ -64,10 +64,8 @@ const Topic: React.FC<TopicProps> = ({
 
     // Only scroll to end of content for non-playground topics
       setTimeout(() => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: "smooth",
-        });
+        const nextSection = document.querySelector(`.section-${nextQuestion}`);
+        nextSection?.scrollIntoView({ behavior: "smooth" });
       });
   };
 
@@ -82,7 +80,11 @@ const Topic: React.FC<TopicProps> = ({
 
     return (
       currentQuestion >= index + 1 && (
-        <TopicSection className="animate-fade" key={index} contents={section.contents} />
+        <TopicSection
+          className={`animate-fade section-${index + 1}`}
+          key={index}
+          contents={section.contents}
+        />
       )
     );
   });

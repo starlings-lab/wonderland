@@ -57,7 +57,7 @@ export default function Dex() {
             Decentralized Exchange
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <div className="p-8">
           <CardDescription className="home-desc mb-5">
             Learn about the most fundamental financial primitive in DeFi.
           </CardDescription>
@@ -72,7 +72,7 @@ export default function Dex() {
             />
             <Label htmlFor="chapter">{topics.length} Chapters</Label>
           </div>
-        </CardContent>
+        </div>
       </Card>
       <Card className="ml-20 mt-20 max-w-xl border-none shadow-none">
         <CardContent>

@@ -4,9 +4,8 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 
 export default function IndexPage() {
@@ -24,14 +23,12 @@ export default function IndexPage() {
       </CardHeader>
       <CardContent>
         <CardDescription className="home-desc">
-          Learn by doing with interactive tutorials and playgrounds.
+          Learn proactively with interactive contents and playgrounds. 
         </CardDescription>
-      </CardContent>
-      <CardFooter>
-        <Button className="bg-[#179E7E] text-white">
+        <Button className="bg-[#179E7E] text-white mt-4">
           <Link href={`/dex`}>Get Started</Link>
         </Button>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }
