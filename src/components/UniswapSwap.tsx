@@ -13,7 +13,7 @@ import {
   Content,
   Viewport,
   Group,
-  Value
+  Value,
 } from "@radix-ui/react-select";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ import {
   ethToUsdcPriceUniV1,
   usdcToEthPriceUniV1,
   ethToUsdcSwap,
-  usdcToEthSwap
+  usdcToEthSwap,
 } from "../contracts/uniswap-v1-usdc-exchange";
 import { Input } from "../type/types";
 import { parseAndFormatFloat } from "@/lib/utils";
@@ -46,7 +46,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
     handleSubmit,
     getValues,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm<Input>({ defaultValues: { input: "0" } });
   const input = watch("input");
 
@@ -62,13 +62,27 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
       if (inputCurrency === "ETH") {
         const usdcOutput = await ethToUsdcPriceUniV1(input);
         setUsdcOutput(parseAndFormatFloat(false, usdcOutput));
-        const usdcPrice = await ethToUsdcPriceUniV1("1");
-        setUsdcPrice(parseAndFormatFloat(false, usdcPrice));
+
+        // Calculate ETH to USDC price based on input or 1 ETH
+        let usdcPriceNew;
+        if (!input || input === "0") {
+          usdcPriceNew = await ethToUsdcPriceUniV1("1");
+        } else {
+          usdcPriceNew = (Number(usdcOutput) / Number(input)).toString();
+        }
+        setUsdcPrice(parseAndFormatFloat(false, usdcPriceNew));
       } else if (inputCurrency === "USDC") {
         const ethOutput = await usdcToEthPriceUniV1(input);
         setEthOutput(parseAndFormatFloat(true, ethOutput));
-        const ethPrice = await usdcToEthPriceUniV1("1");
-        setEthPrice(parseAndFormatFloat(true, ethPrice));
+
+        // Calculate USDC to ETH price based on input or 1 USDC
+        let ethPriceNew;
+        if (!input || input === "0") {
+          ethPriceNew = await usdcToEthPriceUniV1("1");
+        } else {
+          ethPriceNew = (Number(ethOutput) / Number(input)).toString();
+        }
+        setEthPrice(parseAndFormatFloat(true, ethPriceNew));
       }
     })();
   }, [input, inputCurrency]);
@@ -123,7 +137,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
                   {...register("input", {
                     min: 1,
                     max: ethBalance,
-                    required: true
+                    required: true,
                   })}
                   onWheel={(e: any) => e.target.blur()}
                 />
@@ -135,7 +149,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
                   {...register("input", {
                     min: 1,
                     max: usdcBalance,
-                    required: true
+                    required: true,
                   })}
                   onWheel={(e: any) => e.target.blur()}
                 />
