@@ -5,6 +5,7 @@ import BuyUSDC from "@/components/BuyUSDC";
 import Topic from "@/components/Topic";
 import { getBuyingSellingTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
+import { formatFloat } from "@/lib/utils";
 
 export default function BuyingSelling() {
   const { setCurrentTopic, completedTopics } = React.useContext(AppContext)!;
@@ -65,7 +66,7 @@ export default function BuyingSelling() {
 
   const section4 = {
     contents: [
-      `Now you have ${usdcBuyAmt} USDC!`,
+      `Now you have ${formatFloat(usdcBuyAmt, 0)} USDC!`,
       `But how did they calculate the price with no one in the middle?
       We'll talk about that in the next chapter!`,
     ],

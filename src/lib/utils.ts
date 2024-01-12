@@ -9,11 +9,18 @@ export function parseAndFormatFloat(isEth: boolean, number: string) {
   if (isEth) {
     return parseFloat(number).toLocaleString("en-US", {
       minimumFractionDigits: 4,
-      maximumFractionDigits: 6
+      maximumFractionDigits: 6,
     });
   }
   return parseFloat(number).toLocaleString("en-US", {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 2,
+  });
+}
+
+export function formatFloat(number: number, fractionDigits: number = 2) {
+  return number.toLocaleString("en-US", {
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
   });
 }

@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
-import { X } from "lucide-react";
 import Image from "next/image";
 import TopicContext from "@/app/contexts/TopicContext";
+import { formatFloat } from "@/lib/utils";
 
 export interface BuyUSDCProps {
   onBuy?: (usdcBuyAmt: number) => void;
@@ -19,7 +19,7 @@ const BuyUSDC: React.FC<BuyUSDCProps> = (props: BuyUSDCProps) => {
   const [ethBalance, setEthBalance] = useState(1);
   const [usdcBalance, setUsdcBalance] = useState(0);
   const [ethSellAmt, setEthSellAmt] = useState(1);
-  const [usdcBuyAmt, setUsdcBuyAmt] = useState(182);
+  const [usdcBuyAmt, setUsdcBuyAmt] = useState(2000);
   const [buttonLabel, setButtonLabel] = useState("Buy");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -51,17 +51,21 @@ const BuyUSDC: React.FC<BuyUSDCProps> = (props: BuyUSDCProps) => {
               width={16}
               height={16}
             />
-            <div className="text-sm ml-1">Your ETH Balance: {ethBalance}</div>
+            <div className="text-sm ml-1">
+              Your ETH Balance: {formatFloat(ethBalance)}
+            </div>
           </div>
           <div className="flex flex-row mt-1">
             <Image src="/images/usdc.png" alt="USDC" width={16} height={16} />
-            <div className="text-sm ml-1">Your USDC Balance: {usdcBalance}</div>
+            <div className="text-sm ml-1">
+              Your USDC Balance: {formatFloat(usdcBalance)}
+            </div>
           </div>
         </div>
         <div className="mb-4 mt-5">
           <div className="text-sm text-gray-500">You Sell</div>
           <div className="flex flex-row justify-between items-center">
-            <div className="text-lg">{ethSellAmt} ETH</div>
+            <div className="text-lg">{formatFloat(ethSellAmt)} ETH</div>
             <Image
               id="eth"
               src="/images/ethereum.png"
@@ -74,7 +78,7 @@ const BuyUSDC: React.FC<BuyUSDCProps> = (props: BuyUSDCProps) => {
         <div className="mb-4 mt-5">
           <div className="text-sm text-gray-500">You Get</div>
           <div className="flex flex-row justify-between items-center">
-            <div className="text-lg">{usdcBuyAmt} USDC</div>
+            <div className="text-lg">{formatFloat(usdcBuyAmt)} USDC</div>
             <Image
               id="eth"
               src="/images/usdc.png"
