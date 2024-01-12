@@ -33,7 +33,7 @@ const Pricing: React.FC = () => {
       used for exchange in Uniswap.`,
       `Uniswap makes sure that they always get the constant value when
       they multiply the quantity of ETH and USDC.`,
-      `In this case, they make sure that it is always 20,000(10 * 2000).`,
+      `In this case, they make sure that it is always 20,000 (<code>10 * 2000</code>).`,
     ],
   };
 
@@ -47,10 +47,12 @@ const Pricing: React.FC = () => {
       },
       `She sells 1 ETH to the exchange. Then the exchange has 11 ETH and
       2,000 USDC.`,
-      `However, at this point, 11 * 2000 != 20000.`,
+      `However, at this point, <code>11 * 2000 != 20000</code>`,
       `So the exchange needs to change the quantity of USDC they have.`,
-      `If the quantity of USDC is x, the exchange wants to make sure
-      that: 11 * x = 20000`,
+      `When one quantity changes, the other quantity needs to be changed.
+      If the quantity of USDC is x, the exchange wants to ensure
+      that:
+      <code>11 * x = 20000</code>`,
       {
         className: "mt-5",
         question: "This means:",
@@ -62,7 +64,7 @@ const Pricing: React.FC = () => {
 
   const section4 = {
     contents: [
-      `Since x = 20000 / 11, the x, the quantity of USDC in the
+      `Since <code>x = 20000 / 11</code>, the x, the quantity of USDC in the
       exchange should be approximately 1,818.`,
       `Now, since we know that we need to keep only 1,818 in the
       exchange, we can send some USDC back to Alice.`,
@@ -78,7 +80,7 @@ const Pricing: React.FC = () => {
   const section5 = {
     contents: [
       `Since the exchange needs to have only 1818, you can say that
-      2000 - 1818 = 182 can be sent back to Alice.`,
+      <code>2000 - 1818 = 182</code> can be sent back to Alice.`,
       {
         src: "/images/pricing-3.png",
         width: 525,
@@ -86,8 +88,8 @@ const Pricing: React.FC = () => {
       },
       `In this way, the exchange can keep the original value of 20,000
       constant when they multiply the quantity of ETH and USDC.`,
-      `11 * 1818 = 20000`,
-      `Sure, 11 * 1818 is not exactly 20,000, and financial math can not
+      `<pre><code>11 * 1818 = 20000</code></pre>`,
+      `Sure, <code>11 * 1818</code> is not exactly 20,000, and financial math can not
       be approximated in practice. But you get the basic idea. 🙂`,
     ],
   };

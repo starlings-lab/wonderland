@@ -67,9 +67,11 @@ const TopicSection: React.FC<TopicSectionProps> = ({ className, contents }) => {
     // otherwise, render a string
     const text = content as string;
     return (
-      <div key={index} className="mt-5">
-        {text}
-      </div>
+      <div
+        key={index}
+        className="mt-5"
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
     );
   });
 
