@@ -61,17 +61,17 @@ export default function LiquidityProvision() {
 
   const section4 = {
     contents: [
-      `Great! You supplied 10 ETH and 1820 USDC and the pool balance increased.`,
+      `Great! You supplied 10 ETH and 1,820 USDC and the pool balance increased.`,
       `When you provide liquidity, you need to provide the same value of two
       currencies because the price will change otherwise. In the above scenario,
-      1 ETH was 182 USDC. That’s why you had to provide 1820 USDC to provide
+      1 ETH was 182 USDC. That's why you had to provide 1,820 USDC to provide
       10 ETH together.`,
       `Imagine you want to provide 100 ETH and 1 ETH is 400 USDC.`,
       `How much USDC will you be providing? `,
       {
         className: "mt-5",
         question: "You will provide:",
-        answers: ["40,000 USDC", "1 USDC", "4000 USDC", "0 USDC"],
+        answers: ["40,000 USDC", "1 USDC", "4,000 USDC", "0 USDC"],
         correctAnswerIndex: 0,
       },
     ],
@@ -81,7 +81,7 @@ export default function LiquidityProvision() {
     contents: [
       `Since you want to provide 100 ETH and you are required to provide 
       the same value of the other currency, when 1 ETH is 400 USDC,
-      you need to provide 100 * 400 = 40,000 USDC.`,
+      you need to provide 100 * 400 = 40000 USDC.`,
     ],
   };
 

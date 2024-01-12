@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 import TopicSection, {
@@ -62,7 +62,10 @@ const Topic: React.FC<TopicProps> = ({
 
     onNextQuestion?.(nextQuestion);
 
-    if (!(currentQuestion === 3 && topic.title == "Buying & Selling") && !(currentQuestion === 3 && topic.title == "Liquidity Provision")) {
+    if (
+      !(currentQuestion === 3 && topic.title == "Buying & Selling") &&
+      !(currentQuestion === 3 && topic.title == "Liquidity Provision")
+    ) {
       setTimeout(() => {
         const nextSection = document.querySelector(`.section-${nextQuestion}`);
         nextSection?.scrollIntoView({ behavior: "smooth" });
