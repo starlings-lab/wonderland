@@ -56,7 +56,7 @@ const Pricing: React.FC = () => {
       {
         className: "mt-5",
         question: "This means:",
-        answers: ["x = 18,181", "x = 20,000", "x = 200,000", "x = 1820"],
+        answers: ["x = 18,181", "x = 20,000", "x = 200,000", "x = 1,820"],
         correctAnswerIndex: 0,
       },
     ],
@@ -71,7 +71,7 @@ const Pricing: React.FC = () => {
       {
         className: "mt-5",
         question: "Alice will get:",
-        answers: ["1,800 USDC", "1819 USDC", "1000 USDC", "1100 USDC"],
+        answers: ["1,800 USDC", "1,819 USDC", "1,000 USDC", "1,100 USDC"],
         correctAnswerIndex: 1,
       },
     ],
