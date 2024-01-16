@@ -15,6 +15,7 @@ import { Topic } from "@/type/types";
 
 export interface Section {
   contents: Content[];
+  subtitle?: string;
 }
 
 type TopicProps = {
@@ -88,6 +89,7 @@ const Topic: React.FC<TopicProps> = ({
           className={`animate-fade section-${index + 1}`}
           key={index}
           contents={section.contents}
+          subtitle={section.subtitle}
         />
       )
     );

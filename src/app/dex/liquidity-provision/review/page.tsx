@@ -8,7 +8,7 @@ const ReviewCard = dynamic(() => import("@/components/ReviewCard"), {
 
 const ReviewPage: React.FC = () => {
   return (
-    <ReviewCard nextTopicIndex={4}>
+    <ReviewCard nextTopicIndex={5}>
       <div className="mt-5 mb-1">
         We learned how to provide liquidity in a decentralized exchange. Here is
         a quick summary:

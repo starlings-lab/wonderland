@@ -1,4 +1,5 @@
 import { Chapter, ChapterIds } from "@/type/types";
+import exp from "constants";
 
 const dexChapterPath = "/dex";
 const lpTopic = {
@@ -14,6 +15,11 @@ const buyingSellingTopic = {
 const pricingTopic = {
   title: "Pricing",
   path: `${dexChapterPath}/pricing`,
+};
+
+const slippageAndImpactTopic = {
+  title: "Pricing Slippage & Impact",
+  path: `${dexChapterPath}/slippage-impact`,
 };
 
 // create a map of chapters by id
@@ -37,6 +43,7 @@ chaptersById.set(ChapterIds.Dex, {
   topics: [
     buyingSellingTopic,
     pricingTopic,
+    slippageAndImpactTopic,
     buyingPlaygroundTopic,
     lpTopic,
     lpPlaygroundTopic,
@@ -65,4 +72,8 @@ export const getLPPlaygroundTopic = () => {
 
 export const getBuyingPlaygroundTopic = () => {
   return buyingPlaygroundTopic;
+};
+
+export const getSlippageAndImpactTopic = () => {
+  return slippageAndImpactTopic;
 };

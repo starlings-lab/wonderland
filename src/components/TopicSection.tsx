@@ -23,6 +23,7 @@ export type Content = string | ImageContent | QuizContent | ReactElementContent;
 type TopicSectionProps = {
   contents: Content[];
   className?: string;
+  subtitle?: string;
 };
 
 export function isQuizContent(content: Content): content is QuizContent {
@@ -37,7 +38,11 @@ export function isReactElementContent(content: Content) {
   return typeof content === "object" && "children" in content;
 }
 
-const TopicSection: React.FC<TopicSectionProps> = ({ className, contents }) => {
+const TopicSection: React.FC<TopicSectionProps> = ({
+  className,
+  contents,
+  subtitle,
+}) => {
   const children = contents.map((content, index) => {
     // if content is an image, render an Image component
     if (isImageContent(content)) {
@@ -75,7 +80,12 @@ const TopicSection: React.FC<TopicSectionProps> = ({ className, contents }) => {
     );
   });
 
-  return <div className={className}>{children}</div>;
+  return (
+    <div className={className}>
+      {subtitle && <h4 className="text-lg font-semibold">{subtitle}</h4>}
+      {children}
+    </div>
+  );
 };
 
 export default TopicSection;
