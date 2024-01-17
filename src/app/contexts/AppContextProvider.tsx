@@ -1,6 +1,7 @@
 "use client";
-import { Chapter, Topic } from "@/type/types";
+import { Chapter, ChapterIds, Topic } from "@/type/types";
 import React, { createContext, useState } from "react";
+import { getChapter } from "../data/staticDataService";
 
 // Define the shape of the context value
 interface AppContext {
@@ -23,7 +24,10 @@ export default function AppContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [currentChapter, setCurrentChapter] = useState<Chapter>();
+  // TODO: Rethink state management once we have more than 1 chapter
+  // Start with DEX as the current chapter
+  const dexChapter = getChapter(ChapterIds.Dex);
+  const [currentChapter, setCurrentChapter] = useState<Chapter>(dexChapter!);
   const [currentProgress, setCurrentProgress] = useState<number>(0);
   const [currentTopic, setCurrentTopic] = useState<Topic>();
   const [completedTopics, setCompletedTopics] = useState<Topic[]>([]);

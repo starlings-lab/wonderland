@@ -29,8 +29,6 @@ export default function Dex() {
   const chapter = getChapter(ChapterIds.Dex);
   const topics = chapter!.topics;
 
-  console.log("Completed topics: ", completedTopics);
-
   React.useEffect(() => {
     setCurrentChapter(chapter);
     setCurrentProgress(0);
@@ -40,7 +38,14 @@ export default function Dex() {
       console.log("set current topic to first topic: ", topics[0].title);
       setCurrentTopic(topics[0]);
     }
-  });
+  }, [
+    chapter,
+    setCurrentChapter,
+    setCurrentProgress,
+    currentTopic,
+    setCurrentTopic,
+    topics,
+  ]);
 
   return (
     <div className="flex flex-row p-12">

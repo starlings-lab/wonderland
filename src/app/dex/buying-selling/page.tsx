@@ -6,15 +6,15 @@ import Topic from "@/components/Topic";
 import { getBuyingSellingTopic } from "@/app/data/staticDataService";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 import { formatFloat } from "@/lib/utils";
+import { set } from "react-hook-form";
 
 export default function BuyingSelling() {
-  const { setCurrentTopic, completedTopics } = React.useContext(AppContext)!;
+  const { setCurrentTopic } = React.useContext(AppContext)!;
   const bsTopic = getBuyingSellingTopic();
   useEffect(() => {
-    if (!completedTopics.includes(bsTopic)) {
-      setCurrentTopic(bsTopic);
-    }
-  });
+    console.log("Setting current topic: ", bsTopic);
+    setCurrentTopic(bsTopic);
+  }, [bsTopic, setCurrentTopic]);
 
   const [usdcBuyAmt, setUsdcBuyAmt] = React.useState(0);
 
