@@ -24,3 +24,11 @@ export function formatFloat(number: number, fractionDigits: number = 2) {
     maximumFractionDigits: fractionDigits,
   });
 }
+
+export function isNumber(str: string) {
+  return !isNaN(parseFloat(str));
+}
+
+export function isValidNumberInput(input: string) {
+  return input && isNumber(input) && parseFloat(input) > 0;
+}

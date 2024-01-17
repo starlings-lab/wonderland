@@ -1,14 +1,14 @@
 import { Interface } from "@ethersproject/abi";
-import { hexZeroPad } from "@ethersproject/bytes";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import {
   parseEther,
   parseUnits,
   formatEther,
-  formatUnits
+  formatUnits,
 } from "@ethersproject/units";
 import type { Address } from "abitype";
 import { USDC_NUM_OF_DECIMALS } from "./usdc";
+import { isValidNumberInput } from "@/lib/utils";
 
 export const UNISWAP_V1_USDC_EXCHANGE_ADDRESS: Address =
   "0x97deC872013f6B5fB443861090ad931542878126";
@@ -18,60 +18,60 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [
       { type: "address", name: "buyer", indexed: true },
       { type: "uint256", name: "eth_sold", indexed: true },
-      { type: "uint256", name: "tokens_bought", indexed: true }
+      { type: "uint256", name: "tokens_bought", indexed: true },
     ],
     anonymous: false,
-    type: "event"
+    type: "event",
   },
   {
     name: "EthPurchase",
     inputs: [
       { type: "address", name: "buyer", indexed: true },
       { type: "uint256", name: "tokens_sold", indexed: true },
-      { type: "uint256", name: "eth_bought", indexed: true }
+      { type: "uint256", name: "eth_bought", indexed: true },
     ],
     anonymous: false,
-    type: "event"
+    type: "event",
   },
   {
     name: "AddLiquidity",
     inputs: [
       { type: "address", name: "provider", indexed: true },
       { type: "uint256", name: "eth_amount", indexed: true },
-      { type: "uint256", name: "token_amount", indexed: true }
+      { type: "uint256", name: "token_amount", indexed: true },
     ],
     anonymous: false,
-    type: "event"
+    type: "event",
   },
   {
     name: "RemoveLiquidity",
     inputs: [
       { type: "address", name: "provider", indexed: true },
       { type: "uint256", name: "eth_amount", indexed: true },
-      { type: "uint256", name: "token_amount", indexed: true }
+      { type: "uint256", name: "token_amount", indexed: true },
     ],
     anonymous: false,
-    type: "event"
+    type: "event",
   },
   {
     name: "Transfer",
     inputs: [
       { type: "address", name: "_from", indexed: true },
       { type: "address", name: "_to", indexed: true },
-      { type: "uint256", name: "_value", indexed: false }
+      { type: "uint256", name: "_value", indexed: false },
     ],
     anonymous: false,
-    type: "event"
+    type: "event",
   },
   {
     name: "Approval",
     inputs: [
       { type: "address", name: "_owner", indexed: true },
       { type: "address", name: "_spender", indexed: true },
-      { type: "uint256", name: "_value", indexed: false }
+      { type: "uint256", name: "_value", indexed: false },
     ],
     anonymous: false,
-    type: "event"
+    type: "event",
   },
   {
     name: "setup",
@@ -80,7 +80,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: false,
     payable: false,
     type: "function",
-    gas: 175875
+    gas: 175875,
   },
   {
     name: "addLiquidity",
@@ -88,29 +88,29 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [
       { type: "uint256", name: "min_liquidity" },
       { type: "uint256", name: "max_tokens" },
-      { type: "uint256", name: "deadline" }
+      { type: "uint256", name: "deadline" },
     ],
     constant: false,
     payable: true,
     type: "function",
-    gas: 82616
+    gas: 82616,
   },
   {
     name: "removeLiquidity",
     outputs: [
       { type: "uint256", name: "out" },
-      { type: "uint256", name: "out" }
+      { type: "uint256", name: "out" },
     ],
     inputs: [
       { type: "uint256", name: "amount" },
       { type: "uint256", name: "min_eth" },
       { type: "uint256", name: "min_tokens" },
-      { type: "uint256", name: "deadline" }
+      { type: "uint256", name: "deadline" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 116814
+    gas: 116814,
   },
   {
     name: "__default__",
@@ -118,19 +118,19 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [],
     constant: false,
     payable: true,
-    type: "function"
+    type: "function",
   },
   {
     name: "ethToTokenSwapInput",
     outputs: [{ type: "uint256", name: "out" }],
     inputs: [
       { type: "uint256", name: "min_tokens" },
-      { type: "uint256", name: "deadline" }
+      { type: "uint256", name: "deadline" },
     ],
     constant: false,
     payable: true,
     type: "function",
-    gas: 12757
+    gas: 12757,
   },
   {
     name: "ethToTokenTransferInput",
@@ -138,24 +138,24 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [
       { type: "uint256", name: "min_tokens" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "recipient" }
+      { type: "address", name: "recipient" },
     ],
     constant: false,
     payable: true,
     type: "function",
-    gas: 12965
+    gas: 12965,
   },
   {
     name: "ethToTokenSwapOutput",
     outputs: [{ type: "uint256", name: "out" }],
     inputs: [
       { type: "uint256", name: "tokens_bought" },
-      { type: "uint256", name: "deadline" }
+      { type: "uint256", name: "deadline" },
     ],
     constant: false,
     payable: true,
     type: "function",
-    gas: 50463
+    gas: 50463,
   },
   {
     name: "ethToTokenTransferOutput",
@@ -163,12 +163,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [
       { type: "uint256", name: "tokens_bought" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "recipient" }
+      { type: "address", name: "recipient" },
     ],
     constant: false,
     payable: true,
     type: "function",
-    gas: 50671
+    gas: 50671,
   },
   {
     name: "tokenToEthSwapInput",
@@ -176,12 +176,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [
       { type: "uint256", name: "tokens_sold" },
       { type: "uint256", name: "min_eth" },
-      { type: "uint256", name: "deadline" }
+      { type: "uint256", name: "deadline" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 47503
+    gas: 47503,
   },
   {
     name: "tokenToEthTransferInput",
@@ -190,12 +190,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "tokens_sold" },
       { type: "uint256", name: "min_eth" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "recipient" }
+      { type: "address", name: "recipient" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 47712
+    gas: 47712,
   },
   {
     name: "tokenToEthSwapOutput",
@@ -203,12 +203,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [
       { type: "uint256", name: "eth_bought" },
       { type: "uint256", name: "max_tokens" },
-      { type: "uint256", name: "deadline" }
+      { type: "uint256", name: "deadline" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 50175
+    gas: 50175,
   },
   {
     name: "tokenToEthTransferOutput",
@@ -217,12 +217,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "eth_bought" },
       { type: "uint256", name: "max_tokens" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "recipient" }
+      { type: "address", name: "recipient" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 50384
+    gas: 50384,
   },
   {
     name: "tokenToTokenSwapInput",
@@ -232,12 +232,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "min_tokens_bought" },
       { type: "uint256", name: "min_eth_bought" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "token_addr" }
+      { type: "address", name: "token_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 51007
+    gas: 51007,
   },
   {
     name: "tokenToTokenTransferInput",
@@ -248,12 +248,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "min_eth_bought" },
       { type: "uint256", name: "deadline" },
       { type: "address", name: "recipient" },
-      { type: "address", name: "token_addr" }
+      { type: "address", name: "token_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 51098
+    gas: 51098,
   },
   {
     name: "tokenToTokenSwapOutput",
@@ -263,12 +263,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "max_tokens_sold" },
       { type: "uint256", name: "max_eth_sold" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "token_addr" }
+      { type: "address", name: "token_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 54928
+    gas: 54928,
   },
   {
     name: "tokenToTokenTransferOutput",
@@ -279,12 +279,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "max_eth_sold" },
       { type: "uint256", name: "deadline" },
       { type: "address", name: "recipient" },
-      { type: "address", name: "token_addr" }
+      { type: "address", name: "token_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 55019
+    gas: 55019,
   },
   {
     name: "tokenToExchangeSwapInput",
@@ -294,12 +294,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "min_tokens_bought" },
       { type: "uint256", name: "min_eth_bought" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "exchange_addr" }
+      { type: "address", name: "exchange_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 49342
+    gas: 49342,
   },
   {
     name: "tokenToExchangeTransferInput",
@@ -310,12 +310,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "min_eth_bought" },
       { type: "uint256", name: "deadline" },
       { type: "address", name: "recipient" },
-      { type: "address", name: "exchange_addr" }
+      { type: "address", name: "exchange_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 49532
+    gas: 49532,
   },
   {
     name: "tokenToExchangeSwapOutput",
@@ -325,12 +325,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "max_tokens_sold" },
       { type: "uint256", name: "max_eth_sold" },
       { type: "uint256", name: "deadline" },
-      { type: "address", name: "exchange_addr" }
+      { type: "address", name: "exchange_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 53233
+    gas: 53233,
   },
   {
     name: "tokenToExchangeTransferOutput",
@@ -341,12 +341,12 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
       { type: "uint256", name: "max_eth_sold" },
       { type: "uint256", name: "deadline" },
       { type: "address", name: "recipient" },
-      { type: "address", name: "exchange_addr" }
+      { type: "address", name: "exchange_addr" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 53423
+    gas: 53423,
   },
   {
     name: "getEthToTokenInputPrice",
@@ -355,7 +355,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 5542
+    gas: 5542,
   },
   {
     name: "getEthToTokenOutputPrice",
@@ -364,7 +364,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 6872
+    gas: 6872,
   },
   {
     name: "getTokenToEthInputPrice",
@@ -373,7 +373,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 5637
+    gas: 5637,
   },
   {
     name: "getTokenToEthOutputPrice",
@@ -382,7 +382,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 6897
+    gas: 6897,
   },
   {
     name: "tokenAddress",
@@ -391,7 +391,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 1413
+    gas: 1413,
   },
   {
     name: "factoryAddress",
@@ -400,7 +400,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 1443
+    gas: 1443,
   },
   {
     name: "balanceOf",
@@ -409,19 +409,19 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 1645
+    gas: 1645,
   },
   {
     name: "transfer",
     outputs: [{ type: "bool", name: "out" }],
     inputs: [
       { type: "address", name: "_to" },
-      { type: "uint256", name: "_value" }
+      { type: "uint256", name: "_value" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 75034
+    gas: 75034,
   },
   {
     name: "transferFrom",
@@ -429,36 +429,36 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     inputs: [
       { type: "address", name: "_from" },
       { type: "address", name: "_to" },
-      { type: "uint256", name: "_value" }
+      { type: "uint256", name: "_value" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 110907
+    gas: 110907,
   },
   {
     name: "approve",
     outputs: [{ type: "bool", name: "out" }],
     inputs: [
       { type: "address", name: "_spender" },
-      { type: "uint256", name: "_value" }
+      { type: "uint256", name: "_value" },
     ],
     constant: false,
     payable: false,
     type: "function",
-    gas: 38769
+    gas: 38769,
   },
   {
     name: "allowance",
     outputs: [{ type: "uint256", name: "out" }],
     inputs: [
       { type: "address", name: "_owner" },
-      { type: "address", name: "_spender" }
+      { type: "address", name: "_spender" },
     ],
     constant: true,
     payable: false,
     type: "function",
-    gas: 1925
+    gas: 1925,
   },
   {
     name: "name",
@@ -467,7 +467,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 1623
+    gas: 1623,
   },
   {
     name: "symbol",
@@ -476,7 +476,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 1653
+    gas: 1653,
   },
   {
     name: "decimals",
@@ -485,7 +485,7 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 1683
+    gas: 1683,
   },
   {
     name: "totalSupply",
@@ -494,8 +494,8 @@ export const UNISWAP_V1_USDC_EXCHANGE_ABI: object[] = [
     constant: true,
     payable: false,
     type: "function",
-    gas: 1713
-  }
+    gas: 1713,
+  },
 ];
 
 export const UNISWAP_V1_USDC_EXCHANGE_INTERFACE = new Interface(
@@ -529,11 +529,11 @@ export async function addLiquidity(ethInput: string, maxUsdcInput: string) {
           // If price fluctuates higher than 2000, the transaction will fail
           parseUnits(maxUsdcInput, USDC_NUM_OF_DECIMALS),
           // deadline in seconds, current time + 1 minute
-          parseUnits(deadline.toString(), 0)
+          parseUnits(deadline.toString(), 0),
         ]
       ),
       value: parseEther(ethInput),
-      gasLimit: 800000
+      gasLimit: 800000,
     });
 
     console.log("addLiquidityTx ==>", addLiquidityTx);
@@ -568,9 +568,9 @@ export async function ethToUsdcSwap(ethInput: string) {
         "ethToTokenSwapInput",
         [
           parseUnits("1", USDC_NUM_OF_DECIMALS),
-          parseUnits(deadline.toString(), 0)
+          parseUnits(deadline.toString(), 0),
         ]
-      )
+      ),
     });
     const receipt = await ethToUsdcSwapTx.wait();
     const events = UNISWAP_V1_USDC_EXCHANGE_INTERFACE.parseLog(receipt.logs[0]);
@@ -602,9 +602,9 @@ export async function usdcToEthSwap(usdcInput: string) {
         [
           parseUnits(usdcInput, USDC_NUM_OF_DECIMALS),
           parseEther("0.000000000000000001"),
-          parseUnits(deadline.toString(), 0)
+          parseUnits(deadline.toString(), 0),
         ]
-      )
+      ),
     });
     const receipt = await usdcToEthSwapTx.wait();
     const events = UNISWAP_V1_USDC_EXCHANGE_INTERFACE.parseLog(receipt.logs[0]);
@@ -619,7 +619,7 @@ export async function usdcToEthSwap(usdcInput: string) {
 export async function ethToUsdcPriceUniV1(ethInput: string) {
   let usdcOutput = "0";
 
-  if (!ethInput || ethInput === "0") {
+  if (!isValidNumberInput(ethInput)) {
     return usdcOutput;
   }
 
@@ -629,7 +629,7 @@ export async function ethToUsdcPriceUniV1(ethInput: string) {
       data: UNISWAP_V1_USDC_EXCHANGE_INTERFACE.encodeFunctionData(
         "getEthToTokenInputPrice",
         [parseEther(ethInput)]
-      )
+      ),
     });
     const output = UNISWAP_V1_USDC_EXCHANGE_INTERFACE.decodeFunctionResult(
       "getEthToTokenInputPrice",
@@ -646,7 +646,7 @@ export async function ethToUsdcPriceUniV1(ethInput: string) {
 export async function usdcToEthPriceUniV1(usdcInput: string) {
   let ethOutput = "0";
 
-  if (!usdcInput || usdcInput === "0") {
+  if (!isValidNumberInput(usdcInput)) {
     return ethOutput;
   }
 
@@ -656,7 +656,7 @@ export async function usdcToEthPriceUniV1(usdcInput: string) {
       data: UNISWAP_V1_USDC_EXCHANGE_INTERFACE.encodeFunctionData(
         "getTokenToEthInputPrice",
         [parseUnits(usdcInput, USDC_NUM_OF_DECIMALS)]
-      )
+      ),
     });
     const output = UNISWAP_V1_USDC_EXCHANGE_INTERFACE.decodeFunctionResult(
       "getTokenToEthInputPrice",

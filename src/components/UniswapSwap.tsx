@@ -26,7 +26,7 @@ import {
   usdcToEthSwap,
 } from "../contracts/uniswap-v1-usdc-exchange";
 import { Input } from "../type/types";
-import { parseAndFormatFloat } from "@/lib/utils";
+import { isValidNumberInput, parseAndFormatFloat } from "@/lib/utils";
 
 export interface UniswapSwapProps {
   className?: string;
@@ -34,6 +34,8 @@ export interface UniswapSwapProps {
 }
 
 export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
+  const MIN_ETH_AMOUNT = 0.001;
+  const MIN_USDC_AMOUNT = 1;
   const [buying, setBuying] = useState(false);
   const [inputCurrency, setInputCurrency] = useState("ETH");
   const [usdcPrice, setUsdcPrice] = useState("0");
@@ -65,7 +67,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
 
         // Calculate ETH to USDC price based on input or 1 ETH
         let usdcPriceNew;
-        if (!input || input === "0") {
+        if (!isValidNumberInput(input)) {
           usdcPriceNew = await ethToUsdcPriceUniV1("1");
         } else {
           usdcPriceNew = (Number(usdcOutput) / Number(input)).toString();
@@ -77,7 +79,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
 
         // Calculate USDC to ETH price based on input or 1 USDC
         let ethPriceNew;
-        if (!input || input === "0") {
+        if (!isValidNumberInput(input)) {
           ethPriceNew = await usdcToEthPriceUniV1("1");
         } else {
           ethPriceNew = (Number(ethOutput) / Number(input)).toString();
@@ -133,9 +135,9 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
                 <input
                   className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                   type="number"
-                  step={0.01}
+                  step={MIN_ETH_AMOUNT}
                   {...register("input", {
-                    min: 1,
+                    min: MIN_ETH_AMOUNT,
                     max: ethBalance,
                     required: true,
                   })}
@@ -145,9 +147,9 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
                 <input
                   className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                   type="number"
-                  step={0.01}
+                  step={MIN_USDC_AMOUNT}
                   {...register("input", {
-                    min: 1,
+                    min: MIN_USDC_AMOUNT,
                     max: usdcBalance,
                     required: true,
                   })}
@@ -221,7 +223,9 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
           </div>
           {errors.input && (
             <h5 className="block text-left text-customPink text-xs md:text-base leading-tight font-normal mb-4 mt-3">
-              the input amount must be in between 0 and your balance
+              {`the input amount must be in between ${
+                inputCurrency === "ETH" ? MIN_ETH_AMOUNT : MIN_USDC_AMOUNT
+              } and your balance`}
             </h5>
           )}
         </div>
