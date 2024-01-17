@@ -43,6 +43,9 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
   const [usdcOutput, setUsdcOutput] = useState("0");
   const [ethOutput, setEthOutput] = useState("0");
 
+  const isETH = inputCurrency === "ETH";
+  const isUSDC = inputCurrency === "USDC";
+
   const {
     register,
     handleSubmit,
@@ -61,7 +64,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
 
   useEffect(() => {
     (async () => {
-      if (inputCurrency === "ETH") {
+      if (isETH) {
         const usdcOutput = await ethToUsdcPriceUniV1(input);
         setUsdcOutput(parseAndFormatFloat(false, usdcOutput));
 
@@ -73,7 +76,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
           usdcPriceNew = (Number(usdcOutput) / Number(input)).toString();
         }
         setUsdcPrice(parseAndFormatFloat(false, usdcPriceNew));
-      } else if (inputCurrency === "USDC") {
+      } else if (isUSDC) {
         const ethOutput = await usdcToEthPriceUniV1(input);
         setEthOutput(parseAndFormatFloat(true, ethOutput));
 
@@ -87,19 +90,27 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
         setEthPrice(parseAndFormatFloat(true, ethPriceNew));
       }
     })();
-  }, [input, inputCurrency]);
+  }, [input, isETH, isUSDC]);
 
   const onSubmit = async () => {
     setBuying(true);
-    if (inputCurrency === "ETH") {
+    if (isETH) {
       await ethToUsdcSwap(getValues("input"));
-    } else if (inputCurrency === "USDC") {
+    } else if (isUSDC) {
       await usdcToEthSwap(getValues("input"));
     }
     setBuying(false);
     onBuy && onBuy();
   };
 
+  const onInputFocus = (e: any) => {
+    if (isValidNumberInput(e.target.value)) {
+      return;
+    }
+    e.target.value = "";
+  };
+
+  const onWheel = (e: any) => e.target.blur();
   return (
     <div className="mt-8 py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid">
       <div className="flex justify-center">
@@ -119,11 +130,11 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
                 Input
               </label>
               <div className="flex items-center">
-                {inputCurrency === "ETH" ? (
+                {isETH ? (
                   <p className="text-xs text-gray-500 mr-2">
                     Balance: {formattedEthBalance}
                   </p>
-                ) : inputCurrency === "USDC" ? (
+                ) : isUSDC ? (
                   <p className="text-xs text-gray-500 mr-2">
                     Balance: {formattedUsdcBalance}
                   </p>
@@ -131,7 +142,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
               </div>
             </div>
             <div className="flex items-center justify-between w-full">
-              {inputCurrency === "ETH" ? (
+              {isETH ? (
                 <input
                   className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                   type="number"
@@ -141,9 +152,10 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
                     max: ethBalance,
                     required: true,
                   })}
-                  onWheel={(e: any) => e.target.blur()}
+                  onWheel={onWheel}
+                  onFocus={onInputFocus}
                 />
-              ) : inputCurrency === "USDC" ? (
+              ) : isUSDC ? (
                 <input
                   className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                   type="number"
@@ -153,7 +165,8 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
                     max: usdcBalance,
                     required: true,
                   })}
-                  onWheel={(e: any) => e.target.blur()}
+                  onWheel={onWheel}
+                  onFocus={onInputFocus}
                 />
               ) : null}
               <Root value={inputCurrency} onValueChange={setInputCurrency}>
@@ -200,12 +213,12 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
               </label>
             </div>
             <div className="flex items-center justify-between w-full">
-              {inputCurrency === "ETH" ? (
+              {isETH ? (
                 <>
                   <p>{usdcOutput}</p>
                   <div className="flex items-center">USDC</div>
                 </>
-              ) : inputCurrency === "USDC" ? (
+              ) : isUSDC ? (
                 <>
                   <p>{ethOutput}</p>
                   <div className="flex items-center">ETH</div>
@@ -214,9 +227,9 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
             </div>
             <hr className="mt-4 mb-4" />
             <div className="flex items-center justify-between w-full">
-              {inputCurrency === "ETH" ? (
+              {isETH ? (
                 <p>1 ETH = {usdcPrice} USDC</p>
-              ) : inputCurrency === "USDC" ? (
+              ) : isUSDC ? (
                 <p>1 USDC = {ethPrice} ETH</p>
               ) : null}
             </div>
@@ -224,7 +237,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
           {errors.input && (
             <h5 className="block text-left text-customPink text-xs md:text-base leading-tight font-normal mb-4 mt-3">
               {`the input amount must be in between ${
-                inputCurrency === "ETH" ? MIN_ETH_AMOUNT : MIN_USDC_AMOUNT
+                isETH ? MIN_ETH_AMOUNT : MIN_USDC_AMOUNT
               } and your balance`}
             </h5>
           )}
