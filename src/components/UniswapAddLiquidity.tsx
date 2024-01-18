@@ -6,12 +6,16 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
-import { ethToUsdcPriceUniV1 } from "../contracts/uniswap-v1-usdc-exchange";
+import {
+  MIN_ETH_LIQUIDITY_AMOUNT,
+  MIN_USDC_LIQUIDITY_AMOUNT,
+  ethToUsdcPriceUniV1,
+} from "../contracts/uniswap-v1-usdc-exchange";
 import { LiquidityInput } from "../type/types";
 import { PlusSquare } from "lucide-react";
 import { addLiquidity } from "@/contracts/uniswap-v1-usdc-exchange";
 import type { Address } from "abitype";
-import { on } from "events";
+import { isValidNumberInput } from "@/lib/utils";
 
 export interface UniswapAddLiquidityProps {
   className?: string;
@@ -46,6 +50,7 @@ export default function UniswapAddLiquidity({
       const usdcPrice = await ethToUsdcPriceUniV1("1");
       setEthUsdcPrice(usdcPrice);
     })();
+
     let valueBeingSet: "ethInput" | "usdcInput" | undefined;
     const subscription = watch((value, { name, type }) => {
       // prevent infinite loop
@@ -77,7 +82,7 @@ export default function UniswapAddLiquidity({
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, ethUsdcPrice]);
+  }, [watch, ethUsdcPrice, trigger, setValue]);
 
   const onSubmit = () => {
     setSupplying(true);
@@ -99,6 +104,15 @@ export default function UniswapAddLiquidity({
         onSupply?.();
       });
   }; // your form submit function which will invoke after successful validation
+
+  // Input event handlers
+  const onWheel = (e: any) => e.target.blur();
+  const onInputFocus = (e: any) => {
+    if (isValidNumberInput(e.target.value)) {
+      return;
+    }
+    e.target.value = "";
+  };
 
   return (
     <div className="mt-8 py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid">
@@ -128,13 +142,14 @@ export default function UniswapAddLiquidity({
               <input
                 className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                 type="number"
-                step={0.01}
+                step={MIN_ETH_LIQUIDITY_AMOUNT}
                 {...register("ethInput", {
-                  min: 1,
+                  min: MIN_ETH_LIQUIDITY_AMOUNT,
                   max: ethBalance,
                   required: true,
                 })}
-                onWheel={(e: any) => e.target.blur()}
+                onWheel={onWheel}
+                onFocus={onInputFocus}
               />
               <div className="flex flex-row justify-between items-center">
                 <Image
@@ -169,13 +184,14 @@ export default function UniswapAddLiquidity({
               <input
                 className="block outline-none text-xl w-full text-black rounded bg-gray-100 out"
                 type="number"
-                step={0.01}
+                step={MIN_USDC_LIQUIDITY_AMOUNT}
                 {...register("usdcInput", {
-                  min: 1,
+                  min: MIN_USDC_LIQUIDITY_AMOUNT,
                   max: usdcBalance,
                   required: true,
                 })}
-                onWheel={(e: any) => e.target.blur()}
+                onWheel={onWheel}
+                onFocus={onInputFocus}
               />
               <div className="flex flex-row justify-between items-center">
                 <Image
@@ -193,16 +209,9 @@ export default function UniswapAddLiquidity({
               <p>1 ETH = {ethUsdcPrice} USDC</p>
             </div>
           </div>
-          {errors.ethInput && (
-            <h5 className="block text-left text-pink-700 text-xs md:text-base leading-tight font-normal mb-4 mt-3">
-              the ETH input amount must be in between 0 and your ETH balance
-            </h5>
-          )}
-          {errors.usdcInput && (
-            <h5 className="block text-left text-pink-700 text-xs md:text-base leading-tight font-normal mb-4 mt-3">
-              the USDC input amount must be in between 0 and your USDC balance
-            </h5>
-          )}
+          {errors.ethInput && getErrorElement("ETH", MIN_ETH_LIQUIDITY_AMOUNT)}
+          {errors.usdcInput &&
+            getErrorElement("USDC", MIN_USDC_LIQUIDITY_AMOUNT)}
         </div>
         <div className="w-full flex justify-center">
           <Button
@@ -215,4 +224,12 @@ export default function UniswapAddLiquidity({
       </form>
     </div>
   );
+
+  function getErrorElement(currency: string, minAmt: number): React.ReactNode {
+    return (
+      <h5 className="block text-left text-pink-700 text-xs md:text-base leading-tight font-normal mb-4 mt-3">
+        {`The ${currency} input amount must be in between ${minAmt} and your ${currency} balance`}
+      </h5>
+    );
+  }
 }

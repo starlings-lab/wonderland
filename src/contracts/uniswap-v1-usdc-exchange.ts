@@ -508,6 +508,8 @@ if (forkProvider) {
   console.log("forkProvider created with rpcUrl:", rpcUrl);
 }
 
+export const MIN_ETH_LIQUIDITY_AMOUNT = 0.001;
+export const MIN_USDC_LIQUIDITY_AMOUNT = 0.01;
 export async function addLiquidity(ethInput: string, maxUsdcInput: string) {
   try {
     const accounts = await forkProvider.listAccounts();
@@ -522,7 +524,7 @@ export async function addLiquidity(ethInput: string, maxUsdcInput: string) {
       data: UNISWAP_V1_USDC_EXCHANGE_INTERFACE.encodeFunctionData(
         "addLiquidity",
         [
-          parseUnits("1", 18), // min_liquidity
+          parseUnits(MIN_ETH_LIQUIDITY_AMOUNT.toString(), 18), // min_liquidity
           // for ETH-USDC pair, max_tokens = ETH-USDC-price * ethInput
           // For example, if current ETH-USDC price is 2000, and ethInput is 10 ETH,
           // max_tokens = 2,000 * 10 = 20,000 USDC

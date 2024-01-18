@@ -68,7 +68,7 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
         const usdcOutput = await ethToUsdcPriceUniV1(input);
         setUsdcOutput(parseAndFormatFloat(false, usdcOutput));
 
-        // Calculate ETH to USDC price based on input or 1 ETH
+        // Calculate ETH to USDC price based on valid input or 1 ETH
         let usdcPriceNew;
         if (!isValidNumberInput(input)) {
           usdcPriceNew = await ethToUsdcPriceUniV1("1");
@@ -103,6 +103,8 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
     onBuy && onBuy();
   };
 
+  // Input event handlers
+  const onWheel = (e: any) => e.target.blur();
   const onInputFocus = (e: any) => {
     if (isValidNumberInput(e.target.value)) {
       return;
@@ -110,7 +112,6 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
     e.target.value = "";
   };
 
-  const onWheel = (e: any) => e.target.blur();
   return (
     <div className="mt-8 py-2 md:py-4 px-4 md:px-4 bg-white rounded-2xl shadow-card border border-gray-500 border-solid">
       <div className="flex justify-center">
@@ -235,8 +236,8 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
             </div>
           </div>
           {errors.input && (
-            <h5 className="block text-left text-customPink text-xs md:text-base leading-tight font-normal mb-4 mt-3">
-              {`the input amount must be in between ${
+            <h5 className="block text-left text-pink-700 text-xs md:text-base leading-tight font-normal mb-4 mt-3">
+              {`The input amount must be in between ${
                 isETH ? MIN_ETH_AMOUNT : MIN_USDC_AMOUNT
               } and your balance`}
             </h5>
