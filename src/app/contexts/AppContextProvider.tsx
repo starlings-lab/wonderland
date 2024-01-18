@@ -6,7 +6,7 @@ import { getChapter } from "../data/staticDataService";
 // Define the shape of the context value
 interface AppContext {
   currentChapter: Chapter | undefined;
-  setCurrentChapter: React.Dispatch<React.SetStateAction<Chapter | undefined>>;
+  setCurrentChapter: React.Dispatch<React.SetStateAction<Chapter>>;
   currentTopic: Topic | undefined;
   setCurrentTopic: React.Dispatch<Topic>;
   currentProgress: number;
