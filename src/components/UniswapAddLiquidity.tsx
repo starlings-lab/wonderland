@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+
 import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
 import {
@@ -26,6 +28,8 @@ export default function UniswapAddLiquidity({
   className,
   onSupply,
 }: UniswapAddLiquidityProps) {
+  const { toast } = useToast();
+
   const [ethUsdcPrice, setEthUsdcPrice] = useState("0");
   const {
     register,
@@ -94,10 +98,17 @@ export default function UniswapAddLiquidity({
     const maxUsdcInput = usdcBalance;
     addLiquidity(ethInput, maxUsdcInput)
       .then((txReceipt) => {
-        console.log("Successfully supplied liquidity!");
+        toast({
+          title: "Liquidity",
+          description: "Successfully supplied liquidity!",
+        });
       })
       .catch((error) => {
-        // TODO: should we display an error to user?
+        toast({
+          title: "Liquidity",
+          description: "Supplying liquidity failed! Please try again.",
+          variant: "destructive",
+        });
       })
       .finally(() => {
         setSupplying(false);

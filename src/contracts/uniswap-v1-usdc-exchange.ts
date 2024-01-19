@@ -547,6 +547,7 @@ export async function addLiquidity(ethInput: string, maxUsdcInput: string) {
   } catch (error) {
     console.log("Failed to add liquidity for ethInput:", ethInput);
     console.error(error);
+    throw error;
   }
 }
 
@@ -580,6 +581,7 @@ export async function ethToUsdcSwap(ethInput: string) {
   } catch (error) {
     console.log("Failed to get ethToUsdcSwap for usdcInput:", ethInput);
     console.error(error);
+    throw error;
   }
   return usdcBought;
 }
@@ -614,6 +616,7 @@ export async function usdcToEthSwap(usdcInput: string) {
   } catch (error) {
     console.log("Failed to get usdcToEthSwap for usdcInput:", usdcInput);
     console.error(error);
+    throw error;
   }
   return ethBought;
 }

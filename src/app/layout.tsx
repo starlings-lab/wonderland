@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 import Navbar from "./navbar";
@@ -28,6 +29,7 @@ export default function RootLayout({
           <main className="flex min-h-screen flex-col p-12 pt-16">
             {children}
           </main>
+          <Toaster />
         </AppContextProvider>
       </body>
     </html>

@@ -16,6 +16,7 @@ import {
   Value,
 } from "@radix-ui/react-select";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import useEthBalance from "@/hooks/useEthBalance";
 import useUsdcBalance from "@/hooks/useUsdcBalance";
@@ -36,6 +37,8 @@ export interface UniswapSwapProps {
 export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
   const MIN_ETH_AMOUNT = 0.001;
   const MIN_USDC_AMOUNT = 1;
+  const { toast } = useToast();
+
   const [buying, setBuying] = useState(false);
   const [inputCurrency, setInputCurrency] = useState("ETH");
   const [usdcPrice, setUsdcPrice] = useState("0");
@@ -94,13 +97,31 @@ export default function UniswapSwap({ className, onBuy }: UniswapSwapProps) {
 
   const onSubmit = async () => {
     setBuying(true);
+    let swap;
     if (isETH) {
-      await ethToUsdcSwap(getValues("input"));
+      swap = ethToUsdcSwap(getValues("input"));
     } else if (isUSDC) {
-      await usdcToEthSwap(getValues("input"));
+      swap = usdcToEthSwap(getValues("input"));
     }
-    setBuying(false);
-    onBuy && onBuy();
+
+    swap
+      ?.then((tx) => {
+        toast({
+          title: "Swap",
+          description: "Swap completed successfully!",
+        });
+      })
+      .catch((err) => {
+        toast({
+          title: "Swap",
+          description: "Swap failed! Please try again.",
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setBuying(false);
+        onBuy && onBuy();
+      });
   };
 
   // Input event handlers
