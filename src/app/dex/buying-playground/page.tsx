@@ -59,7 +59,7 @@ export default function BuyingPlayground() {
         onNextQuestion={(nextQuestion) => setCurrentQuestion(nextQuestion)}
       />
       {currentQuestion > 1 && buyAttempt > 0 && (
-        <ReviewCard nextTopicIndex={3}>{}</ReviewCard>
+        <ReviewCard nextTopicIndex={4}>{}</ReviewCard>
       )}
     </>
   );

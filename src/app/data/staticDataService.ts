@@ -41,12 +41,12 @@ chaptersById.set(ChapterIds.Dex, {
   id: ChapterIds.Dex,
   title: "Decentralized Exchange",
   topics: [
-    buyingSellingTopic,
-    pricingTopic,
-    slippageAndImpactTopic,
-    buyingPlaygroundTopic,
-    lpTopic,
-    lpPlaygroundTopic,
+    buyingSellingTopic, // index 0
+    pricingTopic, // index 1
+    slippageAndImpactTopic, // index 2
+    buyingPlaygroundTopic, // index 3
+    lpTopic, // index 4
+    lpPlaygroundTopic, // index 5
   ],
 });
 

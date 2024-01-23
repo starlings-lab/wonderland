@@ -36,7 +36,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       setCompletedTopics(completedTopics.concat(reviewTopic));
 
       // don't reset current topic if it's already completed
-      if (!completedTopics.includes(nextTopic)) {
+      if (nextTopic && !completedTopics.includes(nextTopic)) {
         console.log("Setting current topic: ", nextTopic);
         setCurrentTopic(nextTopic);
       }

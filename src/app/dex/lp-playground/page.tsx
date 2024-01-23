@@ -65,7 +65,7 @@ export default function BuyingSelling() {
         onNextQuestion={(nextQuestion) => setCurrentQuestion(nextQuestion)}
       />
       {currentQuestion > 1 && supplyAttempt > 0 && (
-        <ReviewCard nextTopicIndex={5}>{}</ReviewCard>
+        <ReviewCard nextTopicIndex={6}>{}</ReviewCard>
       )}
     </>
   );
