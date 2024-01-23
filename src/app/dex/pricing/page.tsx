@@ -35,6 +35,8 @@ const Pricing: React.FC = () => {
       `Uniswap makes sure that they always get the constant value when
       they multiply the quantity of ETH and USDC.`,
       `In this case, they make sure that it is always 200,000 (<code>10 * 20000</code>).`,
+      `This is called a <strong>constant product market maker</strong> 
+      and following price curve demonstrates how the price changes as the quantity of ETH or USDC changes.`,
       {
         children: (
           <div className="mt-8">

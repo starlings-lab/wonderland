@@ -60,17 +60,20 @@ export const options = {
   },
 };
 
-const labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+// constant K = 200,000 for ETH-USDC price curve
+const K = 200000;
 
-export const data = {
+// create labels for range of ETH quantities
+const ETH_QUANTITY = 20;
+const labels = Array.from(Array(ETH_QUANTITY).keys()).map((i) => i + 1);
+
+const data = {
   labels,
   datasets: [
     {
       label: "ETH-USDC",
-      data: [
-        200000, 100000, 66666, 50000, 40000, 33333, 28571, 25000, 22222, 20000,
-        18181, 16666, 15384, 14285, 13333,
-      ],
+      // array of USDC qty for each ETH qty
+      data: labels.map((i) => K / i),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
       tension: 0.2,
