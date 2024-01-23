@@ -16,6 +16,7 @@ import { Topic } from "@/type/types";
 export interface Section {
   contents: Content[];
   subtitle?: string;
+  needsContinuation?: boolean;
 }
 
 type TopicProps = {
@@ -105,9 +106,10 @@ const Topic: React.FC<TopicProps> = ({
   // Only display continue button when there is no quiz content in a section
   const continueButton =
     currentQuestion <= totalQuestions &&
-    sections[currentSectionIndex].contents.every(
-      (content) => !isQuizContent(content) && !isReactElementContent(content)
-    );
+    (sections[currentSectionIndex].needsContinuation ||
+      sections[currentSectionIndex].contents.every(
+        (content) => !isQuizContent(content) && !isReactElementContent(content)
+      ));
 
   return (
     <TopicContext.Provider value={{ onContinue }}>

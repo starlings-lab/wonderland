@@ -5,6 +5,7 @@ import Topic from "@/components/Topic";
 import { AppContext } from "@/app/contexts/AppContextProvider";
 import { getPricingTopic } from "@/app/data/staticDataService";
 import React, { useEffect } from "react";
+import { UniswapPriceCurve } from "@/components/UniswapPriceCurve";
 
 const Pricing: React.FC = () => {
   const { setCurrentTopic } = React.useContext(AppContext)!;
@@ -34,7 +35,15 @@ const Pricing: React.FC = () => {
       `Uniswap makes sure that they always get the constant value when
       they multiply the quantity of ETH and USDC.`,
       `In this case, they make sure that it is always 200,000 (<code>10 * 20000</code>).`,
+      {
+        children: (
+          <div className="mt-8">
+            <UniswapPriceCurve />
+          </div>
+        ),
+      },
     ],
+    needsContinuation: true,
   };
 
   const section = {
